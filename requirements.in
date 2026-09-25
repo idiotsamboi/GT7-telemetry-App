@@ -1,0 +1,7 @@
+fastapi>=0.115,<1
+uvicorn>=0.34,<1
+pydantic>=2.10,<3
+pycryptodome>=3.21,<4
+pytest>=8,<10
+httpx>=0.28,<1
+wsproto>=1.2,<2

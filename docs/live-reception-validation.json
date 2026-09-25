@@ -1,0 +1,53 @@
+{
+  "test": {
+    "status": "healthy",
+    "elapsed_s": 15,
+    "duration_s": 15,
+    "packets": 900,
+    "rate_hz": 60.0,
+    "max_gap_ms": 32,
+    "counters": {
+      "duplicates": 0,
+      "reordered": 0,
+      "gaps": 0,
+      "resets": 0,
+      "parse_errors": 0,
+      "pipeline_errors": 0,
+      "unexpected_senders": 0,
+      "storage_drops": 0,
+      "storage_failures": 0
+    },
+    "variants": [
+      "A"
+    ],
+    "fields_seen": 40,
+    "fields_expected": 42,
+    "unavailable_or_sentinel": [
+      "best_ms",
+      "last_ms"
+    ],
+    "not_in_variant": [
+      "steering_rotation",
+      "steering_velocity",
+      "acceleration_raw",
+      "throttle_filtered",
+      "brake_filtered",
+      "unknown_t_bytes",
+      "torque_vectors",
+      "energy_recovery",
+      "unknown_t",
+      "surface",
+      "current_ms",
+      "wheel_steering",
+      "wheelbase",
+      "category"
+    ],
+    "note": "Constant values are valid. Missing timing may be a game sentinel. Coverage proves receipt, not the meaning of undocumented fields."
+  },
+  "analysis": {
+    "available": false,
+    "reason": "Paused or not on track",
+    "stale": false
+  },
+  "stale": false
+}

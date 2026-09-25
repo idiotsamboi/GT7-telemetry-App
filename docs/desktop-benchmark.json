@@ -1,0 +1,23 @@
+{
+  "platform": "win32",
+  "source": "synthetic accelerated / no audio / no browser",
+  "samples": 9000,
+  "duration_s": 15.049970899999607,
+  "samples_per_s": 598.007800799152,
+  "ingest_p95_ms": 1.2824000150430948,
+  "initial_report_ms": 0.6861000147182494,
+  "cpu_seconds": 7.046875,
+  "queue_peak": 155,
+  "storage": {
+    "queue": 0,
+    "capacity_samples": 8192,
+    "queue_age_s": 0,
+    "application_drops": 0,
+    "failed_rows": 0,
+    "error": null,
+    "written": 9000,
+    "db_bytes": 37502976,
+    "wal_bytes": 4585592
+  },
+  "hardware_validation": false
+}

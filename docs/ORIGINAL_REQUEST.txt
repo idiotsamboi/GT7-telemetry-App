@@ -1,0 +1,352 @@
+Build a complete GT7 live race engineer and telemetry-analysis application
+
+You are working as a senior Python/Linux developer, real-time telemetry engineer, speech-interface developer, and frontend designer. Implement a real, runnable application in the current repository. Do not stop at an architecture proposal, static mockup, pseudocode, or disconnected example scripts.
+
+Working name: GT7 Race Engineer.
+
+1. PRODUCT GOAL AND ORIGINAL REQUEST
+
+Build a local-first application that receives Gran Turismo 7 telemetry from my PS5, behaves like a useful spoken race engineer, understands microphone commands, records full-rate telemetry, shows a modern live race dashboard, and produces an analysis page automatically after each session.
+
+The target is an Orange Pi 4 Pro with 4 GB RAM running the Orange Pi version of Ubuntu. Prioritize accurate telemetry, understandable advice, reliability, responsive controls, and low resource use. Include many useful features, but make expensive features optional or adaptive rather than running everything continuously.
+
+Preserve this original user requirement verbatim:
+
+"i want you to add more alerts and analysis. i want you to cram as many diffrent features also add a full telemetry logger that will give me visual analysis and give it a modern look with clean graphics that have rounded and are modern and simple but also have color mean something, add a live race data page for easy on the go data during races and make sure after the race is done, an analysis page is ready, ontop of that i want you to add more conditions for the engieneer to speak and a throttling system with priorities so the program dosent get bogged down"
+
+Resolve nonblocking ambiguities with sensible, documented, configurable defaults. Inspect an existing project before changing it; preserve working functionality and user data. Keep an implementation checklist, but actually implement and test the application.
+
+2. HARDWARE AND DEPLOYMENT CONSTRAINTS
+
+Target Linux ARM64/aarch64, not x86-only binaries. The Orange Pi 4 Pro vendor lists an Allwinner A733 with two Cortex-A76 and six Cortex-A55 CPU cores; do not confuse this board with other Orange Pi 4 models. Nevertheless, detect the actual board, architecture, OS, Python, memory, storage, and audio devices rather than trusting a product-name assumption.
+
+Use CPU-only speech and analysis as the supported baseline. Do not assume CUDA, a compatible GPU driver, or working NPU acceleration. Do not require a cloud service, paid API, subscription, Windows computer, Docker, or Electron. Optional remote inference must never become a dependency of normal operation.
+
+Use a lightweight web interface, accessible in a local browser or from another device on the same LAN. A headless mode must work without a local browser. Build frontend assets once and serve them statically in production; do not run the Vite development server or require Node at runtime.
+
+Provide a beginner-friendly native Ubuntu installer, launcher, diagnostics command, and opt-in systemd service. Run unprivileged. Handle desktop audio permissions and the user's audio session correctly; prefer a user service for desktop audio instead of assuming a root service can access PipeWire/PulseAudio.
+
+My previously used PS5 address was 192.168.88.21. Offer it only as an editable setup suggestion, not a hardcoded assumption. Distinguish the PS5 remote address, local UDP bind address, and HTTP listen address. Never bind a local socket to the console's IP.
+
+3. REQUIRED BASE AND RELEVANT LIBRARIES
+
+Use https://github.com/MacManley/gt7-udp as the primary source for telemetry reception, heartbeat, decryption, packet layouts, and interpretation.
+
+Important: this repository is an ESP32/ESP8266 C++/Arduino library, not an installable Orange Pi Python library. Port its protocol logic to a native Python module using Linux sockets and explicit binary parsing. Do not require an ESP32 bridge or try to import the Arduino library into Python. Preserve attribution and applicable notices. Record the exact upstream commit studied and document deliberate corrections or differences.
+
+Preferred stack; verify supported versions and ARM64 installation before pinning dependencies:
+
+- Python 3.10+ or another explicitly justified, maintained version compatible with the target OS. Use an isolated environment; never replace Ubuntu's system Python.
+- FastAPI, Uvicorn, and Pydantic for HTTP/WebSocket APIs and validated settings.
+  https://github.com/fastapi/fastapi
+- Standard-library socket, asyncio, struct, sqlite3, logging, and multiprocessing where appropriate.
+- PyCryptodome for Salsa20. Install pycryptodome and use Crypto.Cipher.Salsa20; do not mix the Crypto and Cryptodome namespaces.
+  https://github.com/Legrandin/pycryptodome
+- Vosk with a small English model for default offline command recognition.
+  https://github.com/alphacep/vosk-api
+- python-sounddevice/PortAudio for local microphone and audio-device support.
+  https://github.com/spatialaudio/python-sounddevice
+- Piper for optional higher-quality local speech, using the current project rather than an abandoned package reference.
+  https://github.com/OHF-Voice/piper1-gpl
+- eSpeak NG as the small, dependable TTS fallback.
+  https://github.com/espeak-ng/espeak-ng
+- React, TypeScript, and Vite for a compiled frontend.
+  https://github.com/react/react
+  https://github.com/vitejs/vite
+- uPlot for efficient telemetry time-series charts; Canvas or lightweight SVG for the track trace.
+  https://github.com/leeoniya/uPlot
+- Lucide for consistent icons.
+  https://github.com/lucide-icons/lucide
+- pytest for backend tests and Playwright for browser acceptance tests.
+  https://github.com/microsoft/playwright
+
+Useful secondary protocol/analysis references, not replacements for the required base:
+https://github.com/Nenkai/PDTools
+https://github.com/Nenkai/PDTools/issues/18
+https://github.com/snipem/gt7dashboard
+
+Optional speech alternative, disabled unless explicitly selected and benchmarked:
+https://github.com/ggml-org/whisper.cpp
+
+Do not install every optional engine or load multiple speech models unnecessarily. Avoid large dataframe packages in the live path. Evaluate package and model licenses separately, including Piper's GPL licensing and individual voice-model terms. Preserve required notices and document distribution implications; do not assume a subprocess boundary automatically resolves licensing requirements.
+
+4. PROTOCOL IMPLEMENTATION AND VERIFICATION
+
+Protocol reference checked September 23, 2026; recheck upstream during implementation and pin a commit. Read src/GT7UDPParser.cpp and src/GT7UDPParser.h as well as the README. The current base includes A, B, ~, and C variants. Its README examples and structure descriptions can differ from the header: the header defines PacketC as extending PacketTilda, and uses readData(). Verify inheritance, byte offsets, and method names instead of copying a README example blindly.
+
+Protocol starting points to confirm against the pinned source:
+
+- Send heartbeat traffic to the console's UDP port 33739; receive telemetry locally on UDP port 33740.
+- Heartbeat payload selects the requested variant: A, B, ~, or C.
+- Expected packet lengths: A=296, B=316, ~=344, C=368 bytes.
+- Salsa20 key: the first 32 ASCII bytes of "Simulator Interface Packet GT7 ver 0.0".
+- Extract the little-endian seed at bytes 0x40 through 0x43.
+- Variant XOR constants: A=0xDEADBEAF, B=0xDEADBEEF, ~=0x55FABB4F, C=0xDEADBEEF.
+- The eight-byte nonce is the little-endian concatenation of (seed XOR variant constant), then seed. Validate with independent fixtures rather than trusting an encrypt/decrypt round trip written from the same assumptions.
+
+Use a configurable heartbeat interval, initially around five seconds. Support explicit variant selection and controlled automatic fallback when an extended variant is unavailable. Avoid continuous probing and variant switching during a working session. A quiet console in a menu is not proof that a variant is unsupported.
+
+Parse explicit little-endian offsets; do not depend on native struct alignment. Verify packet length and decrypted magic before reading fields. Reject malformed/truncated datagrams safely. Reset unavailable extension fields to null when a shorter variant arrives; never retain stale C fields from an earlier packet.
+
+Support nominal full-rate reception around 60 Hz without assuming every packet arrives at that rate. Record observed rates, duplicates, reordering, sequence gaps, resets, unexpected senders, and parse/decryption failures. Apply a documented sequence-number and wraparound policy. A parser exception must never kill reception.
+
+Use monotonic timestamps for intervals, scheduling, and latency, plus UTC timestamps for storage and presentation. Retain source packet IDs and version information. Differentiate network gaps from application queue drops. Validate finite numbers, sentinels, signedness, and plausible ranges without silently inventing replacements.
+
+Implement reconnect/backoff, stale-data detection, a socket-conflict diagnostic, configurable interfaces/ports, and a connection test. Keep an honest status display when the game is not sending telemetry.
+
+5. DATA AVAILABILITY AND TRUTHFULNESS CONTRACT
+
+Create a capability registry and a field reference documenting source, variant, offset, units, validity, and confidence. Every displayed or spoken value must be direct telemetry, a labeled calculation, a user-entered assumption, or explicitly unavailable. Missing values are null/N/A, never fake zeroes or convincing demonstration values.
+
+Expose validated channels such as speed, RPM, current/suggested gear, pedals, fuel, per-wheel temperatures, wheel rotation/speed, suspension, position, world velocity, orientation, angular velocity, car ID, timing fields, flags, and available extended channels. Preserve uncertain raw fields without pretending their meanings are established.
+
+The current C layout adds fields including surface information and current-lap timing. Enable these and steering-related extensions only after validating the actual offsets, units, and behavior. Do not categorically treat extended fields as unavailable merely because older A-only implementations lacked them.
+
+Do not assume this player-car stream supplies a reliable live leaderboard, gaps, opponents' positions, flags, penalties, tyre wear, tyre pressure, tyre compound, exact damage, weather forecast, fuel-map setting, track name, pit speed limit, or race-finish status. Require evidence for each capability. Pre-race position/count fields must not be displayed as live race standings.
+
+Never invent "car left/right," opponent strategy, yellow-flag, or penalty calls. Keep unsupported features disabled with an explanation and a future-provider interface. A player trace is not a complete opponent radar or surveyed track map.
+
+Oil/water temperature fields described upstream as constant must not generate overheating warnings by default. Tyre surface temperature is not tyre wear or tyre pressure, and there is no assumed universal optimal range. Infer EV/powertrain behavior cautiously; avoid division by zero and disable fuel strategy when the data is not meaningful.
+
+Do not identify a track from car ID or use in-game time-of-day as elapsed lap time. Keep game-confirmed lap validity separate from application quality checks. Unknown official validity must remain unknown.
+
+6. ARCHITECTURE AND PROCESSING RATES
+
+Separate these responsibilities with typed contracts and bounded queues:
+
+Telemetry receiver/parser -> normalized sample stream -> session/lap state, full-rate recorder, lightweight metrics -> live state and engineer events -> WebSocket UI and speech scheduler.
+
+Use supervised workers for blocking speech, heavier analysis, and storage as appropriate. Keep process count modest. CPU-heavy Python work must not stall the receive loop through the GIL. Use one explicit owner for telemetry sockets and one coordinated database writer. Multiple web clients or HTTP worker startup must never create duplicate receivers or engineers.
+
+Starting schedules, configurable and benchmarked:
+
+- Receive and record: every valid unique telemetry sample at the source rate.
+- Cheap event detection: every sample where necessary.
+- Live metric publishing: around 10-20 Hz.
+- Expensive live calculations: around 1-5 Hz or at lap boundaries.
+- Health metrics: around 1 Hz.
+- Deeper reports: incrementally at lap completion, then finalized outside the receive path.
+
+The UI stream is latest-state-wins; slow clients must not accumulate old frames. The recorder is not latest-state-wins: protect full-rate recording with bounded buffering and explicit loss accounting. Specify a queue size, capacity unit, producer behavior, and overflow strategy for every queue. Never hide dropped records or silently trade recording accuracy for visual smoothness.
+
+Use bounded rolling arrays for live charts and disk-backed history. Avoid rebuilding large JSON trees or running complete schema validation on every internal sample when a lightweight typed representation suffices.
+
+7. SESSION, LAP, AND TRACK MODEL
+
+Implement and test a state machine covering disconnected, connected/idle, driving, paused, suspected pit activity, finish candidate, completed, interrupted/aborted, and replay/unknown provenance. Use telemetry flags, lap changes, context, and configurable inference; expose uncertainty instead of claiming unsupported state detection.
+
+Do not end a race just because UDP stops. Do not confuse pause, a pit stop, a restart, or returning to a menu with a clean finish. Provide Start/End Session and manual correction controls. Automatically offer an interrupted-session report when appropriate, while preserving the distinction from a completed race.
+
+Handle partial opening laps, out/in laps, lap-counter resets, missed finish packets, car changes, timed sessions, unlimited-lap practice, and track changes. Start a new session epoch where needed and prevent repeated lap numbers from overwriting earlier records.
+
+Prefer validated game lap timing when available. Otherwise derive timing using documented anchors and pause handling, label it estimated, and reconcile against completed-lap times. Save incomplete laps and data-quality flags rather than silently dropping them.
+
+Build a player driving-line trace from coordinates. Support manually named track/layout profiles, learned start/finish locations, named corners, split markers, and pit regions. Any automatic track fingerprint must report confidence and allow confirmation/correction.
+
+For comparisons, align laps to a common reference progress coordinate, with continuity constraints at self-intersections, bridges, pit-lane divergence, and start/finish wraparound. Do not compare sample index to sample index. Treat simple distance-normalization as an approximate fallback, not a guaranteed accurate method. Preserve unaligned originals and show alignment quality.
+
+8. ANALYTICS AND STRATEGY FEATURES
+
+Implement these as independently testable modules with documented formulas, minimum samples, exclusions, and confidence. Do not blame a specific cause when the data only establishes a correlation.
+
+Pace and consistency: current/last/best lap; rolling mean and median; reference-lap delta; custom segment splits; lap and segment variance; personal/session bests; pace trend; theoretical best from comparable segments; projected lap time when alignment is reliable; consistency across a stint. Label custom sectors as custom, not official game sectors.
+
+Fuel: measured consumption per clean lap and distance; rolling robust estimates; estimated laps/time remaining; finish-fuel margin; required fuel saving; refuel quantity; stint length; configurable reserve; pit-window estimate; and scenario comparisons for conserving versus stopping. Exclude refuel jumps, incomplete laps, resets, and unsuitable samples. Use observed consumption directly instead of applying a user-entered fuel multiplier twice.
+
+Use remaining race distance, including the current lap's remaining fraction, rather than multiplying fuel use by a naive lap-count difference. For timed races, use user-confirmed duration/finish rules and show uncertainty about extra laps. Do not claim knowledge of the leader's location or exact race ending. Delay confident fuel predictions until enough meaningful observations exist.
+
+Pit analysis: user-marked or high-confidence inferred entry/exit, stationary time, refuelling, stint changes, and pit-loss estimates against comparable reference data. Low speed alone is not a pit detector. Require a configured pit region and limit for pit-speed advice. Provide manual corrections and a "box this lap" intent marker; never operate the game's pit menu.
+
+Driving analysis: speed, pedal and gear traces; braking onset, peak and release; coasting; throttle/brake overlap; corner entry/minimum/exit speed; throttle pickup; shift points; limiter exposure; trajectory comparison; and segment time gained/lost. Compare against an appropriate reference, not a fabricated ideal driver.
+
+Vehicle dynamics: validated wheel-speed ratios, suspected wheelspin/lock-up episodes, tyre-temperature trends and imbalances, suspension extrema, and longitudinal/lateral acceleration when coordinate frames are verified. Distinguish steering-wheel rotation from actual road-wheel angle. Do not confuse radians/second with revolutions/second or multiply by 2*pi twice. Suppress slip conclusions near zero speed, airborne conditions, and unsuitable cornering situations.
+
+Only enable understeer/oversteer coaching after a defensible, tested model and validated inputs exist. Otherwise display relevant raw traces without a confident handling diagnosis.
+
+Incident detection: annotate suspected spins, unusually sharp deceleration, off-surface driving when surface data exists, and large deviations from a reference corridor. Label suspected contact as suspected; an acceleration spike or kerb hit is not proof of collision. Off-surface detection is not proof of an official track-limit violation.
+
+Learning and comparison: reference-lap selection; personal best library; comparable-session filters; fuel-versus-pace scatter; braking consistency; repeated problem corners; session-to-session progress; and user-entered setup/tyre/assist notes. Require compatible car, track/layout, direction, and relevant conditions, or prominently warn about confounding differences.
+
+9. ENGINEER ALERTS AND SPEECH ARBITRATION
+
+Implement a rule engine plus a separate centralized speech scheduler. Do not call TTS directly from telemetry callbacks.
+
+Each candidate event needs an ID, category, priority, timestamp, expiry, source/confidence, deduplication key, prerequisites, entry/exit thresholds, persistence/debounce, cooldown, lap/segment scope, message template, and evidence values. Log whether it was spoken, merged, deferred, expired, muted, or suppressed, and why.
+
+Priority defaults:
+
+P0 Critical: imminent, well-supported fuel exhaustion or another genuinely urgent supported condition. May interrupt lower-priority speech, but still requires deduplication, freshness, and repeat limits.
+
+P1 Important: strategy-changing fuel deficit, a justified pit reminder, significant telemetry/recording failure, or a requested answer. A user's "stop" command is an out-of-band cancellation, not an ordinary queued message.
+
+P2 Informative: lap/segment result, fuel check, personal best, useful stint trend, or connection restoration.
+
+P3 Coaching: optional technique feedback, encouragement, and low-urgency observations.
+
+Starting anti-spam policy: one utterance at a time; normal unsolicited speech gap about 8 seconds; no more than four normal unsolicited messages per minute; about 20 seconds of unsolicited speech per rolling minute; bounded queue around 16 candidates plus reserved urgent capacity. Make these settings editable. Critical messages can bypass ordinary limits, not all limits. User-requested answers bypass chatter quotas but cannot create an unlimited backlog.
+
+Use hysteresis, sustained-condition checks, escalation only when severity worsens, category cooldowns, expiry, and context revalidation immediately before speech. Merge related tyre/fuel messages. Invalidate superseded predictions and old-session events. Cancel obsolete synthesis jobs. Keep a bounded phrase/audio cache keyed by voice and settings.
+
+Defer optional coaching through high-workload sections inferred from braking, steering/yaw, and map progress. Prefer straights or lap boundaries. Discard advice that is no longer actionable instead of delivering it late. Let critical alerts and requested concise answers override this policy when appropriate.
+
+Provide Quiet, Normal, Detailed, Coaching, and Critical-only modes. Distinguish reduced chatter from hard mute. Hard mute must be respected, including P0, with visible warnings still available. A temporary "quiet for two minutes" instruction should preserve genuinely critical speech unless the user requested hard mute.
+
+Required alert families, subject to capability and confidence checks:
+
+- Connection established/lost/restored; stale data; packet quality degradation; recording failure; low disk space; thermal/resource degradation; microphone/TTS failure.
+- New lap; final-lap reminder when justified; personal best; substantial improvement/loss; pace falling away; consistency improving/deteriorating; realistic target pace.
+- Low fuel; projected shortfall; sufficient fuel to finish; changing consumption; reserve at risk; fuel-save target; suggested pit window; refuel complete; stint summary.
+- Configured tyre-temperature limit or persistent imbalance; repeated suspected wheelspin/lock-up; excessive limiter exposure; suspected spin; prolonged unintended handbrake; supported off-surface event.
+- Repeated late/early braking versus the reference; inconsistent release; delayed throttle; excessive coasting; meaningful corner-exit loss; unnecessary pedal overlap; repeated shift inefficiency.
+- Session summary and the top three evidence-backed improvements after driving stops.
+
+Do not narrate every gear change, kerb, temperature fluctuation, or small delta. Use short radio-style wording with numbers and an actionable suggestion when justified. Every rule must have positive, negative, noisy-input, and stale-input tests.
+
+10. MICROPHONE COMMANDS AND AUDIO
+
+Make offline voice recognition a real working feature. Default to small-model Vosk and a constrained intent grammar with synonyms, number parsing, units, confidence thresholds, and short follow-up context. No large language model is required for telemetry questions.
+
+Provide microphone/output selection, input-level meter, test recording/playback without permanent storage, a noise calibration wizard, sample-rate handling/resampling, clipping detection, and graceful device disconnect/reconnect. Explain missing PortAudio/model dependencies clearly.
+
+Use push-to-talk as the reliable default, with UI and locally attached keyboard/USB control support. Offer opt-in voice-activated listening with VAD and a configurable wake phrase when supported. Do not assume a T300 button attached to the PS5 is accessible to the Orange Pi.
+
+Prevent TTS feedback from triggering commands. Default half-duplex listening must have a short post-playback guard. Push-to-talk must immediately interrupt playback before recording a command. The UI stop/mute controls must always work. Do not promise hands-free barge-in unless echo cancellation and simultaneous listening are implemented and tested.
+
+Support commands such as:
+
+"Radio check"; "Status"; "How much fuel?"; "Can I finish?"; "How much do I need to save?"; "When should I pit?"; "Box this lap"; "Last lap"; "Best lap"; "Delta to reference"; "Where am I losing time?"; "How are the tyres?"; "What happened that lap?"; "Compare with my best"; "Set target lap time"; "Use the last lap as reference"; "Mark this corner"; "Mark that incident"; "Show live/analysis/strategy"; "Repeat"; "Speak less/more"; "Quiet for two minutes"; "Mute"; "Stop talking"; "Resume engineer"; "End session"; "Save a note".
+
+Requests for unavailable facts must receive a brief honest answer. Resolve ambiguous recognition instead of executing an unrelated command. Confirm destructive operations; never delete sessions because a single noisy transcript resembled a deletion request. Prefer UI-only deletion.
+
+Speak through a selected Orange Pi output or explicitly paired browser client. Do not promise automatic injection into PS5 headset audio or ducking of audio the application does not control. Enforce a single active speaking endpoint unless the user enables more.
+
+Optional remote-browser microphone support must account for secure-context/HTTPS requirements, user permission, audio transport, and sample conversion. It must not silently fail over ordinary LAN HTTP. Browser-only speech recognition must not be the required offline engine. Handle browser audio-unlock restrictions with an explicit Enable Audio action.
+
+Do not retain raw microphone recordings by default. Make transcript retention opt-in and separate from telemetry logging.
+
+11. FULL TELEMETRY LOGGER AND REPLAY
+
+Record all supported telemetry channels at the actual received sample rate, not the dashboard update rate. Keep source timing, sequence numbers, units, schema/parser version, session/lap IDs, capability/quality information, and relevant settings snapshots. Preserve raw values as well as derived metrics.
+
+Use SQLite on local storage with WAL, a single coordinated writer, batched transactions, indexes, schema migrations, and bounded query results. Design checkpointing and reader lifetimes so the WAL cannot grow indefinitely. Do not use a network share as the live WAL database.
+
+Offer optional raw encrypted-datagram capture with timestamps for protocol debugging and exact replay. Make its storage cost visible; do not assume encrypted bytes compress effectively. Keep demo/replayed data and live recordings explicitly separated.
+
+Store lap summaries, stints, events, speech decisions, annotations, references, and report status. Compute summary aggregates as the session runs. Close sessions cleanly and recover unfinished sessions after an application crash. Document the durability/performance tradeoff and the maximum buffered data at risk; do not promise perfect survival of sudden power loss.
+
+Provide a session browser, search/filter/sort, favourites, tags, notes, manual corrections, export/import, retention limits, storage-use estimates, and safe backups. Prefer SSD storage when available but support microSD with sensible write batching. Never delete protected or active sessions during cleanup.
+
+Export CSV with units, JSON metadata, and a self-contained session bundle. Include a printable HTML report and chart images. Optional Parquet export may be an extra dependency, not a live-path requirement. Validate import schemas, sizes, paths, and checksums; never use pickle/eval for untrusted files.
+
+Implement deterministic replay through the same processing pipeline: pause, seek, speed control, selected laps, and reproducible event testing. Replay must not send console heartbeats or contaminate live personal bests. Reset analytical state when seeking.
+
+Provide a bundled synthetic demo that exercises the UI, speech text, fuel trends, incidents, and post-race analysis without a PS5. Label every demo screen clearly. Synthetic fixtures are not evidence of successful hardware testing.
+
+12. MODERN USER INTERFACE
+
+Create a finished, coherent interface rather than an admin template with decorative gauges. Use dark mode by default with optional light mode, clean typography, rounded cards around 12-16 px, restrained borders/shadows, generous spacing, tabular numbers, and large readable racing values. Avoid expensive blur, gratuitous animation, and dense walls of tiny text.
+
+Make colour semantic: green for positive/within target, amber for caution, red for critical/action required, blue for neutral information, purple for reference/best, and grey for missing/stale/disabled. Chart-channel identification may use distinct colours, but legends must make the meaning clear. Never rely on colour alone; use text, icons, line styles, units, and accessible contrast. Include a colour-vision-friendly palette and reduced-motion setting.
+
+Support 360 px phones, small landscape displays, 1280x720, and 1920x1080. Use touch-friendly controls, keyboard navigation, and a fullscreen race mode. Keep the most important live information readable without scrolling. All production assets must work locally without a CDN.
+
+Pages:
+
+Live Race: large speed/gear/RPM; clear pedal bars; current/last/best lap; reference delta; lap count when meaningful; fuel and finish margin; four-wheel temperatures; highest-priority alert; current engineer subtitle; connection freshness; recording indicator; simple player trace; quick mute/PTT/mark/end controls. Add a minimal preset and configurable widgets, not every chart at once. Missing opponent information must not leave a fabricated leaderboard.
+
+Telemetry: synchronized charts for speed, pedals, gear, RPM, fuel, tyres, wheel slip indicators, suspension, and supported steering/dynamics. Provide shared crosshair, zoom, distance/time switching, event markers, trace comparison, and units. Use extrema-preserving downsampled overview data so braking peaks are not averaged away, then request detailed ranges when zoomed.
+
+Analysis: immediate summary, lap/segment tables, best-versus-reference comparisons, annotated player trace, fuel/stint trends, event timeline, and evidence-backed coaching cards.
+
+Strategy: finish-fuel calculations, assumptions, reserve, scenario comparison, planned stop markers, target pace, and predicted outcomes with uncertainty ranges.
+
+Engineer: last utterance, command transcript when enabled, listening/speaking state, alert history, suppression reasons, radio verbosity, and rule controls.
+
+Sessions/Profiles: history, import/export, reference laps, car/track profiles, manual setup notes, and comparisons.
+
+Settings/Diagnostics: all configuration plus live health metrics, model/audio tests, protocol capabilities, and troubleshooting.
+
+Avoid rendering hidden charts. Do not rerender the entire React tree for every packet. Use efficient chart updates, bounded browser arrays, lazy routes, and connection recovery. Stale readings must look stale, not frozen-but-live.
+
+13. AUTOMATIC POST-RACE ANALYSIS
+
+Keep lap summaries, chart overviews, and a provisional session report ready during driving. After a supported finish detection or manual End Session, show the initial report immediately; target about two seconds on the board, subject to measurement. Finish deeper comparisons progressively with truthful progress labels. Do not rescan an entire endurance recording before showing anything useful.
+
+Include session metadata and quality status; valid/comparable best and average laps; consistency; completed and incomplete laps; segment gains/losses; fuel consumption and reserve; stint/pit observations; temperature and suspected-slip trends; incidents; speech/event history; and progress against comparable previous sessions.
+
+Generate the three most valuable improvement suggestions from repeated evidence. Each card needs the observation, affected lap/segment, chart link, estimated impact when defensible, confidence, and a specific practice suggestion. Phrase correlations carefully: "You were slower after this later brake release" is not proof the release caused the entire time loss.
+
+Use deterministic templates so the report works offline. An optional external/LAN summarizer may rephrase validated facts, but cannot invent measurements, block report availability, or control critical alerts. Send no recordings to another service without explicit opt-in.
+
+14. SETTINGS, RELIABILITY, AND SECURITY
+
+Persist validated settings with atomic writes, schema migration, export/import, reset-to-defaults, and clear restart requirements. Include network addresses/ports/variant/heartbeat; units and time zone; dashboard layout/theme/rates; audio devices/voice/rate/volume/PTT; recognition model; verbosity and every alert threshold/cooldown; reference selection; fuel reserve and race assumptions; manual tyre/track/pit profiles; recording path/retention/raw capture; privacy; and performance mode.
+
+Provide per-car/per-track overrides with visible inheritance. Treat race duration, tyre compound, tyre/fuel multipliers, pit limit, weather, and setup information as user-entered unless a verified provider supplies them. User-configurable rules must use validated settings, not arbitrary executable Python or JavaScript.
+
+Default HTTP to loopback. Make LAN access an explicit setup choice, with pairing/authentication for control endpoints, strict origins, sensible request limits, and documented HTTPS setup. Keep service health checks useful without exposing secrets. Do not disable the firewall globally or open internet-facing ports automatically.
+
+Protect against path traversal, oversized imports, CSV formula injection, shell injection in TTS, and unrestricted file access. Redact sensitive configuration from exported diagnostics. Apply updates/model downloads only through an explicit action, not during a race. Include licences, checksums where available, and model-download sizes in setup.
+
+15. RESOURCE BUDGET AND LOAD SHEDDING
+
+These are engineering targets to measure, not claims already achieved:
+
+- Sustained nominal 60 Hz ingestion and full-rate logging on the actual board.
+- Approximately 10-20 Hz useful UI updates; p95 receive-to-visible age under about 200 ms on a local display where practical.
+- Application processes around or below 1.25 GB steady-state RAM with small speech models; aim below roughly 2 GB including one local browser. Report actual totals and configuration.
+- Initial post-session summary around two seconds; prompt local voice responses after recognition without blocking capture.
+- Stable bounded memory during endurance sessions, no expanding speech/UI backlog, and responsive mute/end controls under stress.
+
+Expose CPU, memory, temperature when readable, queue depth/age, packet rate/loss, loop lag, speech latency, write lag, disk space, database/WAL size, and connected-client statistics. Report unsupported hardware metrics as unavailable.
+
+Implement hysteretic degradation with visible reasons: reduce chart updates and history points; suspend optional animations and heavy live comparisons; defer exports/deeper reports; lower speech inference concurrency or switch to the configured lightweight fallback; reduce optional raw capture only under an explicit policy. Preserve current telemetry state and primary full-rate recording as long as possible.
+
+If storage cannot keep up or is full, keep the live engineer usable, mark the exact recording gap/failure, and warn once appropriately. Never claim a lossless log after a dropped batch. Recover gradually after stable healthy conditions instead of flapping between modes.
+
+Cap worker/model thread counts to avoid CPU oversubscription. Preload only the selected speech models and cache common short phrases. Do not busy-poll. Do not perform updates, bulk compression, database vacuuming, or large exports in the critical live path.
+
+16. TESTING AND ACCEPTANCE
+
+Supply unit, integration, browser, and performance tests. Use real captured fixtures only when available and permitted, plus independent synthetic fixtures with known expected values. Document fixture provenance. Compare parser outputs with the pinned upstream/reference implementation where possible.
+
+Required coverage:
+
+- All supported packet types, lengths, nonce variants, magic validation, signed/unsigned fields, null extension reset, sentinels, malformed input, duplicates, ordering, wrap/reset, and coordinate/unit handling.
+- Laps, pauses, reconnects, partial laps, restarted races, replay handling, timed/unknown-length sessions, and finish-versus-disconnection.
+- Fuel/refuel math, partial final laps, zero capacity/consumption, uncertain estimates, reference compatibility, alignment around intersections, and exclusion of invalid/incomplete comparisons.
+- Alert hysteresis, cooldown, deduplication, expiry, priorities, interruptions, hard mute, workload suppression, stale predictions, and bounded queues.
+- Voice intent parsing, ambiguous commands, device loss, feedback protection, PTT cancellation, and microphone/model absence.
+- Recording round trips, migrations, crash recovery, disk-full/slow-disk behavior, corrupt imports, retention protection, and replay determinism.
+- UI at phone and desktop widths, live-to-analysis transition, settings persistence, stale state, keyboard controls, readable colours, and no console errors.
+- Stress with speech active, concurrent clients, malformed traffic, accelerated replay, slow consumers, and report generation.
+
+Provide a reproducible short smoke test and a configurable multi-hour endurance/soak command. Run the tests available in the current environment. Clearly distinguish tests actually run from commands provided for Orange Pi/PS5 validation. An x86 run, ARM emulation, or synthetic demo is not proof of real Orange Pi audio or live GT7 compatibility.
+
+17. REPOSITORY DELIVERABLES AND IMPLEMENTATION ORDER
+
+Use a structure similar to:
+
+backend/app/{telemetry,sessions,analytics,engineer,voice,storage,api,config,diagnostics}
+frontend/src/{pages,components,charts,hooks,styles}
+tests/{unit,integration,fixtures,e2e}
+scripts/
+docs/
+
+Deliver backend and frontend source, locked dependency manifests, example configuration, database migrations, model setup, native installer, launch scripts, optional service files, a working demo/replay source, tests, and screenshots of the implemented UI when browser tooling is available.
+
+Documentation must include README.md, INSTALL_ORANGE_PI.md, PROTOCOL.md, DATA_FIELDS.md, ARCHITECTURE.md, ALERT_RULES.md, VOICE_COMMANDS.md, PERFORMANCE.md, TROUBLESHOOTING.md, THIRD_PARTY_NOTICES.md, and IMPLEMENTATION_STATUS.md. Explain setup for a beginner: networking, PS5 address, UDP versus web ports, headset/microphone routing, model installation, starting a race, viewing the live page, retrieving a report, and diagnosing common failures.
+
+Implement in working vertical slices:
+
+1. Protocol parser, tests, replay/demo, and robust session state.
+2. Full-rate recording and a usable live dashboard.
+3. Offline microphone commands, TTS, and priority/throttling scheduler.
+4. Fuel/pace/driver analytics and automatic post-race reports.
+5. Profiles, comparisons, expanded supported alerts, polish, deployment, and stress tests.
+
+This ordering is not permission to deliver only slice one. Build the core end-to-end experience before expanding optional features. Feature breadth must not become nonfunctional placeholder buttons.
+
+When finished, summarize files changed, exact install/run/test commands, actual test results, measured performance if available, supported data capabilities, and any remaining hardware-only verification or incomplete features. Never claim a feature is implemented just because a stub, card, or TODO exists.
+
+Start by inspecting the repository and the required upstream source, record a brief implementation plan, then write and test the actual application.

@@ -137,10 +137,13 @@ GRAPHICS={
  'flag':('Flag banner',1000,130),'message':('Race-control message',1100,160),
  'driver':('Driver lower third',900,210),'telemetry':('Selected-car telemetry',620,260),
  'comparison':('Head-to-head comparison',1000,300),'map':('Track map',600,600),
- 'results':('Grid/results panel',1200,850),'slate':('League/event slate',1920,1080)}
+ 'results':('Grid/results panel',1200,850),'slate':('League/event slate',1920,1080),
+ 'fastest_lap':('Fastest lap announcement',900,160),'class_leader':('Class leader panel',680,460),
+ 'penalty':('Penalty / investigation notice',1000,160),'podium':('Podium',900,620),
+ 'sponsor':('Sponsor rotation',700,220)}
 class Graphic(Model):
     id:Annotated[str,Field(max_length=64)]
-    template:Literal['timing','session','flag','message','driver','telemetry','comparison','map','results','slate']
+    template:Literal['timing','session','flag','message','driver','telemetry','comparison','map','results','slate','fastest_lap','class_leader','penalty','podium','sponsor']
     visible:bool=True
     x:int=Field(0,ge=0,le=1920)
     y:int=Field(0,ge=0,le=1080)
@@ -152,7 +155,7 @@ class Graphic(Model):
     settings:dict=Field(default_factory=dict,max_length=10)
 class WorkspaceConfig(Model):
     name:Text='Broadcast'
-    preset:Literal['formula','endurance']='formula'
+    preset:Literal['formula','endurance','minimal','neon','vintage','rally','oval','carbon','heritage','holo']='formula'
     delay_s:int=Field(0,ge=0,le=120)
     slots:dict[str,str]=Field(default_factory=lambda:{'primary':'','a':'','b':'','team':'','class':''},max_length=5)
     selection_mode:Literal['manual','leader','class_leader','position']='manual'

@@ -39,6 +39,7 @@ class Fingerprint:
   return best
  def match(self,points,complete=False):
   if not self.closed or len(points)<12:return None
+  if complete and abs(length(points)-self.length)/self.length>.06:return None
   probe=resample(points,96);errors=[];directions=[];progress=[]
   for i,p in enumerate(probe):
    hit=self.nearest(p)

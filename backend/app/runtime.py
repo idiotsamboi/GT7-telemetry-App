@@ -11,7 +11,7 @@ from .live_delta import LiveDelta
 from .cars import identify
 from .requests import answer as engineer_answer
 from .local_ai import LocalAI
-from .tracks import TrackMap
+from .tracks import TrackMap,LAYOUTS
 
 class Runtime:
     def __init__(self,config,store):
@@ -169,7 +169,12 @@ class Runtime:
         self.live_analysis.consume(s)
         if self.reception_test and s.provenance=='live':self.reception_test.observe(s,time.monotonic())
         now=time.monotonic();restored=self.received_at is None or now-self.received_at>self.settings.stale_seconds
+        previous_session=self.sessions.id
         self.received_at=now;self.received+=1;self.sample=s;self.sessions.consume(s)
+        if self.sessions.id and self.sessions.id!=previous_session:
+            layout=LAYOUTS.get(self.track_map.layout_id,{}) if self.track_map.bound else {}
+            self.sessions.meta.update(track=layout.get('track',''),layout=layout.get('name',''),direction=layout.get('direction','unknown'),recognized_layout_id=self.track_map.layout_id if self.track_map.bound else '')
+            self.sessions.persist()
         if restored:self.event('connection','Telemetry connected.' if self.received==1 else 'Telemetry restored.',2)
         # Rules use source monotonic time; scheduler uses arrival monotonic time.
         for e in self.rules.evaluate(s,self.sessions.id):e.timestamp=now;self.scheduler.offer(e)
@@ -282,7 +287,7 @@ class Runtime:
     def snapshot(self):
         age=time.monotonic()-self.received_at if self.received_at else None
         stale=age is None or age>self.settings.stale_seconds
-        return {'local_ai':self.local_ai.result,'car':identify(self.sample.values.get('car_id') if self.sample else None),'live_delta':dict(self.live_delta.result,stale=stale),'race_flags':{'available':False,'reason':'Not transmitted by GT7 UDP'},'reception_test':self.reception_test.snapshot(time.monotonic(),self.test_counters(),self.source_generation) if self.reception_test else None,'live_analysis':dict(self.live_analysis.result,stale=stale),'sample':self.sample.json() if self.sample else None,'source':self.source,'stale':stale,'age_ms':age*1000 if age is not None else None,'status':'disconnected' if stale and self.sessions.id else self.sessions.status,'session_id':self.sessions.id,'report':self.sessions.report() if self.sessions.id else self.sessions.last_report,'fuel':self.sessions.fuel() if self.sessions.id else None,'subtitle':self.scheduler.last_text,'events':list(self.events)[:20],'health':self.health_cache,'socket_error':self.socket_error,'receiver':self.receiver,'audio':{'hands_free':self.settings.hands_free,'input_device':self.mic.input_name,'input_rate':self.mic.sample_rate,'delivery':self.speaker.status(),'enabled':self.settings.speech_enabled,'speaking':self.speaker.busy,'error':self.speaker.error,'microphone':self.mic.state,'mic_error':self.mic.error,'level':self.mic.level,'clipping':self.mic.clipping,'muted':self.settings.hard_mute,'transcript':self.transcript},'trace':list(self.trace),'history':list(self.history),'box':self.box,'replay':{'paused':self.replay_paused,'speed':self.replay_speed,'cursor':self.replay_cursor}}
+        return {'host_only':self.host_only,'recovery_notice':getattr(self.config,'recovery_notice',None),'track_selection':{'layout_id':self.track_map.layout_id,'name':LAYOUTS.get(self.track_map.layout_id,{}).get('name'),'status':self.track_map.status},'local_ai':self.local_ai.result,'car':identify(self.sample.values.get('car_id') if self.sample else None),'live_delta':dict(self.live_delta.result,stale=stale),'race_flags':{'available':False,'reason':'Not transmitted by GT7 UDP'},'reception_test':self.reception_test.snapshot(time.monotonic(),self.test_counters(),self.source_generation) if self.reception_test else None,'live_analysis':dict(self.live_analysis.result,stale=stale),'sample':self.sample.json() if self.sample else None,'source':self.source,'stale':stale,'age_ms':age*1000 if age is not None else None,'status':'disconnected' if stale and self.sessions.id else self.sessions.status,'session_id':self.sessions.id,'report':self.sessions.report() if self.sessions.id else self.sessions.last_report,'fuel':self.sessions.fuel() if self.sessions.id else None,'subtitle':self.scheduler.last_text,'events':list(self.events)[:20],'health':self.health_cache,'socket_error':self.socket_error,'receiver':self.receiver,'audio':{'hands_free':self.settings.hands_free,'input_device':self.mic.input_name,'input_rate':self.mic.sample_rate,'delivery':self.speaker.status(),'enabled':self.settings.speech_enabled,'speaking':self.speaker.busy,'error':self.speaker.error,'microphone':self.mic.state,'mic_error':self.mic.error,'level':self.mic.level,'clipping':self.mic.clipping,'muted':self.settings.hard_mute,'transcript':self.transcript},'trace':list(self.trace),'history':list(self.history),'box':self.box,'replay':{'paused':self.replay_paused,'speed':self.replay_speed,'cursor':self.replay_cursor}}
     def test_counters(self):
         return dict(self.seq.counts,parse_errors=self.parse_errors,pipeline_errors=self.pipeline_errors,unexpected_senders=self.unexpected,storage_drops=self.store.drops,storage_failures=self.store.failed_rows)
     def start_reception_test(self):

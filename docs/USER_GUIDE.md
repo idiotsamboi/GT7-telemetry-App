@@ -75,3 +75,7 @@ Recordings begin with active telemetry. **End session** records your explicit co
 Stop the application before copying its complete data folder for backup. Source defaults to `data/`; Windows release defaults to `%LOCALAPPDATA%\GT7 Race Engineer`; Linux release defaults to `~/.local/share/gt7-race-engineer`. Keep the pairing token private. Use unsynced local storage for active recordings rather than OneDrive/network shares.
 
 When reporting a bug on GitHub, include your OS/architecture, version/commit, packet variant, reproduction steps and redacted errors. See [capabilities](../DATA_FIELDS.md), [protocol](../PROTOCOL.md), and [implementation history](../IMPLEMENTATION_STATUS.md) for technical details.
+
+## Automatic track memory and recovery
+
+See [Track memory](TRACK_MEMORY.md) for automatic return recognition, reference previews and candidate confirmation. Use **Recovery** in the header or visit `/recovery` if settings or the dashboard leave you stuck; [Recovery guide](RECOVERY.md). Existing saved maps and recordings are retained.

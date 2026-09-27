@@ -3,3 +3,56 @@
 .studio-title,.studio-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.studio-live{background:#b71930;color:white;padding:8px 12px;font-size:12px;font-weight:800;letter-spacing:1px}.studio-monitors{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0}.studio-monitors>div{min-width:0}.studio h3{font-size:15px}.studio h3 small{display:block;color:#9297a8;font-size:10px;margin-top:6px;letter-spacing:1px}.studio-canvas{position:relative;overflow:hidden;width:100%;background-color:#20232b;background-image:linear-gradient(45deg,#292d37 25%,transparent 25%),linear-gradient(-45deg,#292d37 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#292d37 75%),linear-gradient(-45deg,transparent 75%,#292d37 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0}.studio-drag{position:absolute;touch-action:none;cursor:move;border:3px solid transparent;box-sizing:border-box}.studio-drag:hover,.studio-drag.selected{border-color:#f5c94d}.studio-drag span{display:none;background:#f5c94d;color:#111;font-size:22px;padding:6px}.studio-drag.selected span{display:inline-block}.studio-editors{display:grid;grid-template-columns:230px 1fr;gap:22px;margin:24px 0}.studio-layers>div{display:flex;border-bottom:1px solid #343641;justify-content:space-between}.studio-layers>div.active{border-left:3px solid #ef2444;background:#30252c}.studio-library{display:grid;gap:6px;padding-top:12px}.studio-output{border-top:1px solid #343641;padding-top:18px;margin-top:22px}.group-graphic{font-family:Arial,sans-serif;box-shadow:0 5px 20px #0004}.group-graphic header{font-weight:800;letter-spacing:1.4px}.graphic-timing{border-left:3px solid #ea2945;padding:15px}.graphic-timing td{font-size:17px;padding:11px 4px}.graphic-timing td:first-child{font-size:24px;font-weight:800}.graphic-timing td:nth-child(3){color:#efce45;font-variant-numeric:tabular-nums}.graphic-driver strong{font-size:36px;text-transform:uppercase;font-style:italic;letter-spacing:-1px}.graphic-driver p{margin:8px 0;font-size:22px}.graphic-session b{font-size:29px;text-transform:uppercase}.graphic-telemetry{padding:14px}.graphic-telemetry .graphic-metrics{font-size:18px;gap:10px;flex-wrap:wrap}.graphic-flag{font-size:20px}.synthetic-watermark{position:absolute;right:48px;bottom:18px;color:#fff;background:#91223bd9;padding:6px 12px;letter-spacing:2px;font:700 16px Arial;z-index:100;pointer-events:none}.league-demo-panel{border:1px solid #9d305a;background:linear-gradient(120deg,#301c2b,#161924);padding:22px;margin-bottom:20px}.race-desk{display:grid;grid-template-columns:1.2fr 1fr;gap:20px}.race-desk table tr{cursor:pointer}.race-desk tr.selected{background:#47222e}.race-desk .inspector{border-left:3px solid #ec2442;padding-left:18px}.race-desk .flag-buttons{display:flex;flex-wrap:wrap;gap:6px}.race-desk .receipt{display:block;font-size:12px;color:#b7bdcb}@media(max-width:1000px){.studio-monitors,.race-desk{grid-template-columns:1fr}.studio-editors{grid-template-columns:1fr}.studio-canvas{max-height:none}}
 
 .graphic-driver{position:relative;padding-right:29%}.graphic-driver .broadcast-car{position:absolute;right:10px;bottom:12px;max-width:29%;max-height:80%;object-fit:contain}.graphic-driver strong{font-size:30px}.graphic-driver span{font-size:18px}
+
+/* New template graphics: fastest lap, class leaders, penalty notice, podium, sponsor rotation */
+.graphic-fastest{display:flex;justify-content:space-between;align-items:baseline;gap:16px}.graphic-fastest strong{font-size:26px}.fastest-time{color:#ba82ff;font-size:32px;font-variant-numeric:tabular-nums}
+.class-chip{font-size:13px;font-weight:700;letter-spacing:.6px;color:#9fb3ff;white-space:nowrap}
+.graphic-podium{display:flex;align-items:flex-end;gap:14px;height:calc(100% - 40px)}.podium-step{flex:1;background:#1c1c22;border-top:4px solid #555;padding:14px 12px;text-align:center;display:flex;flex-direction:column;justify-content:flex-end;gap:6px}.podium-step .podium-pos{font-size:14px;color:#9297a8;letter-spacing:1px}.podium-step b{font-size:19px}.podium-step small{font-size:13px}.podium-step.step-1{height:100%;border-top-color:#f4d24f}.podium-step.step-2{height:74%;border-top-color:#c7c9d1}.podium-step.step-3{height:56%;border-top-color:#cf8a4c}.podium-empty{color:#5a5a63;font-size:20px}
+.graphic-sponsor{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}.graphic-sponsor img{max-width:80%;max-height:65%;object-fit:contain}.graphic-sponsor small{letter-spacing:1px;color:#9297a8}
+
+/* Ten sampleable broadcast style presets. Each is a genuinely distinct visual direction
+   (typography, geometry, texture, accent treatment) built from system-safe fonts only —
+   no external font/network loading, matching the app's local-first requirement. */
+.group-graphic.minimal{background:#101012;border-top:2px solid #eee;border-radius:0;box-shadow:none;font-family:Arial,Helvetica,sans-serif}
+.group-graphic.minimal header{text-transform:none;font-weight:400;letter-spacing:.3px;border-bottom:1px solid #2a2a2e;color:#9a9aa2}
+.group-graphic.minimal strong{font-weight:400}
+.group-graphic.minimal .graphic-fastest .fastest-time{color:#eee}
+
+.group-graphic.neon{background:linear-gradient(135deg,#120024,#001b2e);border:1px solid rgba(0,234,255,.35);border-top:3px solid #ff2bd6;border-radius:10px;box-shadow:0 0 24px rgba(0,234,255,.2),inset 0 0 30px rgba(255,43,214,.07);font-family:'Trebuchet MS',Verdana,sans-serif}
+.group-graphic.neon header{color:#00eaff;text-shadow:0 0 8px rgba(0,234,255,.6);letter-spacing:2.5px}
+.group-graphic.neon strong,.group-graphic.neon b{text-shadow:0 0 6px currentColor}
+
+.group-graphic.vintage{background:#e9dfc7;color:#2b2013;border:2px solid #6b5636;border-top:2px solid #6b5636;border-radius:0;box-shadow:none;font-family:Georgia,'Times New Roman',serif}
+.group-graphic.vintage header{border-bottom:3px double #6b5636;color:#6b5636;letter-spacing:1.5px;text-transform:uppercase;font-weight:700}
+.group-graphic.vintage small{color:#5a4a30}.group-graphic.vintage td{border-bottom:1px solid #cbb98f;color:#2b2013}
+.group-graphic.vintage .graphic-timing td:nth-child(3){color:#7a1f1f}.group-graphic.vintage .fastest-time{color:#7a1f1f}
+
+.group-graphic.rally{background:repeating-linear-gradient(135deg,#1a1a1a 0 14px,#141414 14px 28px);border:0;border-top:8px solid;border-image:repeating-linear-gradient(90deg,#ffcc00 0 20px,#111 20px 40px) 8;border-radius:0;font-family:Consolas,'Courier New',monospace}
+.group-graphic.rally header{color:#ffcc00;letter-spacing:3px}
+.group-graphic.rally strong,.group-graphic.rally b{font-family:Consolas,'Courier New',monospace}
+
+.group-graphic.oval{background:#0d1730;border-top:10px solid #ffcf3c;border-radius:2px;font-family:Arial,'Arial Black',sans-serif}
+.group-graphic.oval header{background:#ffcf3c;color:#0d1730;padding:8px 14px;margin:-20px -20px 14px;font-weight:900;letter-spacing:1px}
+.group-graphic.oval strong{font-weight:900}
+
+.group-graphic.carbon{background:repeating-linear-gradient(45deg,#1c1c1f 0 4px,#161618 4px 8px);border-top:4px solid #3aa0ff;border-radius:6px;font-family:'Segoe UI',Arial,sans-serif}
+.group-graphic.carbon header{color:#8fd1ff;letter-spacing:1.2px;font-weight:600}
+.group-graphic.carbon strong{color:#eaf6ff}
+
+.group-graphic.heritage{background:#3a2e22;color:#e8d9b8;border:1px solid #8a734a;border-top:1px solid #8a734a;border-radius:0;box-shadow:inset 0 0 0 4px #3a2e22,inset 0 0 0 5px #8a734a;font-family:Georgia,'Times New Roman',serif}
+.group-graphic.heritage header{text-transform:uppercase;letter-spacing:2px;border-bottom:1px solid #8a734a;color:#d9c08c}
+.group-graphic.heritage td{color:#e8d9b8;border-bottom:1px solid #5a4a38}
+
+.group-graphic.holo{background:linear-gradient(160deg,rgba(20,30,50,.55),rgba(10,15,25,.35));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(120,220,255,.4);border-top:2px solid rgba(120,220,255,.8);border-radius:14px;box-shadow:0 0 20px rgba(80,200,255,.15);font-family:Consolas,'Courier New',monospace}
+.group-graphic.holo header{color:#8fe9ff;letter-spacing:2px;text-transform:uppercase;font-weight:400}
+.group-graphic.holo strong{color:#c7f5ff}
+
+/* Style sampler in Broadcast Studio */
+.style-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:14px 0}
+.style-swatch{border:2px solid transparent;border-radius:6px;padding:10px;background:#101014}
+.style-swatch.active{border-color:#ef2444}
+.style-swatch .swatch-frame{width:100%;height:170px;position:relative;overflow:hidden;border-radius:4px;background:#0a0a0d}
+.style-swatch .swatch-frame>div{position:absolute;left:0;top:0;width:440px;height:280px;transform:scale(.38);transform-origin:top left}
+.style-swatch h4{margin:10px 0 3px;font-size:13px;color:#e5e5ea}
+.style-swatch p{margin:0 0 8px;font-size:11px;color:#9297a8;line-height:1.5;min-height:33px}
+.style-swatch button{width:100%}

@@ -16,7 +16,7 @@ class GroupService:
   self.runtime=runtime;self.repo=GroupRepository(runtime.store.path);self.lock=asyncio.Lock();self.asset_lock=asyncio.Lock()
   self.groups={g['id']:g for g in self.repo.docs('group')};self.leagues={l['id']:l for l in self.repo.docs('league')};self.workspaces={w['id']:w for w in self.repo.docs('workspace')}
   self.live={};self.retired_streams=defaultdict(set);self.projectors={};self.history=deque(maxlen=650);self.history_bytes=0;self.boots={};self.connections={};self.tickets={};self.rate=defaultdict(deque)
-  self.demo=None;self.running=False;self.task=None;self.listener=None;self.listener_task=None;self.recording_drops=0;self.recording_error=None;self.frame_queue=asyncio.Queue(maxsize=32);self.writer_task=None;self.replay=None;self.client=None
+  self.demo=None;self.running=False;self.task=None;self.listener=None;self.listener_task=None;self.recording_drops=0;self.recording_error=None;self.frame_queue=asyncio.Queue(maxsize=32);self.writer_task=None;self.replay=None;self.client=None;self._snapshot_cache=None
   for g in self.groups.values():
    if g.get('state')=='running':g['state']='interrupted'
    if g.get('map'):
@@ -28,7 +28,7 @@ class GroupService:
   if not g:fail(404,'Group not found')
   return g
  async def commit_group(self,g,kind,body,actor='host',documents=()):
-  seq=await asyncio.to_thread(self.repo.commit,[('group',g['id'],'',g),*documents],(g['id'],g['session_id'],actor,kind,body));self.groups[g['id']]=g;return seq
+  seq=await asyncio.to_thread(self.repo.commit,[('group',g['id'],'',g),*documents],(g['id'],g['session_id'],actor,kind,body));self.groups[g['id']]=g;self._snapshot_cache=None;return seq
  def limit(self,key,maximum=30,period=10):
   now=time.monotonic();q=self.rate[key]
   while q and now-q[0]>period:q.popleft()
@@ -153,12 +153,12 @@ class GroupService:
    if g['state']=='running' or (g['state'] in ('completed','interrupted') and not starting):
     if g.get('pending_map')==model:return
     g['pending_map']=model;await self.commit_group(g,'map_revision_queued',{'revision':model['revision']});return
-   g['map_model']=model;g['map_source']='library';g['pending_map']=None
+   old_revision=g.get('map_revision');g['map_model']=model;g['map_source']='library';g['pending_map']=None
    if model['complete']:
     projector=Projection(model['points']);g['map']=model['points'];g['map_revision']=model['revision']
    else:projector=None;g['map']=None;g['map_revision']=None
    # Zones refer to a particular map; changing geometry requires new zone approval.
-   if current and current['revision']!=model['revision']:g['zones']=[]
+   if old_revision!=model['revision']:g['zones']=[]
    await self.commit_group(g,'library_map_loaded',{'revision':model['revision']})
    if projector:self.projectors[g['id']]=projector
    else:self.projectors.pop(g['id'],None)
@@ -287,12 +287,20 @@ class GroupService:
    if rows and r['completed_laps'] is not None and rows[0]['completed_laps'] is not None:r['lap_separation']=rows[0]['completed_laps']-r['completed_laps']
   return rows
  def raw_snapshot(self,g=None):
-  g=g or self.group();now=time.time();entries=[]
+  g=g or self.group();now=time.time()
+  # Every concurrent viewer/overlay connection calls this independently roughly every
+  # 200ms; recomputing classification+fields per connection is the dominant cost under
+  # many simultaneous OBS/browser subscribers. A short cache collapses concurrent calls
+  # within one tick into a single computation without user-visible staleness.
+  cached=self._snapshot_cache
+  if cached and cached[0]==g['id'] and cached[1]==g['session_id'] and now-cached[2]<.15:return cached[3]
+  entries=[]
   for row in self.classification(g,now):
    sample=self.live.get(row['entry_id'],{});values=sample.get('values',{});fields={}
    for k,v in values.items():fields[k]={'value':None if row['stale'] else v,'source':'derived' if k=='strategy' else 'reported','available':v is not None and not row['stale'],'source_time':sample.get('source_utc'),'received_time':sample.get('received'),'confidence':'participant supplied' if k!='strategy' else 'participant estimate'}
    entries.append({**row,'fields':fields,'flags':applicable_flags(g['instructions'],row['entry_id'],row['progress'],g['zones'],now)})
-  return {'version':1,'group_id':g['id'],'event_id':g['event_id'],'session_id':g['session_id'],'name':g['name'],'event_name':g['event_name'],'state':g['state'],'provenance':g['provenance'],'format':g['format'],'layout_id':g['layout_id'],'started':g['started'],'ended':g['ended'],'duration_s':g['duration_s'],'laps':g['laps'],'timeline':now,'coverage':'host-confirmed complete field' if g['complete_field'] else 'connected-group standings','entries':entries,'map':g['map'],'map_model':g.get('map_model'),'map_revision':g['map_revision'],'pending_map_revision':(g.get('pending_map') or {}).get('revision'),'zones':g['zones'],'instructions':[i for i in g['instructions'] if not i['cancelled'] and (i['expires'] is None or i['expires']>now)],'messages':[m for m in g['messages'] if m['expires']>now],'decisions':g['decisions'],'results':g['final_results'],'results_revision':g['results_revision'],'branding':{**g['branding_snapshot']['branding'],**g['branding']},'loss':{'frames':self.recording_drops,'error':self.recording_error}}
+  frame={'version':1,'group_id':g['id'],'event_id':g['event_id'],'session_id':g['session_id'],'name':g['name'],'event_name':g['event_name'],'state':g['state'],'provenance':g['provenance'],'format':g['format'],'layout_id':g['layout_id'],'started':g['started'],'ended':g['ended'],'duration_s':g['duration_s'],'laps':g['laps'],'timeline':now,'coverage':'host-confirmed complete field' if g['complete_field'] else 'connected-group standings','entries':entries,'map':g['map'],'map_model':g.get('map_model'),'map_revision':g['map_revision'],'pending_map_revision':(g.get('pending_map') or {}).get('revision'),'zones':g['zones'],'instructions':[i for i in g['instructions'] if not i['cancelled'] and (i['expires'] is None or i['expires']>now)],'messages':[m for m in g['messages'] if m['expires']>now],'decisions':g['decisions'],'results':g['final_results'],'results_revision':g['results_revision'],'branding':{**g['branding_snapshot']['branding'],**g['branding']},'loss':{'frames':self.recording_drops,'error':self.recording_error}}
+  self._snapshot_cache=(g['id'],g['session_id'],now,frame);return frame
  def filter_snapshot(self,raw,g,principal=None):
   data=clone(raw);allowed=fields_for(g['publication']);own=None
   if principal and principal['kind']=='driver':_,p=self.member(principal);own=p['entry_id']

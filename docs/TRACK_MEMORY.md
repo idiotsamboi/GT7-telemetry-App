@@ -44,3 +44,5 @@ Maps live under the application data directory in `track-maps/`. Back up that di
 ## Validation scope
 
 Automated tests cover repeat visits/restarts, unnamed candidate confirmation, shared and reverse geometry, ambiguity, packet gaps, failed writes, atomic history restoration, legacy migration, source isolation, reference alignment and group revision freezing. Synthetic tests are not claims of PS5 hardware validation or official track identity verification. The geometry microbenchmark in `track-memory-benchmark.json` is separate from the pending full race-host/OBS workload benchmark.
+
+Reference bundle reproduction: `python scripts/build-track-references.py --fetch` downloads only the pinned, checksum-verified source. Omit `--fetch` to rebuild from the local cache. This script is never called by the receiver.

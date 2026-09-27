@@ -16,12 +16,15 @@ def router():
  @r.get('/state')
  async def state(request:Request):
   s=service(request);g=s.active()
-  return {'group':g,'leagues':list(s.leagues.values()),'workspaces':list(s.workspaces.values()),'snapshot':s.raw_snapshot(g) if g else None,'listener':getattr(s,'hosting',{'enabled':False}),'client':s.client.snapshot() if s.client else None,'graphics':registry(),'demo':{'error':s.demo.get('error'),'paused':s.demo['paused'],'speed':s.demo['speed'],'members':len(s.demo['members']),'disconnected':list(s.demo['disconnected'])} if s.demo else None,'recording_error':s.recording_error,'recording_drops':s.recording_drops}
+  return {'group':g,'leagues':list(s.leagues.values()),'workspaces':list(s.workspaces.values()),'snapshot':s.raw_snapshot(g) if g else None,'listener':getattr(s,'hosting',{'enabled':False}),'client':s.client.snapshot() if s.client else None,'graphics':registry(),'demo':{'error':s.demo.get('error'),'paused':s.demo['paused'],'speed':s.demo['speed'],'members':len(s.demo['members']),'disconnected':list(s.demo['disconnected'])} if s.demo else None,'recording_error':s.recording_error,'recording_drops':s.recording_drops,'replay_now':s.replay_snapshot() if s.replay else None}
  @r.post('/demo')
  async def demo(request:Request):
   from .demo import start_demo
   s=service(request);body=await request.json();action=body.get('action','start')
   if action=='start':return await start_demo(s,body.get('members',8))
+  if action=='stop' and not s.demo:
+   if s.active() and s.active().get('demo_league'):await s.session_action('close')
+   return {'ok':True}
   if not s.demo:fail(409,'No running league demo')
   if action=='pause':s.demo['paused']=True
   elif action=='resume':s.demo['paused']=False
@@ -43,14 +46,17 @@ def router():
  @r.post('/hosting')
  async def hosting(request:Request):
   s=service(request);body=await request.json()
-  if s.listener:
-   for ws in list(s.connections.values()):await ws.close(code=1001)
-   s.listener.should_exit=True
-   try:await asyncio.wait_for(s.listener_task,5)
-   except asyncio.TimeoutError:s.listener_task.cancel();await asyncio.gather(s.listener_task,return_exceptions=True)
-   s.listener=None;s.listener_task=None
-  s.hosting={'enabled':False};s.runtime.host_only=False;s.runtime.source_generation+=1
-  if not body.get('enabled'):return s.hosting
+  async def stop_listener():
+   if s.listener:
+    for ws in list(s.connections.values()):await ws.close(code=1001)
+    s.listener.should_exit=True
+    try:await asyncio.wait_for(s.listener_task,5)
+    except asyncio.TimeoutError:s.listener_task.cancel();await asyncio.gather(s.listener_task,return_exceptions=True)
+    s.listener=None;s.listener_task=None
+   if s.runtime.host_only:s.runtime.sessions.manual_ended=False
+   s.hosting={'enabled':False};s.runtime.host_only=False;s.runtime.source_generation+=1
+  if not body.get('enabled'):
+   await stop_listener();return s.hosting
   port=body.get('port',8090);host=body.get('bind','0.0.0.0');origins=body.get('origins',[])
   if not isinstance(port,int) or not 1024<=port<=65535 or port in (s.runtime.settings.http_port,s.runtime.settings.http_port+1):fail(422,'Choose a separate group port between 1024 and 65535')
   if host not in ('0.0.0.0','127.0.0.1'):fail(422,'Group bind must be 0.0.0.0 or 127.0.0.1')
@@ -58,11 +64,14 @@ def router():
   for origin in origins:
    p=urlparse(origin)
    if p.scheme not in ('http','https') or not p.hostname or p.username or p.password or p.path or p.query or p.fragment:fail(422,'Origins must be exact http(s) addresses without paths')
+  same_port=s.listener and getattr(s,'hosting',{}).get('port')==port
+  if same_port:await stop_listener()
   sock=socket.socket()
   try:
    if hasattr(socket,'SO_EXCLUSIVEADDRUSE'):sock.setsockopt(socket.SOL_SOCKET,socket.SO_EXCLUSIVEADDRUSE,1)
    sock.bind((host,port));sock.listen(128);sock.setblocking(False)
   except OSError as e:sock.close();fail(409,'Cannot open group listener: '+str(e))
+  if not same_port:await stop_listener()
   import uvicorn
   server=uvicorn.Server(uvicorn.Config(public_app(s,set(origins)),host=host,port=port,access_log=False,log_level='warning',ws_max_size=32768,ws_max_queue=8,ws_per_message_deflate=False,timeout_graceful_shutdown=3))
   s.listener=server;s.listener_task=asyncio.create_task(server.serve(sockets=[sock]));s.hosting={'enabled':True,'port':port,'bind':host,'origins':origins,'host_only':bool(body.get('host_only',False))}

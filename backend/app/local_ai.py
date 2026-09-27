@@ -9,7 +9,15 @@ def memory_available_mb():
         for line in Path('/proc/meminfo').read_text().splitlines():
             if line.startswith('MemAvailable:'):return int(line.split()[1])/1024
     except OSError:pass
+    try:
+        import psutil
+        return psutil.virtual_memory().available/1024/1024
+    except Exception:pass
     return None
+
+def inference_threads():
+    """Scale llama-server threads to the host, not a fixed small-board count. Still capped to stay lightweight."""
+    return max(2,min(6,(os.cpu_count() or 2)-1))
 
 def evidence(runtime):
     """Reduce existing aggregates, never rescan raw telemetry or recordings."""
@@ -97,7 +105,8 @@ class LocalAI:
         if free is not None and free<1100:raise RuntimeError('Need at least 1100 MB available before loading the model')
         with socket.socket() as probe:
             probe.bind(('127.0.0.1',settings.local_ai_port))
-        command=[str(binary.resolve()),'--model',str(model.resolve()),'--host','127.0.0.1','--port',str(settings.local_ai_port),'--api-key',self.key,'--ctx-size','1536','--threads','2','--threads-batch','2','--parallel','1','--batch-size','128','--ubatch-size','64','--n-gpu-layers','0','--no-webui','--offline','--cache-ram','0']
+        threads=str(inference_threads())
+        command=[str(binary.resolve()),'--model',str(model.resolve()),'--host','127.0.0.1','--port',str(settings.local_ai_port),'--api-key',self.key,'--ctx-size','1536','--threads',threads,'--threads-batch',threads,'--parallel','1','--batch-size','128','--ubatch-size','64','--n-gpu-layers','0','--no-webui','--offline','--cache-ram','0']
         with self.lock:
             if generation!=self.generation:raise RuntimeError('Local inference cancelled')
             self.log=(root/'local-ai.log').open('wb')

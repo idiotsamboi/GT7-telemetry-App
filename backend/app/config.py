@@ -1,6 +1,7 @@
-import json, os, secrets
+import json, os, secrets, time, shutil
 from ipaddress import IPv4Address
 from pathlib import Path
+from urllib.parse import urlsplit
 from typing import Literal
 from pydantic import BaseModel, Field, IPvAnyAddress, model_validator
 
@@ -65,6 +66,12 @@ class Settings(BaseModel):
     retention_days:int=Field(90,ge=1,le=3650)
     @model_validator(mode='after')
     def addresses(self):
+        if len(self.allowed_origins)>32:raise ValueError('At most 32 browser origins are allowed')
+        for origin in self.allowed_origins:
+            try:
+                parsed=urlsplit(origin);port=parsed.port
+                if parsed.scheme not in ('http','https') or not parsed.hostname or parsed.username or parsed.password or parsed.path or parsed.query or parsed.fragment or '*' in parsed.netloc:raise ValueError('invalid origin')
+            except ValueError:raise ValueError('Browser origins must be exact http(s) addresses without paths or credentials')
         if self.ps5_ip and str(self.ps5_ip)==str(self.udp_bind): raise ValueError('Local bind address cannot be the console address')
         if self.pit_region is not None and len(self.pit_region)!=4: raise ValueError('Pit region is [minX,minZ,maxX,maxZ]')
         return self
@@ -73,7 +80,13 @@ class Config:
     def __init__(self,root):
         self.root=Path(root); self.root.mkdir(parents=True,exist_ok=True)
         self.path=self.root/'settings.json'
-        self.settings=Settings.model_validate_json(self.path.read_text()) if self.path.exists() else Settings()
+        self.recovery_notice=None
+        try:self.settings=Settings.model_validate_json(self.path.read_text(encoding='utf-8')) if self.path.exists() else Settings()
+        except (ValueError,OSError):
+            self.settings=Settings(hands_free=False,speech_enabled=False)
+            backup=self.path.with_name('settings.invalid-'+str(time.time_ns())+'.json')
+            try:shutil.copy2(self.path,backup);self.recovery_notice='Invalid settings preserved as '+backup.name+'. Safe defaults loaded; review Settings before driving.'
+            except OSError:self.recovery_notice='Settings could not be read or backed up. Safe defaults loaded; original file was not changed.'
         tokenpath=self.root/'control-token'
         if not tokenpath.exists(): tokenpath.write_text(secrets.token_urlsafe(32)); tokenpath.chmod(0o600)
         self.token=tokenpath.read_text().strip()

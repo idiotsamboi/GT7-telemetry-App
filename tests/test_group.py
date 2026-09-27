@@ -182,6 +182,22 @@ def test_clear_program_preserves_draft(tmp_path):
   assert cleared['program_revision']==2
  asyncio.run(check())
 
+def test_new_graphic_templates_and_style_presets_are_valid(tmp_path):
+ from pydantic import ValidationError
+ s=GroupService(SimpleNamespace(store=SimpleNamespace(path=tmp_path/'db.sqlite'),config=SimpleNamespace(root=tmp_path)))
+ async def check():
+  league=await s.league_save({'name':'Test'});await s.create_group({'name':'Test','event_name':'Race','league_id':league['id']})
+  new_templates=['fastest_lap','class_leader','penalty','podium','sponsor']
+  w=await s.save_workspace({'graphics':[{'id':t,'template':t} for t in new_templates]})
+  assert {g['template'] for g in w['draft']['graphics']}==set(new_templates)
+  with pytest.raises(ValidationError):await s.save_workspace({'graphics':[{'id':'bad','template':'not_a_template'}]},w['id'])
+  for preset in ('formula','endurance','minimal','neon','vintage','rally','oval','carbon','heritage','holo'):
+   saved=await s.save_workspace({'preset':preset},w['id'])
+   assert saved['draft']['preset']==preset
+  with pytest.raises(ValidationError):await s.save_workspace({'preset':'not_a_style'},w['id'])
+ asyncio.run(check())
+
+
 def test_delayed_take_keeps_previous_program_until_timeline_reaches_change(tmp_path,monkeypatch):
  import time
  s=GroupService(SimpleNamespace(store=SimpleNamespace(path=tmp_path/'db.sqlite'),config=SimpleNamespace(root=tmp_path)))

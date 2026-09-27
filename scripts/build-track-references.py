@@ -1,11 +1,18 @@
 """Build offline visual outlines from an explicitly downloaded, pinned source cache."""
-import json,hashlib,math,unicodedata
+import json,hashlib,math,unicodedata,argparse,urllib.request
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 cache=ROOT/'data/reference-research'
-sha=cache.joinpath('source-revision.txt').read_text().strip()
+sha='d8b769c6f2ead4d5390dc94831e20be93d7bf801'
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--fetch',action='store_true');args=parser.parse_args()
+if args.fetch:
+ cache.mkdir(parents=True,exist_ok=True)
+ with urllib.request.urlopen('https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/'+sha+'/signatures.json',timeout=30) as response:cache.joinpath('signatures.json').write_bytes(response.read(2*1024*1024))
+ cache.joinpath('source-revision.txt').write_text(sha)
+
 source='https://github.com/jbhoorasingh/gt7-datalogger-track-data/tree/'+sha
 raw=cache.joinpath('signatures.json').read_bytes()
+if hashlib.sha256(raw).hexdigest()!='9b205e13a312c63e6aad92b2831061f59ac9b2b1c465e4939d2d70422f7588aa':raise SystemExit('Reference source checksum differs from the reviewed revision')
 rows=json.loads(raw)['signatures']
 cat=json.loads((ROOT/'backend/app/data/tracks.json').read_text(encoding='utf-8'))
 def norm(x):return ''.join(c.lower() for c in unicodedata.normalize('NFKD',x.replace('Grand Prix Layout','GP Layout')) if c.isalnum())

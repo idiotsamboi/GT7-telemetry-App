@@ -34,7 +34,12 @@ class TrackMap:
      data['schema']=2;data.setdefault('quality',{'source':'legacy migration','continuous':'unverified'})
      try:atomic(path,data)
      except OSError:self.error='Legacy map loaded; migration write failed. Original points retained.'
-    self._cache(data)
+    versions=[]
+    for old in data.get('versions',[]) if isinstance(data.get('versions'),list) else []:
+     try:
+      old['points']=validate_points(old['points']);old.setdefault('revision',revision(old['points']));old.setdefault('kind','legacy learned driving line');versions.append(old)
+     except (ValueError,TypeError,KeyError):continue
+    data['versions']=versions[-8:];self._cache(data)
    except (OSError,ValueError,KeyError,TypeError):continue
   try:
    path=self.root/'_candidates.json'
@@ -108,14 +113,16 @@ class TrackMap:
  def _write(self,key,points,kind='learned driving line',quality=None,restored_from=None):
   with self.io_lock:
    previous=self.library.get(key);history=copy.deepcopy(previous.get('versions',[])) if previous else []
-   if previous and previous['points']!=points:history.append({k:v for k,v in previous.items() if k!='versions'})
+   if previous and previous['points']!=points:
+    history=[v for v in history if v.get('revision') not in (revision(points),previous['revision'])]
+    history.append({k:v for k,v in previous.items() if k!='versions'})
    data={'schema':2,'layout_id':key,'revision':revision(points),'kind':kind,'provenance':'live','points':points,'updated':time.time(),'quality':quality or {},'versions':history[-8:]}
    if restored_from:data['restored_from']=restored_from
    atomic(self.root/(key+'.json'),data)
    fp=Fingerprint(points)
    with self.lock:
     self.library[key]=data;self.fingerprints[key]=fp;self.alignments.pop(key,None)
-    if self.layout_id==key:self.saved=data
+    if self.layout_id==key:self.saved=data;self.status='Saved map'
    return data
  def _retain(self,candidate,suggestions):
   with self.io_lock:

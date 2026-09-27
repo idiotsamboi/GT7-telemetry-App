@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "gt7-manual-preview",
+      "runtimeExecutable": ".venv/Scripts/python.exe",
+      "runtimeArgs": ["run.py", "run", "--data", "data-preview", "--port", "8010"],
+      "port": 8010
+    }
+  ]
+}

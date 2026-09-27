@@ -1,7 +1,9 @@
 {
-  "reference_suggestion_ms": 1520.1,
-  "saved_match_p95_ms": 128.86,
-  "reference_count": 101,
-  "sample_points": 280,
-  "scope": "Synthetic geometry microbenchmark on this host; not an ingestion/OBS soak benchmark"
+  "library_fingerprints": 101,
+  "full_match_median_ms": 101.0,
+  "full_match_max_ms": 153.46,
+  "reference_suggestion_ms": 1108.72,
+  "receiver_geometry_matching": false,
+  "maximum_worker_frequency_hz": 2,
+  "scope": "Synthetic normalized geometry against 101 cached fingerprints on this host; not a receiver-loss or OBS workload benchmark"
 }

@@ -41,14 +41,19 @@ def create_app(data_dir=None):
     app.include_router(group_router())
     @app.exception_handler(ValidationError)
     async def invalid_group_request(request,error):return JSONResponse({'detail':'Invalid request: '+str(error)[:400]},422)
-    def origin_ok(origin):return origin in cfg.settings.allowed_origins
+    # Keep the running loopback UI reachable even after an origin/port edit.
+    local_origins={f'http://127.0.0.1:{cfg.settings.http_port}',f'http://localhost:{cfg.settings.http_port}'}
+    bind_host=str(cfg.settings.http_host)
+    if bind_host not in ('0.0.0.0','::'):
+        local_origins.add(f'http://{"["+bind_host+"]" if ":" in bind_host else bind_host}:{cfg.settings.http_port}')
+    def origin_ok(origin):return origin in local_origins or origin in cfg.settings.allowed_origins
     def token_ok(token):return bool(token) and secrets.compare_digest(token,cfg.token)
     @app.middleware('http')
     async def guard(request,call_next):
         if request.headers.get('content-length','0').isdigit() and int(request.headers.get('content-length','0'))>34*1024*1024:return JSONResponse({'detail':'Request too large'},413)
         origin=request.headers.get('origin')
         host=request.url.hostname
-        allowed={'127.0.0.1','localhost','::1'}|{urlparse(x).hostname for x in cfg.settings.allowed_origins}
+        allowed={'127.0.0.1','localhost','::1'}|{urlparse(x).hostname for x in set(cfg.settings.allowed_origins)|local_origins}
         if host not in allowed:return JSONResponse({'detail':'Host not configured'},403)
         if origin and not origin_ok(origin):return JSONResponse({'detail':'Origin not allowed'},403)
         if request.url.path.startswith('/api/') and request.url.path not in ('/api/health','/api/pair'):
@@ -63,7 +68,7 @@ def create_app(data_dir=None):
     async def pair(request:Request):
         body=await request.json()
         local=request.client and request.client.host in ('127.0.0.1','::1','testclient') and request.url.hostname in ('127.0.0.1','localhost','::1')
-        if not local and not token_ok(body.get('token')):raise HTTPException(403,'Enter pairing token from the Orange Pi data/control-token file')
+        if not local and not token_ok(body.get('token')):raise HTTPException(403,'Enter pairing token from the data/control-token file')
         response=JSONResponse({'paired':True});response.set_cookie('gt7_token',cfg.token,httponly=True,samesite='strict',secure=request.url.scheme=='https');return response
     @app.get('/api/state')
     def state():return runtime.snapshot()
@@ -71,6 +76,17 @@ def create_app(data_dir=None):
     def settings():return cfg.settings.model_dump(mode='json')
     @app.put('/api/settings')
     async def save_settings(settings:Settings):
+        if str(settings.http_host)!=str(runtime.settings.http_host) or settings.http_port!=runtime.settings.http_port:
+            import socket
+            family=socket.AF_INET6 if ':' in str(settings.http_host) else socket.AF_INET
+            try:
+                # Reject a nonlocal bind or occupied replacement port before persisting it.
+                ports=(settings.http_port,settings.http_port+1 if settings.http_port<65535 else 65534)
+                for port in ports:
+                    with socket.socket(family,socket.SOCK_STREAM) as probe:
+                        if hasattr(socket,'SO_EXCLUSIVEADDRUSE'):probe.setsockopt(socket.SOL_SOCKET,socket.SO_EXCLUSIVEADDRUSE,1)
+                        probe.bind((str(settings.http_host),port))
+            except OSError:raise HTTPException(422,'HTTP address or port is unavailable on this computer. Existing settings are unchanged.')
         if settings.track_id:
             layout=LAYOUTS.get(settings.track_id)
             if not layout:raise HTTPException(422,'Unknown GT7 layout')
@@ -87,6 +103,7 @@ def create_app(data_dir=None):
     async def import_map(body:MapImport):
         try:await asyncio.to_thread(runtime.track_map.import_map,body.layout_id,body.points)
         except ValueError as e:raise HTTPException(422,str(e))
+        except OSError:raise HTTPException(503,'Map write failed; previous map is retained')
         return runtime.track_map.snapshot()
     class MapSelection(BaseModel):
         layout_id:str=Field(max_length=16)
@@ -116,6 +133,28 @@ def create_app(data_dir=None):
         try:return await asyncio.to_thread(runtime.track_map.restore,body.layout_id,body.revision)
         except ValueError as error:raise HTTPException(422,str(error))
         except OSError:raise HTTPException(503,'Map could not be restored; previous revision remains available')
+    @app.get('/recovery')
+    def recovery_page():return FileResponse(Path(__file__).parent/'data/recovery.html',media_type='text/html')
+    @app.get('/recovery.js')
+    def recovery_script():return FileResponse(Path(__file__).parent/'data/recovery.js',media_type='application/javascript')
+    class RecoveryAction(BaseModel):
+        action:Literal['live','display','connection','audio']
+    @app.post('/api/recovery')
+    async def recover(body:RecoveryAction):
+        values=runtime.settings.model_dump()
+        if body.action=='live':
+            runtime.host_only=False
+            if hasattr(runtime.group,'hosting'):runtime.group.hosting['host_only']=False
+            runtime.group.replay=None
+            runtime.switch('live')
+        elif body.action=='display':runtime.update_settings({**values,'minimal':False,'ui_hz':12})
+        elif body.action=='connection':
+            runtime.update_settings({**values,'udp_bind':'0.0.0.0','udp_port':33740,'remote_port':33739,'heartbeat':1,'variant':'A','allowed_origins':sorted(set(values['allowed_origins'])|local_origins)})
+        elif body.action=='audio':
+            runtime.speaker.stop();runtime.scheduler.cancel('Audio recovery')
+            await asyncio.to_thread(runtime.mic.close)
+            runtime.update_settings({**values,'input_device':None,'output_device':None,'speech_enabled':True,'hard_mute':False,'voice_volume':80,'hands_free':False})
+        return {'ok':True,'action':body.action,'message':'Recovery applied. Recordings, maps, leagues and credentials are retained.','settings':runtime.settings.model_dump(mode='json')}
     @app.get('/api/capabilities')
     def capabilities():return {'fields':CAPABILITIES,'unsupported':UNSUPPORTED,'rules':RULES,'upstream':UPSTREAM}
     class Command(BaseModel):text:str=Field(max_length=500)

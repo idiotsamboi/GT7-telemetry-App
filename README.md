@@ -83,7 +83,7 @@ The [new-user guide](docs/USER_GUIDE.md) walks through maps, voice, strategy, an
 
 ## What telemetry cannot establish
 
-GT7's player stream does not provide a dependable circuit ID, opponent leaderboard/radar, official race flags, race-wide fastest sectors, penalties, official lap validity, tyre wear/pressure or a confirmed race finish. Those facts remain unavailable. The flag panel shows **player status**, not fabricated green/yellow/red race-control flags. Tyre surface temperature is not tyre wear. Driver-path maps do not identify track limits or an ideal racing line. Map selection is manual; automatic circuit recognition is not implemented.
+GT7's player stream does not provide a dependable circuit ID, opponent leaderboard/radar, official race flags, race-wide fastest sectors, penalties, official lap validity, tyre wear/pressure or a confirmed race finish. Those facts remain unavailable. The flag panel shows **player status**, not fabricated green/yellow/red race-control flags. Tyre surface temperature is not tyre wear. Driver-path maps do not identify track limits or an ideal racing line. Saved layouts can be recognized after a complete clean lap; ambiguous routes require confirmation. Reference outlines are approximate and never supply track limits.
 
 Map capture is bounded to 4096 points with approximately 10-metre spacing. Telemetry gaps, teleports and paused laps prevent saving a complete outline. The older live-delta alignment has a five-minute/1500-point lap limit; longer laps may still generate a map but have no live delta reference.
 
@@ -119,3 +119,5 @@ The Race Control preview now includes a **4/8/16-driver league demo**, a driver 
 ### Automatic track memory
 
 Track recognition now remembers clean learned laps, keeps revision history, and asks for confirmation when identity is ambiguous. Includes 101 offline approximate reference outlines across the existing 122-layout catalogue, shared Race Control/OBS maps and session revision freezing. See the [track-memory guide](docs/TRACK_MEMORY.md) and [reference coverage report](docs/TRACK_REFERENCE_COVERAGE.md).
+
+If the dashboard is stuck, use **Recovery** or open `/recovery`. See the [recovery guide](docs/RECOVERY.md).

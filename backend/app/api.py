@@ -9,6 +9,7 @@ from fastapi.responses import JSONResponse,FileResponse,HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel,Field
 from .config import Config,Settings
+from .tracks import CATALOG as TRACKS,LAYOUTS
 from .storage import Store
 from .runtime import Runtime
 from .telemetry import CAPABILITIES,UNSUPPORTED,UPSTREAM
@@ -35,6 +36,11 @@ def create_app(data_dir=None):
         try:yield
         finally:await runtime.close();lock.close()
     app=FastAPI(title='GT7 Race Engineer',lifespan=lifespan,docs_url=None,redoc_url=None)
+    from .group.admin import router as group_router
+    from pydantic import ValidationError
+    app.include_router(group_router())
+    @app.exception_handler(ValidationError)
+    async def invalid_group_request(request,error):return JSONResponse({'detail':'Invalid request: '+str(error)[:400]},422)
     def origin_ok(origin):return origin in cfg.settings.allowed_origins
     def token_ok(token):return bool(token) and secrets.compare_digest(token,cfg.token)
     @app.middleware('http')
@@ -65,17 +71,66 @@ def create_app(data_dir=None):
     def settings():return cfg.settings.model_dump(mode='json')
     @app.put('/api/settings')
     async def save_settings(settings:Settings):
+        if settings.track_id:
+            layout=LAYOUTS.get(settings.track_id)
+            if not layout:raise HTTPException(422,'Unknown GT7 layout')
+            settings.track=layout['track'];settings.layout=layout['name'];settings.direction=layout['direction']
         runtime.update_settings(settings.model_dump());return {'settings':settings.model_dump(mode='json'),'restart_required':'Console/UDP changes reconnect immediately. HTTP listen/origin changes need restart; audio device changes need microphone reinitialization.'}
+    @app.get('/api/tracks')
+    def tracks():return TRACKS
+    @app.get('/api/track-map')
+    def track_map():return runtime.track_map.snapshot()
+    class MapImport(BaseModel):
+        layout_id:str=Field(max_length=16)
+        points:list=Field(max_length=4096)
+    @app.put('/api/track-map')
+    async def import_map(body:MapImport):
+        try:await asyncio.to_thread(runtime.track_map.import_map,body.layout_id,body.points)
+        except ValueError as e:raise HTTPException(422,str(e))
+        return runtime.track_map.snapshot()
+    class MapSelection(BaseModel):
+        layout_id:str=Field(max_length=16)
+    @app.post('/api/track-map/select')
+    async def select_map(body:MapSelection):
+        try:runtime.track_map.select(body.layout_id,force=True)
+        except ValueError as error:raise HTTPException(422,str(error))
+        await asyncio.to_thread(runtime.track_map.alignment,body.layout_id)
+        return runtime.track_map.snapshot()
+    class MapConfirmation(BaseModel):
+        layout_id:str=Field(max_length=16)
+        candidate_id:str=Field(max_length=64)
+    class MapRestore(BaseModel):
+        layout_id:str=Field(max_length=16)
+        revision:str=Field(max_length=64)
+    @app.get('/api/track-map/library')
+    def map_library():
+        from .tracks import LAYOUTS,REFERENCES
+        return {'layouts':[{'layout_id':key,'name':LAYOUTS[key]['name'],'revision':v['revision'],'kind':v['kind'],'updated':v.get('updated'),'versions':[{'revision':r['revision'],'updated':r.get('updated')} for r in v.get('versions',[])]} for key,v in list(runtime.track_map.library.items())], 'reference_coverage':{key:v.get('status','unavailable') for key,v in REFERENCES.items()}}
+    @app.post('/api/track-map/confirm')
+    async def confirm_map(body:MapConfirmation):
+        try:return await asyncio.to_thread(runtime.track_map.confirm,body.candidate_id,body.layout_id)
+        except ValueError as error:raise HTTPException(422,str(error))
+        except OSError:raise HTTPException(503,'Map could not be saved; previous revision remains available')
+    @app.post('/api/track-map/restore')
+    async def restore_map(body:MapRestore):
+        try:return await asyncio.to_thread(runtime.track_map.restore,body.layout_id,body.revision)
+        except ValueError as error:raise HTTPException(422,str(error))
+        except OSError:raise HTTPException(503,'Map could not be restored; previous revision remains available')
     @app.get('/api/capabilities')
     def capabilities():return {'fields':CAPABILITIES,'unsupported':UNSUPPORTED,'rules':RULES,'upstream':UPSTREAM}
     class Command(BaseModel):text:str=Field(max_length=500)
     @app.post('/api/command')
     async def command(body:Command):return runtime.command(body.text)
+    @app.get('/api/engineer/requests')
+    async def engineer_requests():
+        from .requests import public_catalog
+        return {'count':100,'requests':public_catalog()}
     class Control(BaseModel):action:str=Field(max_length=40);value:str|float|None=None
     @app.post('/api/control')
     async def control(body:Control):
         action=body.action
         if action in ('demo','live'):runtime.switch(action)
+        elif action=='ai_briefing':runtime.ai_refresh_requested=True
         elif action=='telemetry_test':
             if runtime.source!='live':raise HTTPException(400,'Select live PS5 telemetry before testing')
             runtime.start_reception_test()
@@ -85,11 +140,26 @@ def create_app(data_dir=None):
         elif action=='stop':return runtime.command('stop talking')
         elif action=='mute':return runtime.command('mute')
         elif action=='resume':return runtime.command('resume engineer')
+        elif action=='speaker_test':
+            runtime.scheduler.cancel('Speaker test');runtime.speaker.stop()
+            if runtime.speaker.thread:await asyncio.to_thread(runtime.speaker.thread.join,3)
+            if runtime.speaker.busy:raise HTTPException(409,'Previous speech is still stopping. Try again shortly.')
+            runtime.update_settings({**runtime.settings.model_dump(),'speech_enabled':True,'hard_mute':False,'voice_volume':runtime.settings.voice_volume or 80})
+            runtime.mic.set_suppressed(True)
+            runtime.speaker.speak('Radio check. This is your GT7 race engineer speaking through the selected output device.',runtime.settings,1)
+            return {'ok':True,'message':'Speaker test started. Spoken output is now enabled.'}
         elif action in ('audio_test','calibrate'):
-            runtime.speaker.stop();runtime.scheduler.cancel('Audio test');await asyncio.to_thread(runtime.mic.close)
-            return await asyncio.to_thread(audio_probe,runtime.settings,action=='audio_test')
+            if runtime.mic_testing:raise HTTPException(409,'An audio test is already running')
+            runtime.mic_testing=True
+            try:
+                runtime.speaker.stop();runtime.scheduler.cancel('Audio test');await asyncio.to_thread(runtime.mic.close)
+                return await asyncio.to_thread(audio_probe,runtime.settings,action=='audio_test')
+            finally:runtime.mic_testing=False;runtime.mic.last_attempt=-1e30
+        elif action in ('listen_on','listen_off'):
+            runtime.update_settings({**runtime.settings.model_dump(),'hands_free':action=='listen_on'})
         elif action=='mic_enable':runtime.mic.start_worker(runtime.settings)
         elif action=='ptt_start':
+            if runtime.mic_testing:raise HTTPException(409,'Wait for the audio test to finish')
             runtime.speaker.stop();runtime.scheduler.cancel('Push to talk');runtime.mic.start_worker(runtime.settings)
             await asyncio.sleep(.25);runtime.mic.control('start')
         elif action=='ptt_stop':runtime.mic.control('stop')
@@ -100,7 +170,7 @@ def create_app(data_dir=None):
         elif action=='replay_pause':runtime.replay_paused=not runtime.replay_paused
         elif action=='replay_speed':runtime.replay_speed=max(.25,min(16,float(body.value or 1)))
         elif action=='replay_seek':
-            runtime.sessions.end('interrupted');runtime.sessions.manual_ended=False;runtime.scheduler.cancel('Replay seek');runtime.rules=type(runtime.rules)(runtime.settings);runtime.replay_cursor=float(body.value or 0);runtime.replay_record_id=0;runtime.replay_last=None;runtime.replay_buffer.clear();runtime.history.clear();runtime.trace.clear();runtime.last_lap=None
+            runtime.sessions.end('interrupted');runtime.sessions.manual_ended=False;runtime.scheduler.cancel('Replay seek');runtime.rules=type(runtime.rules)(runtime.settings);runtime.replay_cursor=float(body.value or 0);runtime.replay_record_id=0;runtime.replay_last=None;runtime.replay_buffer.clear();runtime.history.clear();runtime.reset_driver_line();runtime.last_lap=None
         else:raise HTTPException(400,'Unknown control')
         return {'ok':True}
     @app.get('/api/audio')
@@ -264,4 +334,5 @@ def create_app(data_dir=None):
         def missing():return HTMLResponse('<h1>Build the frontend first</h1><p>Run npm ci and npm run build in frontend.</p>')
     return app
 
-app=create_app()
+# Use create_app(data_dir) from the launcher, or uvicorn's --factory option.
+# Importing this module must not create writable data inside an installed app.

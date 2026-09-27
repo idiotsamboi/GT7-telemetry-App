@@ -1,0 +1,1062 @@
+[
+  {
+    "id": "1",
+    "name": "24 Heures du Mans Racing Circuit",
+    "logo": "/tracks/1.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "454",
+        "name": "24 Heures du Mans Racing Circuit",
+        "direction": "forward",
+        "length_m": 13629.0
+      },
+      {
+        "id": "854",
+        "name": "24 Heures du Mans Racing Circuit No Chicane",
+        "direction": "forward",
+        "length_m": 13567.0
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Alsace",
+    "logo": "/tracks/2.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "358",
+        "name": "Alsace - Village",
+        "direction": "forward",
+        "length_m": 5423.0
+      },
+      {
+        "id": "439",
+        "name": "Alsace - Village Reverse",
+        "direction": "reverse",
+        "length_m": 5423.0
+      },
+      {
+        "id": "1224",
+        "name": "Alsace - Test Course",
+        "direction": "forward",
+        "length_m": 2118.0
+      },
+      {
+        "id": "1225",
+        "name": "Alsace - Test Course Reverse",
+        "direction": "reverse",
+        "length_m": 2118.0
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Autodrome Lago Maggiore",
+    "logo": "/tracks/3.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "365",
+        "name": "Autodrome Lago Maggiore - Full Course",
+        "direction": "forward",
+        "length_m": 5809.0
+      },
+      {
+        "id": "602",
+        "name": "Autodrome Lago Maggiore - Full Course Reverse",
+        "direction": "reverse",
+        "length_m": 5809.0
+      },
+      {
+        "id": "790",
+        "name": "Autodrome Lago Maggiore - East End Reverse",
+        "direction": "reverse",
+        "length_m": 2010.0
+      },
+      {
+        "id": "791",
+        "name": "Autodrome Lago Maggiore - Centre Reverse",
+        "direction": "reverse",
+        "length_m": 1706.0
+      },
+      {
+        "id": "792",
+        "name": "Autodrome Lago Maggiore - West End",
+        "direction": "forward",
+        "length_m": 2444.0
+      },
+      {
+        "id": "793",
+        "name": "Autodrome Lago Maggiore - Centre",
+        "direction": "forward",
+        "length_m": 1706.0
+      },
+      {
+        "id": "794",
+        "name": "Autodrome Lago Maggiore - West End Reverse",
+        "direction": "reverse",
+        "length_m": 2444.0
+      },
+      {
+        "id": "795",
+        "name": "Autodrome Lago Maggiore - East End",
+        "direction": "forward",
+        "length_m": 2010.0
+      },
+      {
+        "id": "1226",
+        "name": "Autodrome Lago Maggiore - East",
+        "direction": "forward",
+        "length_m": 3643.0
+      },
+      {
+        "id": "1231",
+        "name": "Autodrome Lago Maggiore - East Reverse",
+        "direction": "reverse",
+        "length_m": 3643.0
+      },
+      {
+        "id": "1232",
+        "name": "Autodrome Lago Maggiore - West",
+        "direction": "forward",
+        "length_m": 4168.0
+      },
+      {
+        "id": "1233",
+        "name": "Autodrome Lago Maggiore - West Reverse",
+        "direction": "reverse",
+        "length_m": 4168.0
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Autodromo Nazionale Monza",
+    "logo": "/tracks/4.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "469",
+        "name": "Autodromo Nazionale Monza",
+        "direction": "forward",
+        "length_m": 5793.0
+      },
+      {
+        "id": "742",
+        "name": "Autodromo Nazionale Monza No Chicane",
+        "direction": "forward",
+        "length_m": 5755.0
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Autodromo de Interlagos",
+    "logo": "/tracks/5.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "152",
+        "name": "Autodromo de Interlagos",
+        "direction": "forward",
+        "length_m": 4309.0
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Autopolis",
+    "logo": "/tracks/6.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "896",
+        "name": "Autopolis International Racing Course",
+        "direction": "forward",
+        "length_m": 4674.0
+      },
+      {
+        "id": "898",
+        "name": "Autopolis International Racing Course - Short Course",
+        "direction": "forward",
+        "length_m": 3022.0
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "name": "Blue Moon Bay Speedway",
+    "logo": "/tracks/7.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "356",
+        "name": "Blue Moon Bay Speedway",
+        "direction": "forward",
+        "length_m": 3200.0
+      },
+      {
+        "id": "449",
+        "name": "Blue Moon Bay Speedway Reverse",
+        "direction": "reverse",
+        "length_m": 3200.0
+      },
+      {
+        "id": "819",
+        "name": "Blue Moon Bay Speedway - Infield B",
+        "direction": "forward",
+        "length_m": 2860.0
+      },
+      {
+        "id": "820",
+        "name": "Blue Moon Bay Speedway - Infield A",
+        "direction": "forward",
+        "length_m": 3350.0
+      },
+      {
+        "id": "822",
+        "name": "Blue Moon Bay Speedway - Infield A Reverse",
+        "direction": "reverse",
+        "length_m": 3350.0
+      },
+      {
+        "id": "823",
+        "name": "Blue Moon Bay Speedway - Infield B Reverse",
+        "direction": "reverse",
+        "length_m": 2860.0
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "name": "Brands Hatch",
+    "logo": "/tracks/8.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "119",
+        "name": "Brands Hatch Grand Prix Circuit",
+        "direction": "forward",
+        "length_m": 3946.0
+      },
+      {
+        "id": "346",
+        "name": "Brands Hatch Indy Circuit",
+        "direction": "forward",
+        "length_m": 1944.0
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "name": "Broad Bean Raceway",
+    "logo": "/tracks/9.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "357",
+        "name": "BB Raceway",
+        "direction": "forward",
+        "length_m": 1665.0
+      },
+      {
+        "id": "444",
+        "name": "BB Raceway Reverse",
+        "direction": "reverse",
+        "length_m": 1665.0
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "name": "Circuit de Barcelona-Catalunya",
+    "logo": "/tracks/10.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "874",
+        "name": "Circuit de Barcelona-Catalunya Grand Prix Layout",
+        "direction": "forward",
+        "length_m": 4655.0
+      },
+      {
+        "id": "1249",
+        "name": "Circuit de Barcelona-Catalunya GP Layout No Chicane",
+        "direction": "forward",
+        "length_m": 4730.0
+      },
+      {
+        "id": "1250",
+        "name": "Circuit de Barcelona-Catalunya National",
+        "direction": "forward",
+        "length_m": 2977.0
+      },
+      {
+        "id": "1265",
+        "name": "Circuit de Barcelona-Catalunya Rallycross",
+        "direction": "forward",
+        "length_m": 1133.0
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "name": "Circuit de Sainte-Croix",
+    "logo": "/tracks/11.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "825",
+        "name": "Circuit de Sainte-Croix - A",
+        "direction": "forward",
+        "length_m": 9477.0
+      },
+      {
+        "id": "826",
+        "name": "Circuit de Sainte-Croix - A Reverse",
+        "direction": "reverse",
+        "length_m": 9477.0
+      },
+      {
+        "id": "827",
+        "name": "Circuit de Sainte-Croix - B",
+        "direction": "forward",
+        "length_m": 7062.0
+      },
+      {
+        "id": "828",
+        "name": "Circuit de Sainte-Croix - B Reverse",
+        "direction": "reverse",
+        "length_m": 7062.0
+      },
+      {
+        "id": "829",
+        "name": "Circuit de Sainte-Croix - C",
+        "direction": "forward",
+        "length_m": 10825.0
+      },
+      {
+        "id": "830",
+        "name": "Circuit de Sainte-Croix - C Reverse",
+        "direction": "reverse",
+        "length_m": 10825.0
+      }
+    ]
+  },
+  {
+    "id": "12",
+    "name": "Circuit de Spa-Francorchamps",
+    "logo": "/tracks/12.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "462",
+        "name": "Circuit de Spa-Francorchamps",
+        "direction": "forward",
+        "length_m": 7004.0
+      },
+      {
+        "id": "1269",
+        "name": "Spa 24h Layout",
+        "direction": "forward",
+        "length_m": 7004.0
+      }
+    ]
+  },
+  {
+    "id": "13",
+    "name": "Colorado Springs",
+    "logo": "/tracks/13.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "372",
+        "name": "Colorado Springs - Lake",
+        "direction": "forward",
+        "length_m": 2990.0
+      },
+      {
+        "id": "600",
+        "name": "Colorado Springs - Lake Reverse",
+        "direction": "reverse",
+        "length_m": 2990.0
+      }
+    ]
+  },
+  {
+    "id": "14",
+    "name": "Daytona International Speedway",
+    "logo": "/tracks/14.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "4",
+        "name": "Daytona Tri-Oval",
+        "direction": "forward",
+        "length_m": 4023.0
+      },
+      {
+        "id": "1163",
+        "name": "Daytona Road Course",
+        "direction": "forward",
+        "length_m": 5729.0
+      }
+    ]
+  },
+  {
+    "id": "15",
+    "name": "Deep Forest Raceway",
+    "logo": "/tracks/15.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "51",
+        "name": "Deep Forest Raceway",
+        "direction": "forward",
+        "length_m": 4253.0
+      },
+      {
+        "id": "747",
+        "name": "Deep Forest Raceway Reverse",
+        "direction": "reverse",
+        "length_m": 4253.0
+      }
+    ]
+  },
+  {
+    "id": "16",
+    "name": "Dragon Trail",
+    "logo": "/tracks/16.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "363",
+        "name": "Dragon Trail - Seaside",
+        "direction": "forward",
+        "length_m": 5209.0
+      },
+      {
+        "id": "601",
+        "name": "Dragon Trail - Seaside Reverse",
+        "direction": "reverse",
+        "length_m": 5209.0
+      },
+      {
+        "id": "847",
+        "name": "Dragon Trail - Gardens",
+        "direction": "forward",
+        "length_m": 4352.0
+      },
+      {
+        "id": "853",
+        "name": "Dragon Trail - Gardens Reverse",
+        "direction": "reverse",
+        "length_m": 4352.0
+      }
+    ]
+  },
+  {
+    "id": "17",
+    "name": "Fishermans Ranch",
+    "logo": "/tracks/17.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "353",
+        "name": "Fishermans Ranch",
+        "direction": "forward",
+        "length_m": 6893.0
+      },
+      {
+        "id": "443",
+        "name": "Fishermans Ranch Reverse",
+        "direction": "reverse",
+        "length_m": 6893.0
+      }
+    ]
+  },
+  {
+    "id": "18",
+    "name": "Fuji International Speedway",
+    "logo": "/tracks/18.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "16",
+        "name": "Fuji International Speedway",
+        "direction": "forward",
+        "length_m": 4563.0
+      },
+      {
+        "id": "837",
+        "name": "Fuji International Speedway (Short)",
+        "direction": "forward",
+        "length_m": 4526.0
+      }
+    ]
+  },
+  {
+    "id": "19",
+    "name": "Goodwood",
+    "logo": "/tracks/19.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "154",
+        "name": "Goodwood Motor Circuit",
+        "direction": "forward",
+        "length_m": 3809.0
+      }
+    ]
+  },
+  {
+    "id": "20",
+    "name": "High Speed Ring",
+    "logo": "/tracks/20.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "11",
+        "name": "High Speed Ring",
+        "direction": "forward",
+        "length_m": 4345.0
+      },
+      {
+        "id": "1069",
+        "name": "High Speed Ring Reverse",
+        "direction": "reverse",
+        "length_m": 4345.0
+      }
+    ]
+  },
+  {
+    "id": "21",
+    "name": "Kyoto Driving Park",
+    "logo": "/tracks/21.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "376",
+        "name": "Kyoto Driving Park - Yamagiwa",
+        "direction": "forward",
+        "length_m": 4912.0
+      },
+      {
+        "id": "440",
+        "name": "Kyoto Driving Park - Miyabi",
+        "direction": "forward",
+        "length_m": 1953.0
+      },
+      {
+        "id": "613",
+        "name": "Kyoto Driving Park - Yamagiwa Reverse",
+        "direction": "reverse",
+        "length_m": 4912.0
+      },
+      {
+        "id": "776",
+        "name": "Kyoto Driving Park - Yamagiwa+Miyabi",
+        "direction": "forward",
+        "length_m": 6846.0
+      },
+      {
+        "id": "777",
+        "name": "Kyoto Driving Park - Yamagiwa+Miyabi Reverse",
+        "direction": "reverse",
+        "length_m": 6846.0
+      }
+    ]
+  },
+  {
+    "id": "22",
+    "name": "Mount Panorama Circuit",
+    "logo": "/tracks/22.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "116",
+        "name": "Mount Panorama Motor Racing Circuit",
+        "direction": "forward",
+        "length_m": 6213.0
+      }
+    ]
+  },
+  {
+    "id": "23",
+    "name": "Northern Isle Speedway",
+    "logo": "/tracks/23.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "354",
+        "name": "Northern Isle Speedway",
+        "direction": "forward",
+        "length_m": 900.0
+      }
+    ]
+  },
+  {
+    "id": "24",
+    "name": "Nurburgring",
+    "logo": "/tracks/24.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "95",
+        "name": "Nurburgring Nordschleife",
+        "direction": "forward",
+        "length_m": 20832.0
+      },
+      {
+        "id": "347",
+        "name": "Nurburgring Nordschleife Tourist Layout",
+        "direction": "forward",
+        "length_m": 20832.0
+      },
+      {
+        "id": "348",
+        "name": "Nurburgring 24h",
+        "direction": "forward",
+        "length_m": 25378.0
+      },
+      {
+        "id": "349",
+        "name": "Nurburgring GP",
+        "direction": "forward",
+        "length_m": 5148.0
+      },
+      {
+        "id": "1247",
+        "name": "Nurburgring Endurance",
+        "direction": "forward",
+        "length_m": 23864.0
+      },
+      {
+        "id": "1248",
+        "name": "Nurburgring Sprint",
+        "direction": "forward",
+        "length_m": 3629.0
+      }
+    ]
+  },
+  {
+    "id": "25",
+    "name": "Red Bull Ring",
+    "logo": "/tracks/25.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "470",
+        "name": "Red Bull Ring",
+        "direction": "forward",
+        "length_m": 4318.0
+      },
+      {
+        "id": "846",
+        "name": "Red Bull Ring Short Track",
+        "direction": "forward",
+        "length_m": 2336.0
+      }
+    ]
+  },
+  {
+    "id": "26",
+    "name": "Sardegna - Road Track",
+    "logo": "/tracks/26.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "838",
+        "name": "Sardegna - Road Track - C Reverse",
+        "direction": "reverse",
+        "length_m": 2661.0
+      },
+      {
+        "id": "839",
+        "name": "Sardegna - Road Track - B Reverse",
+        "direction": "reverse",
+        "length_m": 3893.0
+      },
+      {
+        "id": "841",
+        "name": "Sardegna - Road Track - B",
+        "direction": "forward",
+        "length_m": 3893.0
+      },
+      {
+        "id": "843",
+        "name": "Sardegna - Road Track - C",
+        "direction": "forward",
+        "length_m": 2661.0
+      },
+      {
+        "id": "921",
+        "name": "Sardegna - Road Track - A",
+        "direction": "forward",
+        "length_m": 5113.0
+      },
+      {
+        "id": "922",
+        "name": "Sardegna - Road Track - A Reverse",
+        "direction": "reverse",
+        "length_m": 5113.0
+      }
+    ]
+  },
+  {
+    "id": "27",
+    "name": "Sardegna - Windmills",
+    "logo": "/tracks/27.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "453",
+        "name": "Sardegna - Windmills",
+        "direction": "forward",
+        "length_m": 3310.0
+      },
+      {
+        "id": "599",
+        "name": "Sardegna - Windmills Reverse",
+        "direction": "reverse",
+        "length_m": 3310.0
+      }
+    ]
+  },
+  {
+    "id": "28",
+    "name": "Special Stage Route X",
+    "logo": "/tracks/28.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "1260",
+        "name": "Special Stage Route X",
+        "direction": "forward",
+        "length_m": 30283.0
+      },
+      {
+        "id": "1261",
+        "name": "Special Stage Route X 400",
+        "direction": "forward",
+        "length_m": 30283.0
+      },
+      {
+        "id": "1262",
+        "name": "Special Stage Route X 1000",
+        "direction": "forward",
+        "length_m": 30283.0
+      }
+    ]
+  },
+  {
+    "id": "29",
+    "name": "Suzuka Circuit",
+    "logo": "/tracks/29.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "10",
+        "name": "Suzuka Circuit",
+        "direction": "forward",
+        "length_m": 5807.0
+      },
+      {
+        "id": "442",
+        "name": "Suzuka Circuit East Course",
+        "direction": "forward",
+        "length_m": 2243.0
+      }
+    ]
+  },
+  {
+    "id": "30",
+    "name": "Tokyo Expressway",
+    "logo": "/tracks/30.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "351",
+        "name": "Tokyo Expressway - Central Clockwise",
+        "direction": "forward",
+        "length_m": 4405.0
+      },
+      {
+        "id": "361",
+        "name": "Tokyo Expressway - East Clockwise",
+        "direction": "forward",
+        "length_m": 7301.0
+      },
+      {
+        "id": "362",
+        "name": "Tokyo Expressway - South Clockwise",
+        "direction": "forward",
+        "length_m": 5201.0
+      },
+      {
+        "id": "450",
+        "name": "Tokyo Expressway - Central Counterclockwise",
+        "direction": "forward",
+        "length_m": 4369.0
+      },
+      {
+        "id": "451",
+        "name": "Tokyo Expressway - East Counterclockwise",
+        "direction": "forward",
+        "length_m": 7192.0
+      },
+      {
+        "id": "915",
+        "name": "Tokyo Expressway - South Counterclockwise",
+        "direction": "forward",
+        "length_m": 6560.0
+      }
+    ]
+  },
+  {
+    "id": "31",
+    "name": "Trial Mountain Circuit",
+    "logo": "/tracks/31.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "1024",
+        "name": "Trial Mountain Circuit",
+        "direction": "forward",
+        "length_m": 5434.0
+      },
+      {
+        "id": "1034",
+        "name": "Trial Mountain Circuit - Reverse",
+        "direction": "reverse",
+        "length_m": 5434.0
+      }
+    ]
+  },
+  {
+    "id": "32",
+    "name": "Tsukuba Circuit",
+    "logo": "/tracks/32.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "471",
+        "name": "Tsukuba Circuit",
+        "direction": "forward",
+        "length_m": 2045.0
+      }
+    ]
+  },
+  {
+    "id": "33",
+    "name": "WeatherTech Raceway Laguna Seca",
+    "logo": "/tracks/33.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "41",
+        "name": "WeatherTech Raceway Laguna Seca",
+        "direction": "forward",
+        "length_m": 3602.0
+      }
+    ]
+  },
+  {
+    "id": "34",
+    "name": "Willow Springs International Raceway",
+    "logo": "/tracks/34.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "122",
+        "name": "Willow Springs International Raceway: Big Willow",
+        "direction": "forward",
+        "length_m": 3951.0
+      },
+      {
+        "id": "123",
+        "name": "Willow Springs International Raceway: Streets of Willow Springs",
+        "direction": "forward",
+        "length_m": 2675.0
+      },
+      {
+        "id": "125",
+        "name": "Willow Springs International Raceway: Horse Thief Mile",
+        "direction": "forward",
+        "length_m": 1624.0
+      },
+      {
+        "id": "452",
+        "name": "Willow Springs International Raceway: Horse Thief Mile Reverse",
+        "direction": "reverse",
+        "length_m": 1624.0
+      },
+      {
+        "id": "598",
+        "name": "Willow Springs International Raceway: Streets of Willow Springs Reverse",
+        "direction": "reverse",
+        "length_m": 2675.0
+      }
+    ]
+  },
+  {
+    "id": "35",
+    "name": "Watkins Glen",
+    "logo": "/tracks/35.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "1240",
+        "name": "Watkins Glen Long Course",
+        "direction": "forward",
+        "length_m": 5423.0
+      },
+      {
+        "id": "1264",
+        "name": "Watkins Glen Short Course",
+        "direction": "forward",
+        "length_m": 3942.0
+      }
+    ]
+  },
+  {
+    "id": "36",
+    "name": "Grand Valley",
+    "logo": "/tracks/36.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "1292",
+        "name": "Grand Valley - Highway 1",
+        "direction": "forward",
+        "length_m": 5099.0
+      },
+      {
+        "id": "1293",
+        "name": "Grand Valley - Highway 1 Reverse",
+        "direction": "reverse",
+        "length_m": 5099.0
+      },
+      {
+        "id": "1299",
+        "name": "Grand Valley - South",
+        "direction": "forward",
+        "length_m": 3076.0
+      },
+      {
+        "id": "1300",
+        "name": "Grand Valley - South Reverse",
+        "direction": "reverse",
+        "length_m": 3076.0
+      }
+    ]
+  },
+  {
+    "id": "37",
+    "name": "Road Atlanta",
+    "logo": "/tracks/37.png",
+    "logo_kind": "source logo",
+    "layouts": [
+      {
+        "id": "1007",
+        "name": "Michelin Raceway Road Atlanta",
+        "direction": "forward",
+        "length_m": 4088.0
+      }
+    ]
+  },
+  {
+    "id": "38",
+    "name": "Lake Louise",
+    "logo": "/tracks/38.svg",
+    "logo_kind": "original typographic badge",
+    "layouts": [
+      {
+        "id": "1273",
+        "name": "Lake Louise Tri-Oval",
+        "direction": "forward",
+        "length_m": 3068.0
+      },
+      {
+        "id": "1308",
+        "name": "Lake Louise Short Track",
+        "direction": "forward",
+        "length_m": 2577.0
+      },
+      {
+        "id": "1309",
+        "name": "Lake Louise Long Track",
+        "direction": "forward",
+        "length_m": 3694.0
+      },
+      {
+        "id": "1316",
+        "name": "Lake Louise Tri-Oval Reverse",
+        "direction": "reverse",
+        "length_m": 3068.0
+      },
+      {
+        "id": "1317",
+        "name": "Lake Louise Short Track Reverse",
+        "direction": "reverse",
+        "length_m": 2577.0
+      },
+      {
+        "id": "1318",
+        "name": "Lake Louise Long Track Reverse",
+        "direction": "reverse",
+        "length_m": 3694.0
+      }
+    ]
+  },
+  {
+    "id": "39",
+    "name": "Eiger Nordwand",
+    "logo": "/tracks/39.svg",
+    "logo_kind": "original typographic badge",
+    "layouts": [
+      {
+        "id": "2001",
+        "name": "Eiger Nordwand",
+        "direction": "forward",
+        "length_m": 2436.0
+      },
+      {
+        "id": "2002",
+        "name": "Eiger Nordwand Reverse",
+        "direction": "reverse",
+        "length_m": 2436.0
+      }
+    ]
+  },
+  {
+    "id": "40",
+    "name": "Yas Marina Circuit",
+    "logo": "/tracks/40.svg",
+    "logo_kind": "original typographic badge",
+    "layouts": [
+      {
+        "id": "2003",
+        "name": "Yas Marina Circuit",
+        "direction": "forward",
+        "length_m": 5281.0
+      }
+    ]
+  },
+  {
+    "id": "41",
+    "name": "Circuit Gilles-Villeneuve",
+    "logo": "/tracks/41.svg",
+    "logo_kind": "original typographic badge",
+    "layouts": [
+      {
+        "id": "2004",
+        "name": "Circuit Gilles-Villeneuve",
+        "direction": "forward",
+        "length_m": 4361.0
+      }
+    ]
+  }
+]

@@ -1,0 +1,212 @@
+[
+  {
+    "interval_s": 1,
+    "heartbeats_over_16s": 16,
+    "reception": {
+      "status": "degraded",
+      "elapsed_s": 15,
+      "duration_s": 15,
+      "packets": 898,
+      "rate_hz": 59.9,
+      "max_gap_ms": 32,
+      "counters": {
+        "duplicates": 0,
+        "reordered": 0,
+        "gaps": 1,
+        "resets": 0,
+        "parse_errors": 0,
+        "pipeline_errors": 0,
+        "unexpected_senders": 0,
+        "storage_drops": 0,
+        "storage_failures": 0
+      },
+      "variants": [
+        "A"
+      ],
+      "fields_seen": 42,
+      "fields_expected": 42,
+      "unavailable_or_sentinel": [],
+      "not_in_variant": [
+        "steering_rotation",
+        "steering_velocity",
+        "acceleration_raw",
+        "throttle_filtered",
+        "brake_filtered",
+        "unknown_t_bytes",
+        "torque_vectors",
+        "energy_recovery",
+        "unknown_t",
+        "surface",
+        "current_ms",
+        "wheel_steering",
+        "wheelbase",
+        "category"
+      ],
+      "note": "Constant values are valid. Missing timing may be a game sentinel. Coverage proves receipt, not the meaning of undocumented fields.",
+      "samples_with_quality_flags": 0
+    },
+    "audio": {
+      "hands_free": true,
+      "input_device": "Microphone Array (Realtek(R) Au",
+      "input_rate": 16000,
+      "delivery": {
+        "state": "completed",
+        "engine": "Windows system voice",
+        "output_device": "29EA93 (Intel(R) Display Audio)",
+        "frames": 89046,
+        "duration_s": 2.02,
+        "error": null,
+        "last_text": "Telemetry connected."
+      },
+      "enabled": true,
+      "speaking": false,
+      "error": null,
+      "microphone": "listening",
+      "mic_error": null,
+      "level": 0.053375244140625,
+      "clipping": false,
+      "muted": false,
+      "transcript": null
+    }
+  },
+  {
+    "interval_s": 0.5,
+    "heartbeats_over_16s": 32,
+    "reception": {
+      "status": "degraded",
+      "elapsed_s": 15,
+      "duration_s": 15,
+      "packets": 898,
+      "rate_hz": 59.9,
+      "max_gap_ms": 47,
+      "counters": {
+        "duplicates": 0,
+        "reordered": 0,
+        "gaps": 2,
+        "resets": 0,
+        "parse_errors": 0,
+        "pipeline_errors": 0,
+        "unexpected_senders": 0,
+        "storage_drops": 0,
+        "storage_failures": 0
+      },
+      "variants": [
+        "A"
+      ],
+      "fields_seen": 42,
+      "fields_expected": 42,
+      "unavailable_or_sentinel": [],
+      "not_in_variant": [
+        "steering_rotation",
+        "steering_velocity",
+        "acceleration_raw",
+        "throttle_filtered",
+        "brake_filtered",
+        "unknown_t_bytes",
+        "torque_vectors",
+        "energy_recovery",
+        "unknown_t",
+        "surface",
+        "current_ms",
+        "wheel_steering",
+        "wheelbase",
+        "category"
+      ],
+      "note": "Constant values are valid. Missing timing may be a game sentinel. Coverage proves receipt, not the meaning of undocumented fields.",
+      "samples_with_quality_flags": 0
+    },
+    "audio": {
+      "hands_free": true,
+      "input_device": "Microphone Array (Realtek(R) Au",
+      "input_rate": 16000,
+      "delivery": {
+        "state": "completed",
+        "engine": "Windows system voice",
+        "output_device": "29EA93 (Intel(R) Display Audio)",
+        "frames": 89046,
+        "duration_s": 2.02,
+        "error": null,
+        "last_text": "Telemetry connected."
+      },
+      "enabled": true,
+      "speaking": false,
+      "error": null,
+      "microphone": "listening",
+      "mic_error": null,
+      "level": 0.032928466796875,
+      "clipping": false,
+      "muted": false,
+      "transcript": null
+    }
+  },
+  {
+    "interval_s": 0.25,
+    "heartbeats_over_16s": 64,
+    "reception": {
+      "status": "degraded",
+      "elapsed_s": 15,
+      "duration_s": 15,
+      "packets": 895,
+      "rate_hz": 59.7,
+      "max_gap_ms": 63,
+      "counters": {
+        "duplicates": 0,
+        "reordered": 0,
+        "gaps": 5,
+        "resets": 0,
+        "parse_errors": 0,
+        "pipeline_errors": 0,
+        "unexpected_senders": 0,
+        "storage_drops": 0,
+        "storage_failures": 0
+      },
+      "variants": [
+        "A"
+      ],
+      "fields_seen": 42,
+      "fields_expected": 42,
+      "unavailable_or_sentinel": [],
+      "not_in_variant": [
+        "steering_rotation",
+        "steering_velocity",
+        "acceleration_raw",
+        "throttle_filtered",
+        "brake_filtered",
+        "unknown_t_bytes",
+        "torque_vectors",
+        "energy_recovery",
+        "unknown_t",
+        "surface",
+        "current_ms",
+        "wheel_steering",
+        "wheelbase",
+        "category"
+      ],
+      "note": "Constant values are valid. Missing timing may be a game sentinel. Coverage proves receipt, not the meaning of undocumented fields.",
+      "samples_with_quality_flags": 0
+    },
+    "audio": {
+      "hands_free": true,
+      "input_device": "Microphone Array (Realtek(R) Au",
+      "input_rate": 16000,
+      "delivery": {
+        "state": "completed",
+        "engine": "Windows system voice",
+        "output_device": "29EA93 (Intel(R) Display Audio)",
+        "frames": 162030,
+        "duration_s": 3.67,
+        "error": null,
+        "last_text": "Radio check. Engineer is ready."
+      },
+      "enabled": true,
+      "speaking": false,
+      "error": null,
+      "microphone": "listening",
+      "mic_error": null,
+      "level": 0.1961669921875,
+      "clipping": false,
+      "muted": false,
+      "transcript": null
+    }
+  }
+]

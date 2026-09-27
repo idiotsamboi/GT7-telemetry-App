@@ -2,7 +2,7 @@
 __pycache__/
 .pytest_cache/
 node_modules/
-data/
+/data/
 *.db*
 test-results/
 playwright-report/

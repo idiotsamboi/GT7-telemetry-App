@@ -1,0 +1,65 @@
+{
+  "source": "live",
+  "stale": false,
+  "age_ms": 0.0,
+  "receiver": {
+    "phase": "receiving",
+    "datagrams": 2459,
+    "valid_packets": 2459,
+    "heartbeats": 9,
+    "last_sender": "192.168.88.67:59258",
+    "last_length": 296,
+    "last_variant": "A",
+    "last_error": null,
+    "error_counts": {},
+    "port_owners": [],
+    "local_route": "192.168.88.69",
+    "parser_version": "1.1",
+    "receive_buffer_bytes": 1048576,
+    "last_heartbeat_utc": "2026-09-25T19:30:39.034903+00:00"
+  },
+  "socket_error": null,
+  "reception_test": {
+    "status": "healthy",
+    "elapsed_s": 15,
+    "duration_s": 15,
+    "packets": 900,
+    "rate_hz": 60.0,
+    "max_gap_ms": 47,
+    "counters": {
+      "duplicates": 0,
+      "reordered": 0,
+      "gaps": 0,
+      "resets": 0,
+      "parse_errors": 0,
+      "pipeline_errors": 0,
+      "unexpected_senders": 0,
+      "storage_drops": 0,
+      "storage_failures": 0
+    },
+    "variants": [
+      "A"
+    ],
+    "fields_seen": 42,
+    "fields_expected": 42,
+    "unavailable_or_sentinel": [],
+    "not_in_variant": [
+      "steering_rotation",
+      "steering_velocity",
+      "acceleration_raw",
+      "throttle_filtered",
+      "brake_filtered",
+      "unknown_t_bytes",
+      "torque_vectors",
+      "energy_recovery",
+      "unknown_t",
+      "surface",
+      "current_ms",
+      "wheel_steering",
+      "wheelbase",
+      "category"
+    ],
+    "note": "Constant values are valid. Missing timing may be a game sentinel. Coverage proves receipt, not the meaning of undocumented fields.",
+    "samples_with_quality_flags": 0
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "elapsed_s": 9.481311100011226,
+  "model_bytes": 491400032,
+  "evidence_bytes": 664,
+  "input": {
+    "available": true,
+    "source": "demo",
+    "lap": 1,
+    "window_s": 30,
+    "items": [
+      {
+        "id": "overlap",
+        "text": "Pedal overlap occupied 20% of the last 30 seconds. Review whether simultaneous throttle and brake was intentional.",
+        "priority": 2
+      },
+      {
+        "id": "coast",
+        "text": "Coasting occupied 42% of the last 30 seconds. Compare those sections with a clean reference before changing technique.",
+        "priority": 2
+      },
+      {
+        "id": "tyres",
+        "text": "Tyre surface temperature spread is 24 degrees Celsius. Check corner loads; this does not establish wear or grip.",
+        "priority": 2
+      },
+      {
+        "id": "pit",
+        "text": "Pit intent is marked. Use Unmark pit intent if you decide to stay out.",
+        "priority": 1
+      }
+    ]
+  },
+  "output": {
+    "status": "ready",
+    "engine": "Qwen 0.5B \u00b7 local CPU",
+    "items": [
+      {
+        "id": "overlap",
+        "text": "Pedal overlap occupied 20% of the last 30 seconds. Review whether simultaneous throttle and brake was intentional.",
+        "priority": 2
+      },
+      {
+        "id": "coast",
+        "text": "Coasting occupied 42% of the last 30 seconds. Compare those sections with a clean reference before changing technique.",
+        "priority": 2
+      },
+      {
+        "id": "tyres",
+        "text": "Tyre surface temperature spread is 24 degrees Celsius. Check corner loads; this does not establish wear or grip.",
+        "priority": 2
+      }
+    ],
+    "reason": null,
+    "lap": 1,
+    "source": "demo",
+    "generated_at": 1790448171.286541,
+    "model_error": null,
+    "inference_ms": 9306
+  },
+  "hardware": "Windows-11-10.0.26200-SP0; validate independently on target Orange Pi"
+}

@@ -1,0 +1,7 @@
+{
+  "reference_suggestion_ms": 1520.1,
+  "saved_match_p95_ms": 128.86,
+  "reference_count": 101,
+  "sample_points": 280,
+  "scope": "Synthetic geometry microbenchmark on this host; not an ingestion/OBS soak benchmark"
+}

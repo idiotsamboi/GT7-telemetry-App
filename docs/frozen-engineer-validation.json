@@ -1,0 +1,18 @@
+{
+  "frozen": true,
+  "request_count": 100,
+  "three_variations": [
+    "Radio check. Engineer is ready.",
+    "Engineer online. Ready for your request.",
+    "Radio check received. Standing by."
+  ],
+  "speech": {
+    "state": "completed",
+    "engine": "Windows system voice",
+    "output_device": "29EA93 (Intel(R) Display Audio)",
+    "frames": 307086,
+    "duration_s": 6.96,
+    "error": null,
+    "last_text": "Radio check. This is your GT7 race engineer speaking through the selected output device."
+  }
+}

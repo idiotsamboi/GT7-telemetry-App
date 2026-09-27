@@ -1,0 +1,43 @@
+{
+  "utc": "2026-09-25T19:50:18.643202+00:00",
+  "python_tests": 190,
+  "browser_workflows": 5,
+  "referenced_logos": 53,
+  "missing_referenced_logos": [],
+  "manufacturers_without_supplied_logo": [
+    "AFEELA",
+    "Amuse",
+    "BVLGARI",
+    "Chaparral",
+    "Chris Holstrom Concepts",
+    "Citroen",
+    "DMC",
+    "Eckert's Rod & Custom",
+    "Garage RCR",
+    "Gran Turismo",
+    "Greddy",
+    "Greening Auto Company",
+    "Italdesign",
+    "Mine's",
+    "NISMO",
+    "RE Amemiya",
+    "Roadster Shop",
+    "Shelby",
+    "Skoda",
+    "Super Formula (Dallara)",
+    "Wicked Fabrication",
+    "Xiaomi",
+    "Yangwang",
+    "Zagato"
+  ],
+  "logo_fallback": "manufacturer name and generic car icon; no broken image URLs",
+  "production_npm_vulnerabilities": 0,
+  "python_dependency_check": "passed",
+  "live_heartbeat_s": 0.25,
+  "default_heartbeat_s": 1,
+  "hands_free_enabled": true,
+  "limitations": [
+    "Live tests showed occasional UDP sequence gaps at all tested heartbeat intervals; no parser or recording errors.",
+    "Orange Pi hardware performance and microphone accuracy in a noisy race environment remain unverified."
+  ]
+}

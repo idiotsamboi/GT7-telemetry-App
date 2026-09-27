@@ -3,6 +3,7 @@ import math
 
 class LiveDelta:
     def __init__(self):
+        self.last_complete=None;self.manual_reference=None
         self.identity=None;self.lap=None;self.points=[];self.reference=None;self.best=None;self.partial=True;self.bad=False;self.last=None;self.start=None;self.cursor=0;self.previous=None
         self.result={'available':False,'reason':'Record two complete clean laps to establish a reference','trend':0,'delta_s':None}
     def unavailable(self,reason):self.result={'available':False,'reason':reason,'trend':0,'delta_s':None};self.previous=None
@@ -15,13 +16,17 @@ class LiveDelta:
         if not p or len(p)!=3 or any(x is None or not math.isfinite(x) for x in p):self.bad=True;self.unavailable('Position unavailable');return
         if self.lap is None:self.lap=lap;self.start=s.mono
         elif lap!=self.lap:
+            self.last_complete=None
             duration=s.mono-self.start
             closed=bool(self.points and math.dist(self.points[0][1],p)<50)
-            if lap==self.lap+1 and not self.partial and not self.bad and closed and len(self.points)>=20 and duration>=10:
+            distance=sum(math.dist(a[1],b[1]) for a,b in zip(self.points,self.points[1:]))
+            if lap==self.lap+1 and not self.partial and not self.bad and closed and distance>=100 and len(self.points)>=20 and duration>=10:
+                self.last_complete=(self.points+[(duration,list(p))],duration)
                 if self.best is None or duration<self.best:
                     self.reference=self.points+[(duration,list(p))];self.best=duration
-            elif lap!=self.lap+1:self.reference=None;self.best=None
-            self.points=[];self.partial=False;self.bad=False;self.lap=lap;self.start=s.mono;self.cursor=0;self.previous=None
+            elif lap!=self.lap+1:self.reference=None;self.best=None;self.manual_reference=None
+            if self.manual_reference:self.reference,self.best=self.manual_reference
+            self.points=[];self.partial=lap!=self.lap+1;self.bad=False;self.lap=lap;self.start=s.mono;self.cursor=0;self.previous=None
         self.last=s.mono
         elapsed=s.mono-self.start
         if self.points and elapsed-self.points[-1][0]<.19:return
@@ -41,3 +46,9 @@ class LiveDelta:
         trend=0 if self.previous is None or abs(delta-self.previous)<.01 else 1 if delta<self.previous else -1
         self.previous=delta
         self.result={'available':True,'delta_s':round(delta,3),'trend':trend,'reference_s':round(self.best,3),'reason':'Estimated position-aligned delta to best clean recorded lap; green = gaining, red = losing'}
+        if self.manual_reference:self.result['reason']='Estimated delta to manually selected clean lap; green = gaining, red = losing'
+
+    def select_last_reference(self):
+        if not self.last_complete:return False
+        self.manual_reference=self.last_complete
+        return True

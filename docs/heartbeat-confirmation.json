@@ -1,0 +1,162 @@
+[
+  {
+    "interval_s": 0.25,
+    "duration_s": 30,
+    "packets": 1789,
+    "gaps": 11,
+    "heartbeats": 120,
+    "health": {
+      "rate_hz": 59.0,
+      "cpu_percent_one_core": 14.0625,
+      "peak_rss_bytes": null,
+      "thermal_c": null,
+      "free_bytes": 40430559232,
+      "loop_lag_ms": 0,
+      "storage": {
+        "queue": 0,
+        "capacity_samples": 8192,
+        "queue_age_s": 0,
+        "application_drops": 0,
+        "failed_rows": 0,
+        "error": null,
+        "written": 10705,
+        "db_bytes": 1861124096,
+        "wal_bytes": 4354872
+      },
+      "network": {
+        "duplicates": 0,
+        "reordered": 0,
+        "gaps": 31,
+        "resets": 0
+      },
+      "parse_errors": 0,
+      "unexpected_senders": 0,
+      "pipeline_errors": 0,
+      "receiver": {
+        "phase": "receiving",
+        "datagrams": 10765,
+        "valid_packets": 10765,
+        "heartbeats": 510,
+        "last_sender": "192.168.88.67:59258",
+        "last_length": 296,
+        "last_variant": "A",
+        "last_error": null,
+        "error_counts": {},
+        "port_owners": [],
+        "local_route": "192.168.88.69",
+        "parser_version": "1.1",
+        "receive_buffer_bytes": 1048576,
+        "last_heartbeat_utc": "2026-09-25T19:46:48.264047+00:00"
+      },
+      "clients": 2,
+      "degraded": false,
+      "reason": null,
+      "platform": "Windows-11-10.0.26200-SP0",
+      "architecture": "AMD64",
+      "python": "3.12.14"
+    },
+    "audio": {
+      "hands_free": true,
+      "input_device": "Microphone Array (Realtek(R) Au",
+      "input_rate": 16000,
+      "delivery": {
+        "state": "completed",
+        "engine": "Windows system voice",
+        "output_device": "29EA93 (Intel(R) Display Audio)",
+        "frames": 162030,
+        "duration_s": 3.67,
+        "error": null,
+        "last_text": "Radio check. Engineer is ready."
+      },
+      "enabled": true,
+      "speaking": false,
+      "error": null,
+      "microphone": "listening",
+      "mic_error": null,
+      "level": 0.04248046875,
+      "clipping": false,
+      "muted": false,
+      "transcript": null
+    }
+  },
+  {
+    "interval_s": 1,
+    "duration_s": 30,
+    "packets": 1785,
+    "gaps": 15,
+    "heartbeats": 30,
+    "health": {
+      "rate_hz": 60.09852216666052,
+      "cpu_percent_one_core": 20.012315270660526,
+      "peak_rss_bytes": null,
+      "thermal_c": null,
+      "free_bytes": 40413601792,
+      "loop_lag_ms": 15.000000013969839,
+      "storage": {
+        "queue": 0,
+        "capacity_samples": 8192,
+        "queue_age_s": 0,
+        "application_drops": 0,
+        "failed_rows": 0,
+        "error": null,
+        "written": 12616,
+        "db_bytes": 1869512704,
+        "wal_bytes": 4354872
+      },
+      "network": {
+        "duplicates": 0,
+        "reordered": 0,
+        "gaps": 46,
+        "resets": 0
+      },
+      "parse_errors": 0,
+      "unexpected_senders": 0,
+      "pipeline_errors": 0,
+      "receiver": {
+        "phase": "receiving",
+        "datagrams": 12674,
+        "valid_packets": 12674,
+        "heartbeats": 542,
+        "last_sender": "192.168.88.67:59258",
+        "last_length": 296,
+        "last_variant": "A",
+        "last_error": null,
+        "error_counts": {},
+        "port_owners": [],
+        "local_route": "192.168.88.69",
+        "parser_version": "1.1",
+        "receive_buffer_bytes": 1048576,
+        "last_heartbeat_utc": "2026-09-25T19:47:19.546419+00:00"
+      },
+      "clients": 2,
+      "degraded": false,
+      "reason": null,
+      "platform": "Windows-11-10.0.26200-SP0",
+      "architecture": "AMD64",
+      "python": "3.12.14"
+    },
+    "audio": {
+      "hands_free": true,
+      "input_device": "Microphone Array (Realtek(R) Au",
+      "input_rate": 16000,
+      "delivery": {
+        "state": "completed",
+        "engine": "Windows system voice",
+        "output_device": "29EA93 (Intel(R) Display Audio)",
+        "frames": 162030,
+        "duration_s": 3.67,
+        "error": null,
+        "last_text": "Radio check. Engineer is ready."
+      },
+      "enabled": true,
+      "speaking": false,
+      "error": null,
+      "microphone": "listening",
+      "mic_error": null,
+      "level": 0.056243896484375,
+      "clipping": false,
+      "muted": false,
+      "transcript": null
+    }
+  }
+]

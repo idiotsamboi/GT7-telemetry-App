@@ -39,7 +39,7 @@ class LiveAnalysis:
         v=s.values; key=(s.provenance,v.get('car_id'),v.get('lap'))
         if key!=self.key or (self.last is not None and (s.mono-self.last>.5 or s.mono<self.last)):
             self.window.clear();self.braking=None;self.last=None;self.key=key
-        if not v.get('flags',0)&1 or v.get('flags',0)&2:
+        if not v.get('flags',0)&1 or v.get('flags',0)&6:
             self.window.clear();self.last=None;self.braking=None;self.result={'available':False,'reason':'Paused or not on track'};return
         if self.last is not None and s.mono-self.last<.19:return
         speed=v.get('speed'); throttle=v.get('throttle');brake=v.get('brake')

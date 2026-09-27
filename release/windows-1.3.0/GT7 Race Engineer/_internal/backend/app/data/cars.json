@@ -1,0 +1,2922 @@
+{
+  "24": {
+    "name": "180SX Type X '96",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "31": {
+    "name": "Camaro Z28 '69",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "41": {
+    "name": "Corvette Stingray (C3) '69",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "48": {
+    "name": "Fairlady 240ZG (HS30) '71",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "63": {
+    "name": "Corolla Levin 1600GT APEX (AE86) '83",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "82": {
+    "name": "Supra RZ '97",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "104": {
+    "name": "Sileighty '98",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "105": {
+    "name": "205 Turbo 16 Evolution 2 '86",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "135": {
+    "name": "S800 '66",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "137": {
+    "name": "Beat '91",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "145": {
+    "name": "Copen '02",
+    "manufacturer": "Daihatsu",
+    "logo": "/brands/10.png"
+  },
+  "173": {
+    "name": "R5 Turbo '80",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "187": {
+    "name": "Tuscan Speed 6 '00",
+    "manufacturer": "TVR",
+    "logo": "/brands/44.png"
+  },
+  "201": {
+    "name": "Eunos Roadster (NA) '89",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "203": {
+    "name": "Integra Type R (DC2) '98",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "204": {
+    "name": "Civic Type R (EK) '98",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "205": {
+    "name": "RX-7 Spirit R Type A (FD) '02",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "207": {
+    "name": "MR2 GT-S '97",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "210": {
+    "name": "R34 GT-R V-spec II Nur '02",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "211": {
+    "name": "Lancer Evolution V GSR '98",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "216": {
+    "name": "McLaren F1 GTR Race Car '97",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "293": {
+    "name": "NSX Type R '92",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "296": {
+    "name": "787B '91",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "301": {
+    "name": "Lancer Evolution IV GSR '96",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "315": {
+    "name": "Cobra 427 '66",
+    "manufacturer": "Shelby",
+    "logo": null
+  },
+  "334": {
+    "name": "Clio V6 24V '00",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "345": {
+    "name": "Sprinter Trueno 1600GT APEX (S.Shigeno Version)",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "365": {
+    "name": "155 2.5 V6 TI '93",
+    "manufacturer": "Alfa Romeo",
+    "logo": "/brands/3.png"
+  },
+  "374": {
+    "name": "RX-7 GT-X (FC) '90",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "379": {
+    "name": "Impreza Coupe WRX Type R STi Ver.VI '99",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "387": {
+    "name": "300 SL Coupe '54",
+    "manufacturer": "Mercedes-Benz",
+    "logo": "/brands/22.png"
+  },
+  "396": {
+    "name": "NSX Type R '02",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "451": {
+    "name": "Impreza 22B-STi '98",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "485": {
+    "name": "GT-R GT500 '99",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "489": {
+    "name": "R33 GT-R V-spec '97",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "514": {
+    "name": "S2000 '99",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "533": {
+    "name": "Stratos '73",
+    "manufacturer": "Lancia",
+    "logo": "/brands/18.png"
+  },
+  "604": {
+    "name": "2000GT '67",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "665": {
+    "name": "Superbird '70",
+    "manufacturer": "Plymouth",
+    "logo": "/brands/55.png"
+  },
+  "688": {
+    "name": "Integra Type R (DC2) '95",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "709": {
+    "name": "Fairlady Z 300ZX TT 2seater '89",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "773": {
+    "name": "R32 GT-R V-spec II '94",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "810": {
+    "name": "Sprinter Trueno 1600GT APEX (AE86) '83",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "818": {
+    "name": "Corvette (C2) '63",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "821": {
+    "name": "Civic Type R (EK) '97",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "829": {
+    "name": "Delta HF Integrale Evoluzione '91",
+    "manufacturer": "Lancia",
+    "logo": "/brands/18.png"
+  },
+  "837": {
+    "name": "Skyline Hard Top 2000GT-R (KPGC10) '70",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "843": {
+    "name": "Supra 3.0GT Turbo A '88",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "919": {
+    "name": "Silvia Q's (S13) '88",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "942": {
+    "name": "Corvette ZR-1 (C4) '89",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "954": {
+    "name": "R92CP '92",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "959": {
+    "name": "TT Coupe 3.2 quattro '03",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "998": {
+    "name": "Sauber Mercedes C9 '89",
+    "manufacturer": "Mercedes-Benz",
+    "logo": "/brands/22.png"
+  },
+  "1027": {
+    "name": "DeLorean S2 '04",
+    "manufacturer": "DMC",
+    "logo": null
+  },
+  "1040": {
+    "name": "Ford GT LM Race Car Spec II",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "1044": {
+    "name": "Sports 800 '65",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "1067": {
+    "name": "XJR-9 '88",
+    "manufacturer": "Jaguar",
+    "logo": "/brands/17.png"
+  },
+  "1069": {
+    "name": "2J '70",
+    "manufacturer": "Chaparral",
+    "logo": null
+  },
+  "1365": {
+    "name": "R8 4.2 '07",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "1370": {
+    "name": "MINI Cooper S '05",
+    "manufacturer": "MINI",
+    "logo": "/brands/51.png"
+  },
+  "1373": {
+    "name": "Viper GTS '02",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "1378": {
+    "name": "F430 '06",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "1384": {
+    "name": "Fairlady Z Version S (Z33) '07",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "1385": {
+    "name": "Swift Sport '07",
+    "manufacturer": "Suzuki",
+    "logo": "/brands/39.png"
+  },
+  "1399": {
+    "name": "M3 '07",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "1402": {
+    "name": "Viper SRT10 Coupe '06",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "1409": {
+    "name": "F40 '92",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "1410": {
+    "name": "512 BB '76",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "1425": {
+    "name": "Ford GT LM Spec II Test Car",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "1426": {
+    "name": "Ford GT '06",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "1431": {
+    "name": "RE Amemiya FD3S RX-7",
+    "manufacturer": "RE Amemiya",
+    "logo": null
+  },
+  "1433": {
+    "name": "Amuse S2000 GT1 Turbo",
+    "manufacturer": "Amuse",
+    "logo": null
+  },
+  "1448": {
+    "name": "SILVIA spec-R Aero (S15) '02",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "1458": {
+    "name": "Fairlady Z (Z34) '08",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "1461": {
+    "name": "Silvia K's Dia Selection (S13) '90",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "1466": {
+    "name": "GT-R GT500 '08",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "1470": {
+    "name": "Supra GT500 '97",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "1474": {
+    "name": "Enzo Ferrari '02",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "1480": {
+    "name": "Corvette ZR1 (C6) '09",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "1481": {
+    "name": "Countach 25th Anniversary '88",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "1484": {
+    "name": "Countach LP400 '74",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "1504": {
+    "name": "458 Italia '09",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "1507": {
+    "name": "SLS AMG '10",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "1508": {
+    "name": "Lancer Evolution VI GSR T.M. SCP '99",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "1510": {
+    "name": "NSX GT500 '08",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "1516": {
+    "name": "SC430 GT500 '08",
+    "manufacturer": "Lexus",
+    "logo": "/brands/50.png"
+  },
+  "1523": {
+    "name": "500 F '68",
+    "manufacturer": "Fiat",
+    "logo": "/brands/12.png"
+  },
+  "1527": {
+    "name": "500 1.2 8V Lounge SS '08",
+    "manufacturer": "Fiat",
+    "logo": "/brands/12.png"
+  },
+  "1528": {
+    "name": "SLR McLaren '09",
+    "manufacturer": "Mercedes-Benz",
+    "logo": "/brands/22.png"
+  },
+  "1536": {
+    "name": "Zonda R '09",
+    "manufacturer": "Pagani",
+    "logo": "/brands/30.png"
+  },
+  "1537": {
+    "name": "Prius G '09",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "1539": {
+    "name": "GranTurismo S '08",
+    "manufacturer": "Maserati",
+    "logo": "/brands/116.png"
+  },
+  "1540": {
+    "name": "McLaren F1 '94",
+    "manufacturer": "McLaren",
+    "logo": "/brands/117.png"
+  },
+  "1542": {
+    "name": "Corvette Convertible (C3) '69",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "1543": {
+    "name": "Challenger R/T '70",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "1545": {
+    "name": "Murcielago LP 640 '09",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "1549": {
+    "name": "Amuse NISMO 380RS Super Leggera",
+    "manufacturer": "Amuse",
+    "logo": null
+  },
+  "1551": {
+    "name": "330 P4 '67",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "1553": {
+    "name": "XJ13 '66",
+    "manufacturer": "Jaguar",
+    "logo": "/brands/17.png"
+  },
+  "1563": {
+    "name": "Megane Trophy '11",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "1565": {
+    "name": "Mark IV Race Car '67",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "1578": {
+    "name": "8C Competizione '08",
+    "manufacturer": "Alfa Romeo",
+    "logo": "/brands/3.png"
+  },
+  "1581": {
+    "name": "GT by Citroen Road Car",
+    "manufacturer": "Citroen",
+    "logo": null
+  },
+  "1582": {
+    "name": "Miura P400 Bertone Prototype '67",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "1645": {
+    "name": "GIULIA TZ2 carrozzata da ZAGATO '65",
+    "manufacturer": "Alfa Romeo",
+    "logo": "/brands/3.png"
+  },
+  "1646": {
+    "name": "908 HDi FAP '10",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "1671": {
+    "name": "Sambabus Typ 2 '62",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "1689": {
+    "name": "Civic Type R (EK) Touring Car",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "1722": {
+    "name": "MP4-12C '10",
+    "manufacturer": "McLaren",
+    "logo": "/brands/117.png"
+  },
+  "1729": {
+    "name": "Mustang Mach 1 '71",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "1746": {
+    "name": "Roadster Touring Car",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "1770": {
+    "name": "Aventador LP 700-4 '11",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "1773": {
+    "name": "Scirocco R '10",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "1778": {
+    "name": "Volkswagen 1200 '66",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "1796": {
+    "name": "A110 '72",
+    "manufacturer": "Alpine",
+    "logo": "/brands/86.png"
+  },
+  "1797": {
+    "name": "SLS AMG GT3 '11",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "1893": {
+    "name": "Z8 '01",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "1895": {
+    "name": "Dino 246 GT '71",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "1896": {
+    "name": "Model S Signature Performance '12",
+    "manufacturer": "Tesla",
+    "logo": "/brands/119.png"
+  },
+  "1898": {
+    "name": "One-77 '11",
+    "manufacturer": "Aston Martin",
+    "logo": "/brands/4.png"
+  },
+  "1900": {
+    "name": "XNR Ghia Roadster '60",
+    "manufacturer": "Plymouth",
+    "logo": "/brands/55.png"
+  },
+  "1902": {
+    "name": "Z4 GT3 '11",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "1904": {
+    "name": "M3 GT '11",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "1905": {
+    "name": "GT-R NISMO GT3 '13",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "1907": {
+    "name": "X-BOW R '12",
+    "manufacturer": "KTM",
+    "logo": "/brands/121.png"
+  },
+  "1916": {
+    "name": "Corvette C7 '14",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "1925": {
+    "name": "G.T.350 '65",
+    "manufacturer": "Shelby",
+    "logo": null
+  },
+  "1926": {
+    "name": "Cobra Daytona Coupe '64",
+    "manufacturer": "Shelby",
+    "logo": null
+  },
+  "1927": {
+    "name": "Sport quattro S1 Pikes Peak '87",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "1931": {
+    "name": "250 GT Berlinetta passo corto '61",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "1932": {
+    "name": "1500 Biposto Bertone B.A.T 1 '52",
+    "manufacturer": "Abarth",
+    "logo": "/brands/125.png"
+  },
+  "1933": {
+    "name": "MiTo '09",
+    "manufacturer": "Alfa Romeo",
+    "logo": "/brands/3.png"
+  },
+  "1935": {
+    "name": "GT40 Mark I '66",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "1956": {
+    "name": "Viper GTS '13",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "1965": {
+    "name": "R18 TDI '11",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "1973": {
+    "name": "Abarth 500 '09",
+    "manufacturer": "Abarth",
+    "logo": "/brands/125.png"
+  },
+  "1975": {
+    "name": "RX500 '70",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "1984": {
+    "name": "McLaren F1 GTR - BMW '95",
+    "manufacturer": "McLaren",
+    "logo": "/brands/117.png"
+  },
+  "1985": {
+    "name": "Firebird Trans Am '78",
+    "manufacturer": "Pontiac",
+    "logo": "/brands/52.png"
+  },
+  "1986": {
+    "name": "R8 Gordini '66",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "1987": {
+    "name": "Megane R.S. Trophy '11",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "1990": {
+    "name": "Diablo GT '00",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "2010": {
+    "name": "250 GTO '62",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "2011": {
+    "name": "500 Mondial Pinin Farina Coupe '54",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "2017": {
+    "name": "GTO '84",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "2018": {
+    "name": "365 GTB4 '71",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "2026": {
+    "name": "Aqua S '11",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "2049": {
+    "name": "Veyron 16.4 '13",
+    "manufacturer": "Bugatti",
+    "logo": "/brands/113.png"
+  },
+  "2050": {
+    "name": "Huayra '13",
+    "manufacturer": "Pagani",
+    "logo": "/brands/30.png"
+  },
+  "2051": {
+    "name": "Genesis Coupe 3.8 '13",
+    "manufacturer": "Hyundai",
+    "logo": "/brands/16.png"
+  },
+  "2055": {
+    "name": "Mercedes-Benz AMG VGT",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "2059": {
+    "name": "Corvette Stingray Racer Concept '59",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "2060": {
+    "name": "Racing Kart 125 Shifter",
+    "manufacturer": "Gran Turismo",
+    "logo": null
+  },
+  "2074": {
+    "name": "M4 '14",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "2076": {
+    "name": "Mercedes-Benz AMG VGT Racing Series",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "2077": {
+    "name": "Red Bull X2014 Standard",
+    "manufacturer": "Gran Turismo",
+    "logo": null
+  },
+  "2078": {
+    "name": "Red Bull X2014 Junior",
+    "manufacturer": "Gran Turismo",
+    "logo": null
+  },
+  "2080": {
+    "name": "FT-1",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "2087": {
+    "name": "BMW VGT",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "2095": {
+    "name": "Concept XR-PHEV EVOLUTION VGT",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "2098": {
+    "name": "GTI Roadster VGT",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "2099": {
+    "name": "VIZIV GT VGT",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "2101": {
+    "name": "TS030 Hybrid '12",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "2103": {
+    "name": "DP-100 VGT",
+    "manufacturer": "Aston Martin",
+    "logo": "/brands/4.png"
+  },
+  "2106": {
+    "name": "FT-1 VGT",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "2107": {
+    "name": "Chaparral 2X VGT",
+    "manufacturer": "Chaparral",
+    "logo": null
+  },
+  "2108": {
+    "name": "SRT Tomahawk X VGT",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "2109": {
+    "name": "MINI Clubman VGT",
+    "manufacturer": "MINI",
+    "logo": "/brands/51.png"
+  },
+  "2110": {
+    "name": "SRT Tomahawk GTS-R VGT",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "2111": {
+    "name": "SRT Tomahawk S VGT",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "2112": {
+    "name": "Alpine VGT",
+    "manufacturer": "Alpine",
+    "logo": "/brands/86.png"
+  },
+  "2113": {
+    "name": "PEUGEOT VGT",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "2116": {
+    "name": "Alpine VGT Race",
+    "manufacturer": "Alpine",
+    "logo": "/brands/86.png"
+  },
+  "2117": {
+    "name": "INFINITI CONCEPT VGT",
+    "manufacturer": "Infiniti",
+    "logo": "/brands/49.png"
+  },
+  "2118": {
+    "name": "LM55 VGT",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "2121": {
+    "name": "Honda Sports VGT",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "2122": {
+    "name": "IsoRivolta Zagato VGT",
+    "manufacturer": "Zagato",
+    "logo": null
+  },
+  "2123": {
+    "name": "LF-LC GT VGT",
+    "manufacturer": "Lexus",
+    "logo": "/brands/50.png"
+  },
+  "2124": {
+    "name": "GTI Supersport VGT",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "2127": {
+    "name": "GT-R LM NISMO '15",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "2131": {
+    "name": "V12 Vantage GT3 '12",
+    "manufacturer": "Aston Martin",
+    "logo": "/brands/4.png"
+  },
+  "2134": {
+    "name": "Bugatti VGT",
+    "manufacturer": "Bugatti",
+    "logo": "/brands/113.png"
+  },
+  "2135": {
+    "name": "HYUNDAI N 2025 VGT",
+    "manufacturer": "Hyundai",
+    "logo": "/brands/16.png"
+  },
+  "2136": {
+    "name": "4C '14",
+    "manufacturer": "Alfa Romeo",
+    "logo": "/brands/3.png"
+  },
+  "2138": {
+    "name": "Mustang GT '15",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "2139": {
+    "name": "RC F '14",
+    "manufacturer": "Lexus",
+    "logo": "/brands/50.png"
+  },
+  "2141": {
+    "name": "Golf VII GTI '14",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "2142": {
+    "name": "NISSAN CONCEPT 2020 VGT",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "2143": {
+    "name": "R8 LMS '15",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "2144": {
+    "name": "S-FR '15",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "2145": {
+    "name": "Focus ST '15",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "2146": {
+    "name": "F-type R '14",
+    "manufacturer": "Jaguar",
+    "logo": "/brands/17.png"
+  },
+  "2147": {
+    "name": "Veneno '14",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "2148": {
+    "name": "Roadster S (ND) '15",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "2149": {
+    "name": "Mercedes-AMG GT S '15",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "2150": {
+    "name": "Lancer Evolution Final '15",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "2152": {
+    "name": "Charger SRT Hellcat '15",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "2153": {
+    "name": "WRX STI Type S '14",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "2154": {
+    "name": "86 GT '15",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "2155": {
+    "name": "Polo GTI '14",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "2156": {
+    "name": "2&4 powered by RC213V",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "2157": {
+    "name": "V8 Vantage Gr.4",
+    "manufacturer": "Aston Martin",
+    "logo": "/brands/4.png"
+  },
+  "2158": {
+    "name": "458 Italia GT3 '13",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "2159": {
+    "name": "Mustang Gr.3",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "2160": {
+    "name": "Genesis Gr.3",
+    "manufacturer": "Hyundai",
+    "logo": "/brands/16.png"
+  },
+  "2161": {
+    "name": "GT-R Gr.4",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "2162": {
+    "name": "LaFerrari '13",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "2163": {
+    "name": "Genesis Gr.4",
+    "manufacturer": "Hyundai",
+    "logo": "/brands/16.png"
+  },
+  "2164": {
+    "name": "Mustang Gr.4",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "2166": {
+    "name": "4C Gr.4",
+    "manufacturer": "Alfa Romeo",
+    "logo": "/brands/3.png"
+  },
+  "2167": {
+    "name": "GT-R '17",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "2169": {
+    "name": "TTS Coupe '14",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "2170": {
+    "name": "A 45 AMG '13",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "2171": {
+    "name": "Huracan LP 610-4 '15",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "2172": {
+    "name": "DS 3 Racing '11",
+    "manufacturer": "DS AUTOMOBILES",
+    "logo": "/brands/154.png"
+  },
+  "2173": {
+    "name": "Atenza Sedan XD L Package '15",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "2174": {
+    "name": "650S '14",
+    "manufacturer": "McLaren",
+    "logo": "/brands/117.png"
+  },
+  "2175": {
+    "name": "V8 Vantage S '15",
+    "manufacturer": "Aston Martin",
+    "logo": "/brands/4.png"
+  },
+  "2176": {
+    "name": "RCZ GT Line '15",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "2177": {
+    "name": "Huracan GT3 '15",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "2178": {
+    "name": "S-FR Racing Concept '16",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "2179": {
+    "name": "Bugatti VGT (Gr.1)",
+    "manufacturer": "Bugatti",
+    "logo": "/brands/113.png"
+  },
+  "2180": {
+    "name": "HYUNDAI N 2025 VGT (Gr.1)",
+    "manufacturer": "Hyundai",
+    "logo": "/brands/16.png"
+  },
+  "2181": {
+    "name": "LM55 VGT (Gr.1)",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "2182": {
+    "name": "650S GT3 '15",
+    "manufacturer": "McLaren",
+    "logo": "/brands/117.png"
+  },
+  "2183": {
+    "name": "Corvette C7 Gr.3",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "2184": {
+    "name": "F-type Gr.3",
+    "manufacturer": "Jaguar",
+    "logo": "/brands/17.png"
+  },
+  "2185": {
+    "name": "Lancer Evolution Final Gr.3",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "2186": {
+    "name": "WRX Gr.3",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "2187": {
+    "name": "FT-1 VGT (Gr.3)",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "2188": {
+    "name": "R.S.01 GT3 '16",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "2190": {
+    "name": "GT by Citroen Race Car (Gr.3)",
+    "manufacturer": "Citroen",
+    "logo": null
+  },
+  "2192": {
+    "name": "Volkswagen GTI VGT (Gr.3)",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "3183": {
+    "name": "PEUGEOT VGT (Gr.3)",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "3185": {
+    "name": "4C Gr.3",
+    "manufacturer": "Alfa Romeo",
+    "logo": "/brands/3.png"
+  },
+  "3187": {
+    "name": "Alpine VGT '17",
+    "manufacturer": "Alpine",
+    "logo": "/brands/86.png"
+  },
+  "3188": {
+    "name": "SRT Tomahawk VGT (Gr.1)",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "3192": {
+    "name": "SLS AMG Gr.4",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "3209": {
+    "name": "M4 Safety Car",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "3210": {
+    "name": "Mercedes-AMG GT Safety Car",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "3214": {
+    "name": "Civic Type R (FK2) '15",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3215": {
+    "name": "208 GTi by Peugeot Sport '14",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "3216": {
+    "name": "R.S.01 '16",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "3217": {
+    "name": "Camaro SS '16",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "3218": {
+    "name": "M6 GT3 Endurance Model '16",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "3219": {
+    "name": "NSX '17",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3220": {
+    "name": "Clio R.S. 220 Trophy '15",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "3221": {
+    "name": "M6 GT3 Sprint Model '16",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "3222": {
+    "name": "86 GRMN '16",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3223": {
+    "name": "Viper SRT GT3-R '15",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "3224": {
+    "name": "Mercedes-AMG GT3 '16",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "3225": {
+    "name": "GT-R Safety Car",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3227": {
+    "name": "LC500 '17",
+    "manufacturer": "Lexus",
+    "logo": "/brands/50.png"
+  },
+  "3228": {
+    "name": "RC F GT3 prototype '16",
+    "manufacturer": "Lexus",
+    "logo": "/brands/50.png"
+  },
+  "3229": {
+    "name": "Mustang Gr.B Rally Car",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "3230": {
+    "name": "Lancer Evolution Final Gr.B Rally Car",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "3231": {
+    "name": "Scirocco Gr.4",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "3232": {
+    "name": "WRX Gr.B Rally Car",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "3234": {
+    "name": "Genesis Gr.B Rally Car",
+    "manufacturer": "Hyundai",
+    "logo": "/brands/16.png"
+  },
+  "3235": {
+    "name": "NSX Gr.3",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3237": {
+    "name": "Atenza Gr.3",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3238": {
+    "name": "RCZ Gr.3",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "3239": {
+    "name": "NSX Gr.B Rally Car",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3241": {
+    "name": "GT-R Gr.B Rally Car",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3242": {
+    "name": "RCZ Gr.B Rally Car",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "3245": {
+    "name": "M4 Gr.4",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "3246": {
+    "name": "Veyron Gr.4",
+    "manufacturer": "Bugatti",
+    "logo": "/brands/113.png"
+  },
+  "3247": {
+    "name": "Corvette C7 Gr.4",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "3248": {
+    "name": "GT by Citroen Gr.4",
+    "manufacturer": "Citroen",
+    "logo": null
+  },
+  "3249": {
+    "name": "Viper Gr.4",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "3251": {
+    "name": "NSX Gr.4",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3252": {
+    "name": "F-type Gr.4",
+    "manufacturer": "Jaguar",
+    "logo": "/brands/17.png"
+  },
+  "3253": {
+    "name": "Huracan Gr.4",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "3254": {
+    "name": "RC F Gr.4",
+    "manufacturer": "Lexus",
+    "logo": "/brands/50.png"
+  },
+  "3256": {
+    "name": "Atenza Gr.4",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3257": {
+    "name": "650S Gr.4",
+    "manufacturer": "McLaren",
+    "logo": "/brands/117.png"
+  },
+  "3258": {
+    "name": "Lancer Evolution Final Gr.4",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "3259": {
+    "name": "RCZ Gr.4",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "3260": {
+    "name": "Megane Gr.4",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "3261": {
+    "name": "WRX Gr.4",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "3262": {
+    "name": "86 Gr.4",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3263": {
+    "name": "458 Italia Gr.4",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3264": {
+    "name": "Focus Gr.B Rally Car",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "3265": {
+    "name": "86 Gr.B Rally Car",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3266": {
+    "name": "i3 '15",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "3267": {
+    "name": "F12berlinetta '12",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3268": {
+    "name": "911 GT3 RS (991) '16",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3295": {
+    "name": "86 GT 'Limited' '16",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3296": {
+    "name": "Corvette C7 Gr.3 Road Car",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "3297": {
+    "name": "WRX STI Isle of Man '16",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "3298": {
+    "name": "TT Cup '16",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "3299": {
+    "name": "4C Gr.3 Road Car",
+    "manufacturer": "Alfa Romeo",
+    "logo": "/brands/3.png"
+  },
+  "3300": {
+    "name": "Mustang Gr.3 Road Car",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "3301": {
+    "name": "Lancer Evolution Final Gr.B Road Car",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "3303": {
+    "name": "RCZ Gr.3 Road Car",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "3304": {
+    "name": "WRX Gr.B Road Car",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "3305": {
+    "name": "Beetle Gr.3",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "3306": {
+    "name": "Atenza Gr.3 Road Car",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3309": {
+    "name": "Vulcan '16",
+    "manufacturer": "Aston Martin",
+    "logo": "/brands/4.png"
+  },
+  "3310": {
+    "name": "Cayman GT4 Clubsport '16",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3311": {
+    "name": "911 RSR (991) '17",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3312": {
+    "name": "TS050 - Hybrid '16",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3313": {
+    "name": "919 Hybrid '16",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3314": {
+    "name": "Audi VGT",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "3315": {
+    "name": "McLaren VGT",
+    "manufacturer": "McLaren",
+    "logo": "/brands/117.png"
+  },
+  "3316": {
+    "name": "COPEN RJ VGT",
+    "manufacturer": "Daihatsu",
+    "logo": "/brands/10.png"
+  },
+  "3332": {
+    "name": "L500R HYbrid VGT 2017",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "3333": {
+    "name": "L750R HYbrid VGT 2017",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "3334": {
+    "name": "R18 '16",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "3335": {
+    "name": "McLaren VGT (Gr.1)",
+    "manufacturer": "McLaren",
+    "logo": "/brands/117.png"
+  },
+  "3336": {
+    "name": "F-150 SVT Raptor '11",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "3337": {
+    "name": "A110 '17",
+    "manufacturer": "Alpine",
+    "logo": "/brands/86.png"
+  },
+  "3338": {
+    "name": "CHC 1967 Chevy Nova",
+    "manufacturer": "Chris Holstrom Concepts",
+    "logo": null
+  },
+  "3339": {
+    "name": "BRZ Drift Car '17",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "3340": {
+    "name": "RC F GT3 '17",
+    "manufacturer": "Lexus",
+    "logo": "/brands/50.png"
+  },
+  "3341": {
+    "name": "Pantera '71",
+    "manufacturer": "De Tomaso",
+    "logo": "/brands/140.png"
+  },
+  "3342": {
+    "name": "F1500T-A",
+    "manufacturer": "Gran Turismo",
+    "logo": null
+  },
+  "3343": {
+    "name": "DB11 '16",
+    "manufacturer": "Aston Martin",
+    "logo": "/brands/4.png"
+  },
+  "3344": {
+    "name": "M3 Sport Evolution '89",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "3345": {
+    "name": "GT-R NISMO '17",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3346": {
+    "name": "Mach Forty",
+    "manufacturer": "Eckert's Rod & Custom",
+    "logo": null
+  },
+  "3348": {
+    "name": "NSX CONCEPT-GT '16",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3349": {
+    "name": "RC F GT500 '16",
+    "manufacturer": "Lexus",
+    "logo": "/brands/50.png"
+  },
+  "3350": {
+    "name": "GT-R NISMO GT500 '16",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3351": {
+    "name": "Audi e-tron VGT",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "3352": {
+    "name": "GR Supra Racing Concept '18",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3353": {
+    "name": "Clio R.S. 220 Trophy '16",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "3354": {
+    "name": "BRZ S '15",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "3356": {
+    "name": "Mini-Cooper 'S' '65",
+    "manufacturer": "MINI",
+    "logo": "/brands/51.png"
+  },
+  "3357": {
+    "name": "S660 '15",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3358": {
+    "name": "911 GT3 (996) '01",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3359": {
+    "name": "911 GT3 (997) '09",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3360": {
+    "name": "McLaren P1 GTR '16",
+    "manufacturer": "McLaren",
+    "logo": "/brands/117.png"
+  },
+  "3361": {
+    "name": "E-type Coupe '61",
+    "manufacturer": "Jaguar",
+    "logo": "/brands/17.png"
+  },
+  "3362": {
+    "name": "F50 '95",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3363": {
+    "name": "DB3S '53",
+    "manufacturer": "Aston Martin",
+    "logo": "/brands/4.png"
+  },
+  "3364": {
+    "name": "Greddy Fugu Z",
+    "manufacturer": "Greddy",
+    "logo": null
+  },
+  "3365": {
+    "name": "356 A/1500 GS GT Carrera Speedster '56",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3367": {
+    "name": "GR Supra RZ '19",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3368": {
+    "name": "Tundra TRD Pro '19",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3369": {
+    "name": "SR3 SL '13",
+    "manufacturer": "Radical",
+    "logo": "/brands/141.png"
+  },
+  "3370": {
+    "name": "Fit Hybrid '14",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3371": {
+    "name": "SF19 Super Formula / Toyota '19",
+    "manufacturer": "Super Formula (Dallara)",
+    "logo": null
+  },
+  "3372": {
+    "name": "SF19 Super Formula / Honda '19",
+    "manufacturer": "Super Formula (Dallara)",
+    "logo": null
+  },
+  "3373": {
+    "name": "962 C '88",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3374": {
+    "name": "Red Bull X2019 Competition",
+    "manufacturer": "Gran Turismo",
+    "logo": null
+  },
+  "3375": {
+    "name": "356 A/1500 GS Carrera '56",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3376": {
+    "name": "D-type '54",
+    "manufacturer": "Jaguar",
+    "logo": "/brands/17.png"
+  },
+  "3377": {
+    "name": "Super Bee '70",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "3383": {
+    "name": "Demio XD Touring '15",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3384": {
+    "name": "GTO Twin Turbo '91",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "3385": {
+    "name": "911 Turbo (930) '81",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3387": {
+    "name": "Camaro ZL1 1LE Package '18",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "3388": {
+    "name": "300 SEL 6.8 AMG '71",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "3389": {
+    "name": "M3 '03",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "3390": {
+    "name": "Taycan Turbo S '19",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3391": {
+    "name": "Shelby GT350R '16",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "3392": {
+    "name": "Aventador LP 750-4 SV '15",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "3393": {
+    "name": "Carrera GT '04",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3394": {
+    "name": "DBR9 GT1 '10",
+    "manufacturer": "Aston Martin",
+    "logo": "/brands/4.png"
+  },
+  "3396": {
+    "name": "Jaguar VGT Coupe",
+    "manufacturer": "Jaguar",
+    "logo": "/brands/17.png"
+  },
+  "3397": {
+    "name": "CLK-LM '98",
+    "manufacturer": "Mercedes-Benz",
+    "logo": "/brands/22.png"
+  },
+  "3398": {
+    "name": "CTR3 '07",
+    "manufacturer": "RUF",
+    "logo": "/brands/35.png"
+  },
+  "3399": {
+    "name": "GR Supra Race Car '19",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3400": {
+    "name": "911 GT1 Strassenversion '97",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3401": {
+    "name": "Crown Athlete G '13",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3402": {
+    "name": "Ford GT '17",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "3403": {
+    "name": "Golf I GTI '83",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "3404": {
+    "name": "911 Carrera RS CS (993) '95",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3405": {
+    "name": "R8 LMS Evo '19",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "3406": {
+    "name": "Charger SRT Hellcat Safety Car",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "3407": {
+    "name": "Megane R.S. Trophy Safety Car",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "3408": {
+    "name": "Crown Athlete G Safety Car",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3409": {
+    "name": "Mono '16",
+    "manufacturer": "BAC",
+    "logo": "/brands/144.png"
+  },
+  "3410": {
+    "name": "917K '70",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3413": {
+    "name": "BRZ STI Sport '18",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "3414": {
+    "name": "Lambo V12 VGT",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "3415": {
+    "name": "8C 2900B Touring Berlinetta '38",
+    "manufacturer": "Alfa Romeo",
+    "logo": "/brands/3.png"
+  },
+  "3416": {
+    "name": "Mercedes-AMG GT R '17",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "3417": {
+    "name": "Jaguar VGT SV",
+    "manufacturer": "Jaguar",
+    "logo": "/brands/17.png"
+  },
+  "3418": {
+    "name": "GR Supra RZ '20",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3419": {
+    "name": "RX-VISION GT3 CONCEPT",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3420": {
+    "name": "Focus RS '18",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "3422": {
+    "name": "3.0 CSL '73",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "3423": {
+    "name": "Wicked Fabrication GT 51",
+    "manufacturer": "Wicked Fabrication",
+    "logo": null
+  },
+  "3427": {
+    "name": "RX-8 Spirit R '12",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3428": {
+    "name": "S Barker Tourer '29",
+    "manufacturer": "Mercedes-Benz",
+    "logo": "/brands/22.png"
+  },
+  "3429": {
+    "name": "Fairlady Z 432 '69",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3430": {
+    "name": "Willys MB '45",
+    "manufacturer": "Jeep",
+    "logo": "/brands/146.png"
+  },
+  "3431": {
+    "name": "911 Carrera RS (964) '92",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3433": {
+    "name": "FXX K '14",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3434": {
+    "name": "Testarossa '91",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3436": {
+    "name": "Ford GT Race Car '18",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "3437": {
+    "name": "Mangusta '69",
+    "manufacturer": "De Tomaso",
+    "logo": "/brands/140.png"
+  },
+  "3438": {
+    "name": "Abarth 595 SS '70",
+    "manufacturer": "Abarth",
+    "logo": "/brands/125.png"
+  },
+  "3439": {
+    "name": "911 Carrera RS (993) '95",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3441": {
+    "name": "300 SL (W194) '52",
+    "manufacturer": "Mercedes-Benz",
+    "logo": "/brands/22.png"
+  },
+  "3442": {
+    "name": "A112 Abarth '85",
+    "manufacturer": "Autobianchi",
+    "logo": "/brands/57.png"
+  },
+  "3443": {
+    "name": "308 GTB '75",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3445": {
+    "name": "DB5 '64",
+    "manufacturer": "Aston Martin",
+    "logo": "/brands/4.png"
+  },
+  "3446": {
+    "name": "Spyder type 550/1500RS '55",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3449": {
+    "name": "Corvette C7 ZR1 '19",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "3451": {
+    "name": "GR Yaris RZ 'High performance' '20",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3452": {
+    "name": "917 LIVING LEGEND",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3453": {
+    "name": "M3 '89",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "3454": {
+    "name": "3.0 CSL '71",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "3456": {
+    "name": "Swift Sport '17",
+    "manufacturer": "Suzuki",
+    "logo": "/brands/39.png"
+  },
+  "3457": {
+    "name": "A220 Race Car '68",
+    "manufacturer": "Alpine",
+    "logo": "/brands/86.png"
+  },
+  "3458": {
+    "name": "Mercedes-AMG C 63 S '15",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "3467": {
+    "name": "Civic Type R Limited Edition (FK8) '20",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3469": {
+    "name": "F8 Tributo '19",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3471": {
+    "name": "Celica GT-Four (ST205) '94",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3477": {
+    "name": "Silvia spec-R Aero (S15) Touring Car",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3478": {
+    "name": "Porsche VGT",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3479": {
+    "name": "Jaguar VGT Roadster",
+    "manufacturer": "Jaguar",
+    "logo": "/brands/17.png"
+  },
+  "3480": {
+    "name": "Swift Sport Gr.4",
+    "manufacturer": "Suzuki",
+    "logo": "/brands/39.png"
+  },
+  "3481": {
+    "name": "GR86 RZ '21",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3485": {
+    "name": "Mercedes-AMG GT Black Series '20",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "3487": {
+    "name": "Mustang Boss 429 '69",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "3495": {
+    "name": "RX-VISION '15",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3500": {
+    "name": "G70 3.3T AWD Prestige Package '22",
+    "manufacturer": "Genesis",
+    "logo": "/brands/152.png"
+  },
+  "3501": {
+    "name": "G70 GR4",
+    "manufacturer": "Genesis",
+    "logo": "/brands/152.png"
+  },
+  "3502": {
+    "name": "Genesis X GR3",
+    "manufacturer": "Genesis",
+    "logo": "/brands/152.png"
+  },
+  "3503": {
+    "name": "RX-VISION GT3 CONCEPT Stealth Model",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3504": {
+    "name": "Z Performance '23",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "779": {
+    "name": "Cappuccino (EA11R) '91",
+    "manufacturer": "Suzuki",
+    "logo": "/brands/39.png"
+  },
+  "3474": {
+    "name": "BRZ GT300 '21",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "3506": {
+    "name": "BRZ S '21",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "3426": {
+    "name": "Roadster Shop Rampage",
+    "manufacturer": "Roadster Shop",
+    "logo": null
+  },
+  "3476": {
+    "name": "Suzuki Vision Gran Turismo",
+    "manufacturer": "Suzuki",
+    "logo": "/brands/39.png"
+  },
+  "3499": {
+    "name": "GR010 HYBRID '21",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3508": {
+    "name": "SUZUKI Vision Gran Turismo (Gr.3 Version)",
+    "manufacturer": "Suzuki",
+    "logo": "/brands/39.png"
+  },
+  "3444": {
+    "name": "1932 Ford Roadster Hot Rod",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "808": {
+    "name": "V6 Escudo Pikes Peak Special spec.98",
+    "manufacturer": "Suzuki",
+    "logo": "/brands/39.png"
+  },
+  "3459": {
+    "name": "918 Spyder '13",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3489": {
+    "name": "A6GCS/53 Spyder '54",
+    "manufacturer": "Maserati",
+    "logo": "/brands/116.png"
+  },
+  "3493": {
+    "name": "Skyline Super Silhouette Group 5 '84",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3488": {
+    "name": "Cayman GT4 '16",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3505": {
+    "name": "Mangusta (Christian Dior)",
+    "manufacturer": "De Tomaso",
+    "logo": "/brands/140.png"
+  },
+  "3475": {
+    "name": "MP4/4 '88",
+    "manufacturer": "McLaren",
+    "logo": "/brands/117.png"
+  },
+  "3462": {
+    "name": "GTO 'The Judge' '69",
+    "manufacturer": "Pontiac",
+    "logo": "/brands/52.png"
+  },
+  "3507": {
+    "name": "Porsche VGT Spyder",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3511": {
+    "name": "ID.R '19",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "3513": {
+    "name": "Silvia K's Type S (S14) '94",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "836": {
+    "name": "Skyline 2000GT-R (KPGC110) '73",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3421": {
+    "name": "Merak SS '80",
+    "manufacturer": "Maserati",
+    "logo": "/brands/116.png"
+  },
+  "3450": {
+    "name": "GT-R NISMO GT3 '18",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3512": {
+    "name": "Roadster NR-A (ND) '22",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3466": {
+    "name": "Sierra RS 500 Cosworth '87",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "3483": {
+    "name": "M2 Competition '18",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "78": {
+    "name": "Silvia K's Aero (S14) '96",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3517": {
+    "name": "Red Bull X2019 25th Anniversary",
+    "manufacturer": "Gran Turismo",
+    "logo": null
+  },
+  "3411": {
+    "name": "Giulia GTAm '20",
+    "manufacturer": "Alfa Romeo",
+    "logo": "/brands/3.png"
+  },
+  "3473": {
+    "name": "Chiron '16",
+    "manufacturer": "Bugatti",
+    "logo": "/brands/113.png"
+  },
+  "3510": {
+    "name": "Ferrari Vision Gran Turismo",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3518": {
+    "name": "Corvette C8 Stingray '20",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "781": {
+    "name": "Celica GT-FOUR Rally Car (ST205) '95",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "2119": {
+    "name": "Italdesign VGT Street Mode",
+    "manufacturer": "Italdesign",
+    "logo": null
+  },
+  "2120": {
+    "name": "Italdesign VGT Off-road Mode",
+    "manufacturer": "Italdesign",
+    "logo": null
+  },
+  "3509": {
+    "name": "911 Carrera RS (901) '73",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3514": {
+    "name": "DS 21 Pallas '70",
+    "manufacturer": "Citroen",
+    "logo": null
+  },
+  "3525": {
+    "name": "RA272 '65",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3490": {
+    "name": "Carrera GTS (904) '64",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3519": {
+    "name": "959 '87",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3494": {
+    "name": "Alphard Executive Lounge '18",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3521": {
+    "name": "Mazda3 '19",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3523": {
+    "name": "RS 5 Turbo DTM '19",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "543": {
+    "name": "XJ220 '92",
+    "manufacturer": "Jaguar",
+    "logo": "/brands/17.png"
+  },
+  "3528": {
+    "name": "SF23 Super Formula / Honda '23",
+    "manufacturer": "Super Formula (Dallara)",
+    "logo": null
+  },
+  "3529": {
+    "name": "SF23 Super Formula / Toyota '23",
+    "manufacturer": "Super Formula (Dallara)",
+    "logo": null
+  },
+  "3531": {
+    "name": "GT3 '20",
+    "manufacturer": "AMG",
+    "logo": "/brands/153.png"
+  },
+  "3515": {
+    "name": "GR010 HYBRID (Olympic Esports Series) '21",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3522": {
+    "name": "Maverick",
+    "manufacturer": "Greening Auto Company",
+    "logo": null
+  },
+  "3524": {
+    "name": "GT-R NISMO (R32) '90",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3530": {
+    "name": "Giulia Sprint GT Veloce '67",
+    "manufacturer": "Alfa Romeo",
+    "logo": "/brands/3.png"
+  },
+  "931": {
+    "name": "Lancer Evolution III GSR '95",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "3432": {
+    "name": "Impreza Sedan WRX STi '04",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "3532": {
+    "name": "Valkyrie '21",
+    "manufacturer": "Aston Martin",
+    "logo": "/brands/4.png"
+  },
+  "3464": {
+    "name": "Corvette (C1) '58",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "3533": {
+    "name": "MC20 '20",
+    "manufacturer": "Maserati",
+    "logo": "/brands/116.png"
+  },
+  "3534": {
+    "name": "Ambulance Himedic '21",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3535": {
+    "name": "GR Corolla MORIZO Edition '22",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3526": {
+    "name": "Civic",
+    "manufacturer": "Garage RCR",
+    "logo": null
+  },
+  "3536": {
+    "name": "Civic Type R (FL5) '22",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3537": {
+    "name": "MAZDA3 Gr.4",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "1562": {
+    "name": "LFA '10",
+    "manufacturer": "Lexus",
+    "logo": "/brands/50.png"
+  },
+  "3486": {
+    "name": "Challenger SRT Demon '18",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "3520": {
+    "name": "400R '95",
+    "manufacturer": "NISMO",
+    "logo": null
+  },
+  "575": {
+    "name": "190 E 2.5-16 Evolution II '91",
+    "manufacturer": "Mercedes-Benz",
+    "logo": "/brands/22.png"
+  },
+  "3538": {
+    "name": "Charger R/T 426 Hemi '68",
+    "manufacturer": "Dodge",
+    "logo": "/brands/11.png"
+  },
+  "3539": {
+    "name": "911 GT3 RS (992) '22",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3540": {
+    "name": "Model 3 Performance '23",
+    "manufacturer": "Tesla",
+    "logo": "/brands/119.png"
+  },
+  "3541": {
+    "name": "BVLGARI Aluminium VGT",
+    "manufacturer": "BVLGARI",
+    "logo": null
+  },
+  "3543": {
+    "name": "Genesis X Gran Berlinetta VGT Concept",
+    "manufacturer": "Genesis",
+    "logo": "/brands/152.png"
+  },
+  "3545": {
+    "name": "Jimny XC '18",
+    "manufacturer": "Suzuki",
+    "logo": "/brands/39.png"
+  },
+  "1541": {
+    "name": "TTS Coupe '09",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "3424": {
+    "name": "Lancer Evolution IX MR GSR '06",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "3547": {
+    "name": "R4 GTL '85",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "116": {
+    "name": "GT-One (TS020) '99",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3412": {
+    "name": "R8 Coupé V10 plus '16",
+    "manufacturer": "Audi",
+    "logo": "/brands/5.png"
+  },
+  "3548": {
+    "name": "Urus '18",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "36": {
+    "name": "Chevelle SS 454 Sport Coupé '70",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "3542": {
+    "name": "SKODA Vision Gran Turismo",
+    "manufacturer": "Skoda",
+    "logo": null
+  },
+  "3546": {
+    "name": "AFEELA Prototype 2024",
+    "manufacturer": "AFEELA",
+    "logo": null
+  },
+  "37": {
+    "name": "Civic SiR-II (EG) '93",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "140": {
+    "name": "NSX GT500 '00",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "102": {
+    "name": "Skyline GTS-R (R31) '87",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3482": {
+    "name": "V40 T5 R-Design '13",
+    "manufacturer": "Volvo",
+    "logo": "/brands/69.png"
+  },
+  "3549": {
+    "name": "240 SE Estate '93",
+    "manufacturer": "Volvo",
+    "logo": "/brands/69.png"
+  },
+  "3551": {
+    "name": "M3 '97",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "1544": {
+    "name": "430 Scuderia '07",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3544": {
+    "name": "Genesis X Gran Racer Vision Gran Turismo Concept",
+    "manufacturer": "Genesis",
+    "logo": "/brands/152.png"
+  },
+  "1506": {
+    "name": "Gallardo LP 560-4 '08",
+    "manufacturer": "Lamborghini",
+    "logo": "/brands/112.png"
+  },
+  "3468": {
+    "name": "RGT 4.2 '16",
+    "manufacturer": "RUF",
+    "logo": "/brands/35.png"
+  },
+  "3550": {
+    "name": "Impreza Rally Car '98",
+    "manufacturer": "Subaru",
+    "logo": "/brands/38.png"
+  },
+  "799": {
+    "name": "Lancer Evolution VIII MR GSR '04",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "3553": {
+    "name": "GT-R Premium edition T-spec '24",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3554": {
+    "name": "Hiace Van DX '16",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3555": {
+    "name": "Escort RS Cosworth '92",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "3557": {
+    "name": "W 196 R '55",
+    "manufacturer": "Mercedes-Benz",
+    "logo": "/brands/22.png"
+  },
+  "3558": {
+    "name": "911 Turbo S (992) '20",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3559": {
+    "name": "Jimny Sierra JC '18",
+    "manufacturer": "Suzuki",
+    "logo": "/brands/39.png"
+  },
+  "3560": {
+    "name": "Mission X '23",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3561": {
+    "name": "IONIQ 5 N '24",
+    "manufacturer": "Hyundai",
+    "logo": "/brands/16.png"
+  },
+  "3562": {
+    "name": "F3500-A",
+    "manufacturer": "Gran Turismo",
+    "logo": null
+  },
+  "3563": {
+    "name": "Civic Si Extra (EF) '87",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3565": {
+    "name": "C-HR S '18",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "655": {
+    "name": "Z4 3.0i '03",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "3564": {
+    "name": "205 GTI '88",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "3556": {
+    "name": "Unimog Type 411 '62",
+    "manufacturer": "Mercedes-Benz",
+    "logo": "/brands/22.png"
+  },
+  "3447": {
+    "name": "Vantage '18",
+    "manufacturer": "Aston Martin",
+    "logo": "/brands/4.png"
+  },
+  "3566": {
+    "name": "CX-30 X Smart Edition '21",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3567": {
+    "name": "Kangoo 1.4 '01",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "3470": {
+    "name": "812 Superfast '17",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3570": {
+    "name": "Corvette Z06 (C5) '01",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "3571": {
+    "name": "Carry KC '12",
+    "manufacturer": "Suzuki",
+    "logo": "/brands/39.png"
+  },
+  "3572": {
+    "name": "CR-V e:HEV EX Black Edition '21",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "761": {
+    "name": "Lancia Delta HF Integrale Rally Car '92",
+    "manufacturer": "Lancia",
+    "logo": "/brands/18.png"
+  },
+  "3573": {
+    "name": "BX 19 TRS '87",
+    "manufacturer": "Citroen",
+    "logo": null
+  },
+  "3574": {
+    "name": "SUV 2008 Allure '21",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "3568": {
+    "name": "Qashqai Tekna 190 2wd e-Power '22",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3569": {
+    "name": "R34 GT-R Z-tune '05",
+    "manufacturer": "NISMO",
+    "logo": null
+  },
+  "3576": {
+    "name": "N-ONE RS '22",
+    "manufacturer": "Honda",
+    "logo": "/brands/15.png"
+  },
+  "3579": {
+    "name": "AFEELA 1 '26",
+    "manufacturer": "AFEELA",
+    "logo": null
+  },
+  "3581": {
+    "name": "Corvette CX Concept '25",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "3582": {
+    "name": "Corvette CX.R Vision Gran Turismo Concept",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "729": {
+    "name": "Avantime 3.0 V6 24V '02",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "3577": {
+    "name": "Corsa GSE Vision Gran Turismo",
+    "manufacturer": "Opel",
+    "logo": "/brands/161.png"
+  },
+  "3578": {
+    "name": "MAZDA SPIRIT RACING ROADSTER 12R '25",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3583": {
+    "name": "RAV4 Adventure '20",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3584": {
+    "name": "Land Cruiser FJ40V '74",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3585": {
+    "name": "ELANTRA N '23",
+    "manufacturer": "Hyundai",
+    "logo": "/brands/16.png"
+  },
+  "51": {
+    "name": "FTO GP Version R '97",
+    "manufacturer": "Mitsubishi",
+    "logo": "/brands/25.png"
+  },
+  "1427": {
+    "name": "BNR34 GT-R N1 base",
+    "manufacturer": "Mine's",
+    "logo": null
+  },
+  "3575": {
+    "name": "Panda 30 CL '85",
+    "manufacturer": "Fiat",
+    "logo": "/brands/12.png"
+  },
+  "3586": {
+    "name": "Polestar 5 Performance",
+    "manufacturer": "Polestar",
+    "logo": "/brands/163.png"
+  },
+  "3587": {
+    "name": "296 GTB '22",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3588": {
+    "name": "296 GT3 '23",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3589": {
+    "name": "F3500-B",
+    "manufacturer": "Gran Turismo",
+    "logo": null
+  },
+  "3591": {
+    "name": "Espace F1 '95",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "3593": {
+    "name": "Beetle 1966 Desert Racer",
+    "manufacturer": "Volkswagen",
+    "logo": "/brands/46.png"
+  },
+  "3594": {
+    "name": "Mustang 2015 American Racer",
+    "manufacturer": "Ford",
+    "logo": "/brands/13.png"
+  },
+  "3595": {
+    "name": "Skyline GT-R GP-Tuned (KPGC10)",
+    "manufacturer": "Nissan",
+    "logo": "/brands/28.png"
+  },
+  "3596": {
+    "name": "Supra GT Road Car (JZA80)",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3597": {
+    "name": "911 Turbo Rally (930)",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3598": {
+    "name": "AE86 Levin D-Tuned",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3590": {
+    "name": "ELANTRA N TC '24",
+    "manufacturer": "Hyundai",
+    "logo": "/brands/16.png"
+  },
+  "3599": {
+    "name": "SU7 Ultra '25",
+    "manufacturer": "Xiaomi",
+    "logo": null
+  },
+  "3600": {
+    "name": "911 GT3 R (992) '22",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3592": {
+    "name": "Camaro 1969 Race-Mod",
+    "manufacturer": "Chevrolet",
+    "logo": "/brands/7.png"
+  },
+  "3601": {
+    "name": "Captur S Edition TCe 140 '21",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "967": {
+    "name": "efini RX-7 Type R (FD) '91",
+    "manufacturer": "Mazda",
+    "logo": "/brands/21.png"
+  },
+  "3440": {
+    "name": "911 Turbo S Leichtbau (964) '93",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3602": {
+    "name": "U9 '24",
+    "manufacturer": "Yangwang",
+    "logo": null
+  },
+  "3603": {
+    "name": "Twingo '93",
+    "manufacturer": "Renault",
+    "logo": "/brands/34.png"
+  },
+  "3604": {
+    "name": "M Hybrid V8 '25",
+    "manufacturer": "BMW",
+    "logo": "/brands/6.png"
+  },
+  "3605": {
+    "name": "499P '23",
+    "manufacturer": "Ferrari",
+    "logo": "/brands/110.png"
+  },
+  "3606": {
+    "name": "9X8 '25",
+    "manufacturer": "Peugeot",
+    "logo": "/brands/32.png"
+  },
+  "3607": {
+    "name": "963 '24",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3608": {
+    "name": "911 Turbo S Safety Car (992)",
+    "manufacturer": "Porsche",
+    "logo": "/brands/136.png"
+  },
+  "3395": {
+    "name": "Seven Superlight R500 '08",
+    "manufacturer": "Caterham",
+    "logo": "/brands/80.png"
+  },
+  "3610": {
+    "name": "IONIQ 6N '25",
+    "manufacturer": "Hyundai",
+    "logo": "/brands/16.png"
+  },
+  "3611": {
+    "name": "Mark II Tourer V '97",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  },
+  "3612": {
+    "name": "Chaser Tourer V '97",
+    "manufacturer": "Toyota",
+    "logo": "/brands/43.png"
+  }
+}

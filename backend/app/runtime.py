@@ -9,15 +9,23 @@ from .voice import Speaker,Microphone,intent
 from .live_analysis import ReceptionTest,LiveAnalysis
 from .live_delta import LiveDelta
 from .cars import identify
+from .requests import answer as engineer_answer
+from .local_ai import LocalAI
+from .tracks import TrackMap
 
 class Runtime:
     def __init__(self,config,store):
+        self.host_only=False
+        self.answer_variations={};self.last_answer=''
+        self.local_ai=LocalAI();self.ai_refresh_requested=False
         self.reception_test=None;self.live_analysis=LiveAnalysis();self.live_delta=LiveDelta()
+        self.track_map=TrackMap(config.root);self.track_map.select(config.settings.track_id,manual=False)
         self.config=config;self.settings=config.settings;self.store=store;self.sessions=Sessions(store,self.settings)
         self.events=deque(maxlen=100);self.scheduler=Scheduler(self.settings,self.decision);self.rules=Rules(self.settings);self.speaker=Speaker();self.mic=Microphone()
         self.seq=Sequence();self.sample=None;self.received_at=None;self.received=0;self.parse_errors=0;self.unexpected=0;self.socket_error=None;self.source='live';self.running=True;self.transport=None;self.demo_time=0.;self.demo_index=0;self.trace=deque(maxlen=600);self.history=deque(maxlen=600)
         self.receiver={'phase':'not_configured','datagrams':0,'valid_packets':0,'heartbeats':0,'last_sender':None,'last_length':None,'last_variant':None,'last_error':None,'error_counts':{},'port_owners':[],'local_route':None,'parser_version':PARSER_VERSION}
         self.source_generation=0;self.last_datagram_at=None;self.pipeline_errors=0
+        self.mic_restart=False;self.mic_testing=False
         self.tasks=[];self.clients=0;self.loop_lag=0.;self.health_cache={};self.transcript=None;self.box=False;self.replay=None;self.replay_paused=False;self.replay_speed=1.;self.replay_cursor=0.;self.replay_record_id=0;self.replay_buffer=deque();self.replay_last=None;self.degraded=False;self.bad_since=None;self.good_since=None;self.last_lap=None
     def decision(self,event):
         event['utc']=utcnow();self.events.appendleft(event)
@@ -25,11 +33,16 @@ class Runtime:
     def event(self,category,message,priority=2,evidence=None,requested=False):
         self.scheduler.offer(Event(category,message,priority,evidence=evidence or {},requested=requested,session=self.sessions.id))
     async def start(self):
-        self.tasks=[asyncio.create_task(self.source_loop()),asyncio.create_task(self.engine_loop()),asyncio.create_task(self.health_loop())]
+        from .group.service import GroupService
+        self.group=GroupService(self);await self.group.start()
+        self.tasks=[asyncio.create_task(self.source_loop()),asyncio.create_task(self.engine_loop()),asyncio.create_task(self.health_loop()),asyncio.create_task(self.ai_loop()),asyncio.create_task(self.track_loop())]
     async def close(self):
         self.running=False
+        if hasattr(self,"group"):await self.group.close()
         for task in self.tasks:task.cancel()
         await asyncio.gather(*self.tasks,return_exceptions=True)
+        await self.local_ai.close()
+        await asyncio.to_thread(self.track_map.flush)
         if self.transport:self.transport.close()
         self.sessions.end('interrupted');self.speaker.stop();await asyncio.to_thread(self.mic.close);await asyncio.to_thread(self.store.close)
     def ingest_datagram(self,data,addr,received_mono=None):
@@ -61,7 +74,9 @@ class Runtime:
         try:
             if self.seq.counts['resets']>before['resets']:
                 self.sessions.end('interrupted');self.sessions.manual_ended=False;self.scheduler.cancel('Sequence reset')
-            if self.seq.counts['gaps']>before['gaps'] and self.sessions.id:self.sessions.quality.add('source sequence gap')
+            if self.seq.counts['gaps']>before['gaps']:
+                sample.quality.append('source sequence gap')
+                if self.sessions.id:self.sessions.quality.add('source sequence gap')
             self.consume(sample)
             return True
         except Exception as error:
@@ -79,6 +94,8 @@ class Runtime:
                 if generation!=self.source_generation:
                     if sock:sock.close()
                     sock=None;self.transport=None;retry=0;heartbeat=0;generation=self.source_generation;next_sample=now
+                if self.host_only:
+                    self.receiver['phase']='host_only';await asyncio.sleep(.2);continue
                 if self.source=='demo':
                     self.receiver['phase']='demo_no_network'
                     sample=demo_sample(self.demo_time,self.demo_index);sample.mono=now;self.consume(sample)
@@ -128,7 +145,7 @@ class Runtime:
                         await loop.sock_sendto(sock,self.settings.variant.encode('ascii'),(str(self.settings.ps5_ip),self.settings.remote_port))
                         self.receiver['heartbeats']+=1;self.receiver['last_heartbeat_utc']=utcnow()
                         heartbeat=now+self.settings.heartbeat
-                    try:data,addr=await asyncio.wait_for(loop.sock_recvfrom(sock,65535),timeout=.2)
+                    try:data,addr=await asyncio.wait_for(loop.sock_recvfrom(sock,65535),timeout=max(.001,min(.2,heartbeat-time.monotonic())))
                     except asyncio.TimeoutError:
                         if self.received_at and now-self.received_at>self.settings.stale_seconds:self.receiver['phase']='stale'
                         continue
@@ -140,6 +157,14 @@ class Runtime:
             if sock:sock.close()
             self.transport=None
     def consume(self,s):
+        previous=self.sample.values if self.sample else None
+        # GT7's car-on-track flag is cleared on circuit exit. Pausing alone
+        # keeps that flag set and must preserve the driver's line.
+        if (not s.values.get('flags',0)&1 or
+            (previous and (s.values.get('car_id')!=previous.get('car_id') or
+             s.values.get('lap',0)<previous.get('lap',0)))):
+            self.reset_driver_line(forget_layout=True)
+        self.track_map.consume(s)
         self.live_delta.consume(s)
         self.live_analysis.consume(s)
         if self.reception_test and s.provenance=='live':self.reception_test.observe(s,time.monotonic())
@@ -155,38 +180,81 @@ class Runtime:
             if fuel.get('margin_l') is not None and fuel['margin_l']<0:self.event('fuel_deficit',f'Estimated fuel deficit {abs(fuel["margin_l"]):.1f} litres. Save {fuel["save_percent"]:.0f} percent or plan a stop.',1,fuel)
             if self.box:self.event('box','Box this lap. Pit intent is marked.',1)
         self.last_lap=lap
+    async def ai_loop(self):
+        while self.running:
+            try:
+                await self.local_ai.refresh(self,self.ai_refresh_requested)
+                self.ai_refresh_requested=False
+            except Exception as error:
+                self.local_ai.result={'status':'unavailable','items':[],'reason':str(error)[:200]}
+            await asyncio.sleep(2)
+    async def track_loop(self):
+        while self.running:
+            try:
+                await asyncio.to_thread(self.track_map.maintenance)
+                key=self.track_map.layout_id
+                if key:
+                    await asyncio.to_thread(self.track_map.alignment,key)
+                    from .tracks import LAYOUTS
+                    if self.sessions.id and self.source=='live' and self.track_map.bound:
+                        layout=LAYOUTS[key]
+                        if self.sessions.meta.get('recognized_layout_id')!=key:
+                            self.sessions.meta.update(track=layout['track'],layout=layout['name'],direction=layout['direction'],recognized_layout_id=key,map_revision=self.track_map.snapshot()['revision'])
+                            self.sessions.persist()
+                if hasattr(self,'group'):await self.group.sync_track_library()
+            except Exception as error:self.track_map.error='Track worker: '+str(error)[:180]
+            await asyncio.sleep(.5)
+    def reset_driver_line(self,forget_layout=False):
+        self.trace.clear()
+        if forget_layout:self.track_map.leave()
+        else:self.track_map.reset()
+        self.live_delta=LiveDelta()
+
+    def record_driver_position(self,stale):
+        v=self.sample.values
+        p=v.get('position')
+        if p and None not in p and not stale and v.get('flags',0)&1 and not v.get('flags',0)&6:
+            self.trace.append([p[0],p[2],self.live_delta.result.get('trend',0)])
+
     async def engine_loop(self):
         last_history=0
         while self.running:
             now=time.monotonic();stale=self.received_at is None or now-self.received_at>self.settings.stale_seconds
+            if self.mic_restart:
+                await asyncio.to_thread(self.mic.close);self.mic_restart=False
+            self.mic.set_suppressed(self.speaker.busy or now-self.speaker.finished<.6 or self.mic_testing)
+            if not self.host_only and self.settings.hands_free and not self.mic_testing and now-self.mic.last_attempt>30:
+                self.mic.start_worker(self.settings)
             if self.sessions.id and self.received_at and now-self.received_at>self.settings.interrupt_seconds:
                 self.sessions.end('interrupted');self.event('connection','Telemetry interrupted. An interrupted-session report is ready.',1)
                 self.sessions.manual_ended=False
+                self.reset_driver_line()
             if stale and self.received_at and not getattr(self,'stale_warned',False):
                 self.event('connection','Telemetry is stale. Current readings are unavailable.',1);self.stale_warned=True
             if not stale:self.stale_warned=False
             for result in self.mic.poll():
                 words=result.get('result',[]);confidence=sum(w.get('conf',0) for w in words)/len(words) if words else 0
-                if confidence>=self.settings.recognition_confidence:self.command(result.get('text',''))
-                elif result.get('text'):self.event('answer','Command unclear. Please repeat or use a control.',1,requested=True)
+                text=result.get('text','')
+                if confidence>=self.settings.recognition_confidence and intent(text)[0]!='unknown':self.command(text)
+                elif text and not self.settings.hands_free:self.event('answer','Command unclear. Please repeat or use a control.',1,requested=True)
             workload=bool(self.sample and (self.sample.values['brake']>.15 or abs((self.sample.values.get('angular_velocity') or [0,0,0])[1] or 0)>.3))
             if self.scheduler.pending and any(e.priority==0 for e in self.scheduler.pending) and self.speaker.busy and self.speaker.priority>0:self.speaker.stop()
             if getattr(self,'active_speech',None) and not self.speaker.busy:
                 e=self.active_speech;self.active_speech=None
                 self.scheduler.log(e,'suppressed' if self.speaker.cancelled.is_set() or self.speaker.error else 'spoken',self.speaker.error or ('Playback interrupted' if self.speaker.cancelled.is_set() else 'Audio worker completed'))
-            if not self.speaker.busy and self.mic.state not in ('listening','loading'):
+            if not self.host_only and not self.speaker.busy and not self.mic_testing and (self.settings.hands_free or self.mic.state not in ('listening','loading')):
                 event=self.scheduler.next(now,self.sessions.id,workload,stale)
                 if event:
                     if self.settings.speech_enabled:
+                        self.mic.set_suppressed(True)
                         accepted=self.speaker.speak(event.message,self.settings,event.priority)
                         if accepted:self.active_speech=event
                         self.scheduler.log(event,'output_started' if accepted else 'suppressed','Audio worker' if accepted else 'Audio busy')
                     else:self.scheduler.log(event,'subtitle','Audio output disabled')
             if now-last_history>=.1 and self.sample:
                 last_history=now;v=self.sample.values
-                self.history.append({'t':now,'speed':v['speed_kmh'],'throttle':v['throttle']*100,'brake':v['brake']*100})
-                p=v['position']
-                if p and None not in p and not stale:self.trace.append([p[0],p[2]])
+                self.history.append({'t':now,'speed':v['speed_kmh'],'throttle':v['throttle']*100,'brake':v['brake']*100,'clutch':(v.get('clutch') or 0)*100})
+                self.record_driver_position(stale)
             await asyncio.sleep(.05)
     async def health_loop(self):
         prev=time.monotonic();packets=self.received;cpu=time.process_time()
@@ -214,7 +282,7 @@ class Runtime:
     def snapshot(self):
         age=time.monotonic()-self.received_at if self.received_at else None
         stale=age is None or age>self.settings.stale_seconds
-        return {'reception_test':self.reception_test.snapshot(time.monotonic(),self.test_counters(),self.source_generation) if self.reception_test else None,'live_analysis':dict(self.live_analysis.result,stale=stale),'sample':self.sample.json() if self.sample else None,'source':self.source,'stale':stale,'age_ms':age*1000 if age is not None else None,'status':'disconnected' if stale and self.sessions.id else self.sessions.status,'session_id':self.sessions.id,'report':self.sessions.report() if self.sessions.id else self.sessions.last_report,'fuel':self.sessions.fuel() if self.sessions.id else None,'subtitle':self.scheduler.last_text,'events':list(self.events)[:20],'health':self.health_cache,'socket_error':self.socket_error,'receiver':self.receiver,'audio':{'speaking':self.speaker.busy,'error':self.speaker.error,'microphone':self.mic.state,'mic_error':self.mic.error,'level':self.mic.level,'clipping':self.mic.clipping,'muted':self.settings.hard_mute,'transcript':self.transcript},'trace':list(self.trace),'history':list(self.history),'box':self.box,'replay':{'paused':self.replay_paused,'speed':self.replay_speed,'cursor':self.replay_cursor}}
+        return {'local_ai':self.local_ai.result,'car':identify(self.sample.values.get('car_id') if self.sample else None),'live_delta':dict(self.live_delta.result,stale=stale),'race_flags':{'available':False,'reason':'Not transmitted by GT7 UDP'},'reception_test':self.reception_test.snapshot(time.monotonic(),self.test_counters(),self.source_generation) if self.reception_test else None,'live_analysis':dict(self.live_analysis.result,stale=stale),'sample':self.sample.json() if self.sample else None,'source':self.source,'stale':stale,'age_ms':age*1000 if age is not None else None,'status':'disconnected' if stale and self.sessions.id else self.sessions.status,'session_id':self.sessions.id,'report':self.sessions.report() if self.sessions.id else self.sessions.last_report,'fuel':self.sessions.fuel() if self.sessions.id else None,'subtitle':self.scheduler.last_text,'events':list(self.events)[:20],'health':self.health_cache,'socket_error':self.socket_error,'receiver':self.receiver,'audio':{'hands_free':self.settings.hands_free,'input_device':self.mic.input_name,'input_rate':self.mic.sample_rate,'delivery':self.speaker.status(),'enabled':self.settings.speech_enabled,'speaking':self.speaker.busy,'error':self.speaker.error,'microphone':self.mic.state,'mic_error':self.mic.error,'level':self.mic.level,'clipping':self.mic.clipping,'muted':self.settings.hard_mute,'transcript':self.transcript},'trace':list(self.trace),'history':list(self.history),'box':self.box,'replay':{'paused':self.replay_paused,'speed':self.replay_speed,'cursor':self.replay_cursor}}
     def test_counters(self):
         return dict(self.seq.counts,parse_errors=self.parse_errors,pipeline_errors=self.pipeline_errors,unexpected_senders=self.unexpected,storage_drops=self.store.drops,storage_failures=self.store.failed_rows)
     def start_reception_test(self):
@@ -222,12 +290,19 @@ class Runtime:
     def switch(self,source):
         self.live_analysis=LiveAnalysis();self.live_delta=LiveDelta()
         self.source_generation+=1
-        self.sessions.end('interrupted');self.scheduler.cancel('Source changed');self.speaker.stop();self.sessions.manual_ended=False;self.seq=Sequence();self.source=source;self.socket_error=None;self.demo_time=0;self.demo_index=0;self.sample=None;self.received_at=None;self.history.clear();self.trace.clear();self.last_lap=None;self.rules=Rules(self.settings)
+        self.sessions.end('interrupted');self.scheduler.cancel('Source changed');self.speaker.stop();self.sessions.manual_ended=False;self.seq=Sequence();self.source=source;self.track_map.select(self.settings.track_id,force=True,manual=False);self.socket_error=None;self.demo_time=0;self.demo_index=0;self.sample=None;self.received_at=None;self.history.clear();self.trace.clear();self.last_lap=None;self.rules=Rules(self.settings)
     def update_settings(self,values):
+        old_mic=tuple(getattr(self.settings,k) for k in ('hands_free','vosk_model','input_device','mic_rate'))
+        old_track=tuple(getattr(self.settings,k) for k in ('track','layout','direction'))
         old_network=tuple(str(getattr(self.settings,k)) for k in ('ps5_ip','udp_bind','udp_port','remote_port','variant'))
-        settings=self.config.save(values);self.settings=settings;self.sessions.settings=settings;self.scheduler.settings=settings;self.rules.settings=settings
+        settings=self.config.save(values)
+        if settings.track_id!=self.settings.track_id:self.track_map.select(settings.track_id)
+        self.settings=settings;self.sessions.settings=settings;self.scheduler.settings=settings;self.rules.settings=settings
+        if old_mic!=tuple(getattr(settings,k) for k in ('hands_free','vosk_model','input_device','mic_rate')):
+            self.mic_restart=True;self.mic.last_attempt=-1e30
         new_network=tuple(str(getattr(settings,k)) for k in ('ps5_ip','udp_bind','udp_port','remote_port','variant'))
         if old_network!=new_network and self.source=='live':self.switch('live')
+        if old_track!=tuple(getattr(settings,k) for k in ('track','layout','direction')):self.live_delta=LiveDelta();self.trace.clear()
         if settings.hard_mute:self.speaker.stop();self.scheduler.cancel('Hard mute')
         return settings
     def command(self,text):
@@ -240,22 +315,42 @@ class Runtime:
             if f.get('margin_l') is not None:answer=f'Estimated finish margin {f["margin_l"]:.1f} litres. Fuel saving target {f["save_percent"]:.0f} percent.'
             else:answer=f.get('reason','Set race distance or duration; finish prediction is uncertain.')
         elif action=='box':self.box=True;answer='Box this lap marked.'
+        elif action=='unbox':
+            self.box=False
+            for pending in self.scheduler.pending[:]:
+                if pending.category=='box':
+                    self.scheduler.pending.remove(pending);self.scheduler.log(pending,'suppressed','Pit intent cleared')
+            if getattr(self,'active_speech',None) and self.active_speech.category=='box':self.speaker.stop()
+            answer='Pit intent cleared. Stay out.'
         elif action in ('last','best') and v.get(action+'_ms') is not None:answer=f'{action.capitalize()} lap {v[action+"_ms"]/1000:.2f} seconds.'
         elif action=='tyres':answer='Tyre surface temperatures: '+', '.join('unavailable' if t is None else f'{t:.0f}' for t in v.get('tyres',[None]*4))+'. Wear and pressures are unavailable.'
-        elif action in ('loss','lap_summary','compare'):answer=' '.join(x['observation'] for x in report.get('improvements',[])) or 'Not enough repeated comparable evidence yet.';navigate='Analysis'
-        elif action=='reference' and self.sessions.laps:self.sessions.reference=self.sessions.laps[-1]['id'];answer='Last recorded lap selected as reference. Comparability must still be checked.'
+        elif action=='loss':answer=' '.join(x['observation'] for x in report.get('improvements',[])) or 'Not enough repeated comparable evidence yet.';navigate='Analysis'
+        elif action=='lap_summary':
+            laps=report.get('laps',[]);navigate='Analysis'
+            if laps:
+                lap=laps[-1];duration=lap.get('duration_ms');answer=f'Lap {lap.get("number")}: '+(f'{duration/1000:.3f} seconds. ' if duration else 'Timing unavailable. ')+f'Coasting {lap.get("coast_s",0):.1f} seconds, pedal overlap {lap.get("overlap_s",0):.1f} seconds. '+('Comparable by application checks.' if lap.get('comparable') else 'Excluded from comparable-lap analysis.')
+            else:answer='Complete a lap before requesting its summary.'
+        elif action=='compare':
+            laps=[lap for lap in report.get('laps',[]) if lap.get('comparable') and lap.get('duration_ms')];navigate='Analysis'
+            if len(laps)>=2:answer=f'Latest comparable lap is {(laps[-1]["duration_ms"]-min(lap["duration_ms"] for lap in laps[:-1]))/1000:+.3f} seconds against your previous best comparable lap.'
+            else:answer='I need two comparable completed laps for that comparison.'
+        elif action=='reference':answer='Last clean lap queued as the live reference from your next lap.' if self.live_delta.select_last_reference() else 'The last completed lap must pass position and continuity checks before it can become a live reference.'
         elif action in ('corner','incident','note'):
             self.decision({'category':'annotation','message':arg or action,'position':v.get('position'),'session':self.sessions.id,'decision':'saved','reason':'User marked','priority':2});answer='Marker saved.'
         elif action=='target':self.update_settings({**self.settings.model_dump(), 'target_ms':arg});answer=f'Target set to {arg/1000:.2f} seconds.'
-        elif action.startswith('show_'):navigate=action[5:].capitalize();answer=f'Showing {navigate}.'
-        elif action=='repeat':answer=self.scheduler.last_text or 'Nothing to repeat.'
+        elif action.startswith('show_'):navigate={'show_live':'Live Race','show_analysis':'Analysis','show_strategy':'Strategy'}[action];answer=f'Showing {navigate}.'
+        elif action=='repeat':answer=self.last_answer or self.scheduler.last_text or 'Nothing to repeat.'
         elif action in ('less','more','mute','resume'):
-            changes={'less':{'mode':'Quiet'},'more':{'mode':'Detailed'},'mute':{'hard_mute':True},'resume':{'hard_mute':False,'mode':'Normal'}}[action];self.update_settings({**self.settings.model_dump(),**changes});answer='Engineer settings updated.'
+            changes={'less':{'mode':'Quiet'},'more':{'mode':'Detailed'},'mute':{'hard_mute':True},'resume':{'hard_mute':False,'speech_enabled':True,'mode':'Normal'}}[action];self.update_settings({**self.settings.model_dump(),**changes});answer='Engineer settings updated.'
         elif action=='quiet':self.scheduler.quiet_until=time.monotonic()+120;answer='Quiet for two minutes. Critical alerts remain enabled.'
-        elif action=='stop':self.speaker.stop();self.scheduler.cancel();return {'answer':'Stopped.'}
+        elif action=='stop':
+            self.speaker.stop();self.scheduler.cancel();answer,variation=engineer_answer(self,action,'Stopped.');return {'answer':answer,'intent':action,'variation':variation}
         elif action=='end':self.sessions.end();self.scheduler.cancel('Session ended');self.speaker.stop();navigate='Analysis';answer='Session ended. Your report is ready.'
         elif action=='unknown':answer='Command unclear. Please use an exact command or the controls.'
+        if action=='delta' and self.live_delta.result.get('available'):answer=f'Estimated delta {self.live_delta.result["delta_s"]:+.3f} seconds to the active clean recorded reference.'
         if self.received_at is None or time.monotonic()-self.received_at>self.settings.stale_seconds:
             if action in ('status','fuel','finish','save','pit','tyres','delta'):answer='Telemetry is stale or unavailable. I cannot give a current reading.'
+        answer,variation=engineer_answer(self,action,answer)
+        if action!='repeat':self.last_answer=answer
         self.event('answer',answer,1,requested=True)
-        return {'answer':answer,'navigate':navigate,'intent':action}
+        return {'answer':answer,'navigate':navigate,'intent':action,'variation':variation}

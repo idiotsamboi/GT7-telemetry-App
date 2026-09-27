@@ -1,0 +1,8 @@
+{
+  "backend": true,
+  "frontend": true,
+  "model_loaded": true,
+  "cars": 584,
+  "audio_devices": 45,
+  "frozen": true
+}

@@ -1,0 +1,4 @@
+import React from 'react';
+export default function LocalBrief({state,onRefresh}:{state:any,onRefresh:()=>void}){
+ return <section className="card" aria-label="Local AI briefing"><div className="toolbar"><h3>Local AI briefing</h3><span className="badge">{state?.status||'waiting'}</span><button onClick={onRefresh} disabled={state?.status==='thinking'}>Refresh briefing</button></div><p className="subtle">{state?.engine||'Evidence summary'} · Only measured observations; no invented race facts.</p>{state?.items?.map((item:any)=><p key={item.id}>{item.text}</p>)}{state?.reason&&<p className="subtle">{state.reason}</p>}{state?.model_error&&<p className="amber-text">{state.model_error}</p>}{state?.generated_at&&<small>Generated {new Date(state.generated_at*1000).toLocaleTimeString()} · </small>}{state?.inference_ms!=null&&<small>Last local inference: {(state.inference_ms/1000).toFixed(1)} s</small>}</section>
+}

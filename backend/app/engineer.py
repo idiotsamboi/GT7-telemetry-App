@@ -67,7 +67,7 @@ class Rules:
     def __init__(self,settings):self.settings=settings;self.active={};self.fired={}
     def evaluate(self,s,session):
         v=s.values;now=s.mono;cfg=self.settings
-        if v['flags']&2 or not v['flags']&1:self.active.clear();return []
+        if v['flags']&6 or not v['flags']&1:self.active.clear();return []
         fuel=v.get('fuel');valid_fuel=v.get('fuel_capacity') and v['fuel_capacity']>0 and fuel is not None
         tyres=[t for t in v['tyres'] if t is not None]; temp=max(tyres) if tyres else None
         imbalance=max(abs(tyres[0]-tyres[1]),abs(tyres[2]-tyres[3])) if len(tyres)==4 else 0

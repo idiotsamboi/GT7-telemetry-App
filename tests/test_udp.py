@@ -22,7 +22,7 @@ def free_port():
 def test_actual_udp_heartbeat_parse_record_bad_packets_recover(tmp_path,monkeypatch):
     async def scenario():
         peer=socket.socket(socket.AF_INET,socket.SOCK_DGRAM);peer.bind(('127.0.0.1',0));peer.setblocking(False)
-        local=free_port();cfg=Config(tmp_path);cfg.save({'ps5_ip':'127.0.0.1','udp_port':local,'remote_port':peer.getsockname()[1],'heartbeat':1})
+        local=free_port();cfg=Config(tmp_path);cfg.save({'speech_enabled':False,'ps5_ip':'127.0.0.1','udp_port':local,'remote_port':peer.getsockname()[1],'heartbeat':1})
         db=Store(tmp_path/'udp.db');r=Runtime(cfg,db);await r.start();loop=asyncio.get_running_loop()
         try:
             heartbeat,addr=await asyncio.wait_for(loop.sock_recvfrom(peer,1024),3)
@@ -65,7 +65,7 @@ def test_actual_udp_heartbeat_parse_record_bad_packets_recover(tmp_path,monkeypa
     asyncio.run(scenario())
 
 def test_sender_filter_and_parser_failure_diagnostics(tmp_path):
-    cfg=Config(tmp_path);cfg.save({'ps5_ip':'192.0.2.10'})
+    cfg=Config(tmp_path);cfg.save({'speech_enabled':False,'ps5_ip':'192.0.2.10'})
     store=Store(tmp_path/'db');r=Runtime(cfg,store)
     try:
         assert not r.ingest_datagram(bytes.fromhex(fixtures()['A']),('192.0.2.11',33739))
@@ -80,7 +80,7 @@ def test_network_settings_reopen_receiver(tmp_path):
     async def scenario():
         first=socket.socket(socket.AF_INET,socket.SOCK_DGRAM);first.bind(('127.0.0.1',0));first.setblocking(False)
         second=socket.socket(socket.AF_INET,socket.SOCK_DGRAM);second.bind(('127.0.0.1',0));second.setblocking(False)
-        cfg=Config(tmp_path);cfg.save({'ps5_ip':'127.0.0.1','udp_port':free_port(),'remote_port':first.getsockname()[1]})
+        cfg=Config(tmp_path);cfg.save({'speech_enabled':False,'ps5_ip':'127.0.0.1','udp_port':free_port(),'remote_port':first.getsockname()[1]})
         db=Store(tmp_path/'db');r=Runtime(cfg,db);await r.start();loop=asyncio.get_running_loop()
         try:
             await asyncio.wait_for(loop.sock_recvfrom(first,100),3)

@@ -50,7 +50,7 @@ class Accumulator:
         self.samples=0; self.distance=0.; self.elapsed=0.; self.coast=0.; self.overlap=0.; self.limiter=0.; self.max_speed=0.; self.tyre_max=[None]*4; self.prev=None; self.refuel=False; self.first_fuel=None; self.last_fuel=None
     def add(self,s):
         v=s.values; dt=min(.25,max(0,s.mono-self.prev)) if self.prev is not None else 0; self.prev=s.mono
-        if v['flags']&2:return
+        if not v['flags']&1 or v['flags']&6:return
         self.samples+=1; self.elapsed+=dt; speed=v.get('speed') or 0; self.distance+=speed*dt; self.max_speed=max(self.max_speed,speed*3.6)
         if speed>10 and v['throttle']<.05 and v['brake']<.05:self.coast+=dt
         if v['throttle']>.2 and v['brake']>.2:self.overlap+=dt

@@ -1,0 +1,20 @@
+[
+  {
+    "phrase": "engineer radio check",
+    "recognized": "engineer radio check",
+    "intent": "radio",
+    "expected": "radio"
+  },
+  {
+    "phrase": "how much fuel",
+    "recognized": "how much fuel",
+    "intent": "fuel",
+    "expected": "fuel"
+  },
+  {
+    "phrase": "what is my speed",
+    "recognized": "what is my speed",
+    "intent": "speed",
+    "expected": "speed"
+  }
+]

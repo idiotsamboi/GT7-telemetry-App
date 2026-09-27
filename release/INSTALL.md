@@ -1,12 +1,12 @@
-# GT7 Race Engineer desktop 1.1
+# GT7 Race Engineer desktop 1.2
 
 Target: Orange Pi 4 Pro with 4 GB RAM, running an **ARM64 Ubuntu 24.04 desktop** with Python 3.12. This package is not for Android, 32-bit Linux, Ubuntu 22.04, or a headless system. Hardware execution has not yet been validated on the Orange Pi.
 
-Copy `gt7-race-engineer_1.1.0_arm64.deb` and its `.sha256` file onto the board, open a terminal in that folder, then run:
+Copy `gt7-race-engineer_1.3.0_arm64.deb` and its `.sha256` file onto the board, open a terminal in that folder, then run:
 
 ```sh
-sha256sum -c gt7-race-engineer_1.1.0_arm64.deb.sha256
-sudo apt install ./gt7-race-engineer_1.1.0_arm64.deb
+sha256sum -c gt7-race-engineer_1.3.0_arm64.deb.sha256
+sudo apt install ./gt7-race-engineer_1.3.0_arm64.deb
 gt7-race-engineer
 ```
 
@@ -23,3 +23,8 @@ The desktop defaults to six display updates per second; causal analysis samples 
 User settings, SQLite recordings and logs are under `~/.local/share/gt7-race-engineer` (or `$XDG_DATA_HOME/gt7-race-engineer`). Packaged model and assets are read-only under `/opt/gt7-race-engineer`. Setup errors are in `install.log`; backend startup errors are in `desktop.log`. Never launch the application with sudo. Removing the Debian package leaves your user recordings intact. Do not run the old background receiver/service alongside the desktop app: only one program can own UDP 33740.
 
 Build: install frontend dependencies and build `frontend/dist`; run `scripts/download-model.py --accept-license`; prepare the ARM64 CPython 3.12 wheel set from `requirements-desktop.txt` into `data/linux-wheels` (build the pure-Python srt wheel first); run `python scripts/package-linux.py`. The package includes third-party license notices and wheel metadata/licenses. The downloader records an observed SHA256; this is not a publisher-signed checksum.
+
+Engineer update: 100 distinct request intents, three response forms each, a searchable request library, and speaker-only testing with named device selection. New configurations enable speech by default; existing mute preferences remain unless Resume engineer or Enable and test speaker is selected.
+
+
+Hands-free update: the offline microphone starts automatically. Speak a request and pause; use Pause listening for manual PTT. Recognition briefly pauses during engineer speech to prevent feedback. Heartbeat defaults to 1 second; subsecond settings down to 0.25 seconds are available but do not increase the 60 Hz telemetry stream.

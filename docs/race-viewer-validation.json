@@ -1,0 +1,17 @@
+{
+  "python_tests": 202,
+  "browser_workflows_passed": 6,
+  "production_build": "passed",
+  "live_after_restart": {
+    "receiver": "receiving",
+    "valid_packets": 1801,
+    "stale": false,
+    "socket_error": null,
+    "car": "GT3 '20",
+    "map_points": 96,
+    "venues": 41,
+    "layouts": 122,
+    "microphone": "listening"
+  },
+  "notes": "Browser workflows passed across initial run and targeted fixes. Hardware circuit identity remains manually selected."
+}

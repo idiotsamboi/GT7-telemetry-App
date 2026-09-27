@@ -14,7 +14,7 @@ class Settings(BaseModel):
     http_port:int=Field(8000,ge=1024,le=65535)
     allowed_origins:list[str]=['http://127.0.0.1:8000','http://localhost:8000']
     variant:Literal['A','B','~','C']='A'
-    heartbeat:float=Field(5,ge=1,le=15)
+    heartbeat:float=Field(1,ge=.25,le=15)
     ui_hz:int=Field(12,ge=2,le=20)
     stale_seconds:float=Field(2,ge=.5,le=20)
     interrupt_seconds:float=Field(30,ge=5,le=600)
@@ -25,7 +25,7 @@ class Settings(BaseModel):
     target_ms:int|None=Field(None,gt=1000,le=3600000)
     mode:Literal['Quiet','Normal','Detailed','Coaching','Critical-only']='Normal'
     hard_mute:bool=False
-    speech_enabled:bool=False
+    speech_enabled:bool=True
     speech_gap:float=Field(8,ge=1,le=60)
     speech_per_min:int=Field(4,ge=1,le=20)
     speech_seconds:float=Field(20,ge=2,le=60)
@@ -40,12 +40,19 @@ class Settings(BaseModel):
     mic_rate:int=Field(16000,ge=8000,le=48000)
     recognition_confidence:float=Field(.7,ge=0,le=1)
     retain_transcripts:bool=False
+    hands_free:bool=True
+    local_ai_enabled:bool=False
+    local_ai_model:str=''
+    local_ai_binary:str=''
+    local_ai_port:int=Field(28380,ge=1024,le=65535)
+    local_ai_interval:float=Field(45,ge=15,le=300)
     trust_c_fields:bool=False
     low_fuel_l:float=Field(3,ge=.1,le=30)
     tyre_limit_c:float|None=Field(None,ge=0,le=200)
     tyre_imbalance_c:float=Field(18,ge=2,le=100)
     alert_cooldown:float=Field(60,ge=5,le=600)
     raw_capture:bool=False
+    track_id:str=Field('',max_length=16)
     track:str=Field('',max_length=120)
     layout:str=Field('',max_length=120)
     direction:Literal['unknown','forward','reverse']='unknown'

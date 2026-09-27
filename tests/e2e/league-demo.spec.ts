@@ -1,0 +1,20 @@
+import path from 'node:path';
+import {test,expect} from '../../frontend/node_modules/@playwright/test';
+test('synthetic league rehearsal and individual OBS output',async({page})=>{
+ test.setTimeout(60000);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.request.post('/api/pair',{data:{}});const old=await (await page.request.get('/api/group/state')).json();if(old.group)await page.request.post('/api/group/session/close',{data:{}});
+ await page.goto('/');await page.getByRole('button',{name:'Race Control',exact:true}).click();await page.getByLabel('Demo grid').selectOption('4');await page.getByRole('button',{name:'Start league demo',exact:true}).click();
+ await expect(page.getByText('4 DEMO DRIVERS')).toBeVisible();await expect(page.locator('.race-desk tbody tr')).toHaveCount(4);await page.getByRole('button',{name:'#11 Alex Morgan [DEMO]',exact:true}).click();
+ await expect(page.locator('.studio-monitors>div').first().locator('.graphic-timing')).toContainText('[DEMO]');
+ await page.getByLabel('Reason',{exact:true}).fill('Synthetic debris exercise');await page.getByRole('button',{name:'RED',exact:true}).click();await expect(page.locator('.studio-monitors>div').first().locator('.graphic-flag')).toContainText('Synthetic debris exercise');
+ await page.getByLabel('Message',{exact:true}).fill('Demo radio check');await page.getByRole('button',{name:'Send · acknowledgement required',exact:true}).click();await page.getByRole('button',{name:"Simulate selected driver's acknowledgement"}).click();await expect(page.locator('.receipt').first()).toContainText('1 acknowledged');
+ await page.getByRole('button',{name:'Simulate driver disconnect'}).click();await expect(page.locator('.race-desk tbody tr').filter({hasText:'Alex Morgan'})).toContainText('STALE');await page.getByRole('button',{name:'Reconnect demo driver'}).click();await expect(page.locator('.race-desk tbody tr').filter({hasText:'Alex Morgan'})).toContainText('LIVE');
+ await page.getByRole('button',{name:'Pause league demo'}).click();await expect(page.getByRole('button',{name:'Resume league demo'})).toBeVisible();await page.getByRole('button',{name:'Resume league demo'}).click();
+ const state=await (await page.request.get('/api/group/state')).json(),w=state.workspaces.find((w:any)=>w.group_id===state.group.id),graphic=w.program.graphics.find((g:any)=>g.template==='timing');
+ const h=await page.request.post('/api/group/hosting',{data:{enabled:true,bind:'127.0.0.1',port:18490,origins:['http://127.0.0.1:18490']}});expect(h.ok()).toBeTruthy();
+ const issued=await (await page.request.post('/api/group/workspaces/'+w.id+'/credential',{data:{}})).json();await expect.poll(async()=>{try{return (await page.request.get('http://127.0.0.1:18490/group-api/info')).status()}catch{return 0}}).toBe(200);
+ const output=await page.context().newPage();await output.goto('http://127.0.0.1:18490/overlay/'+w.id+'#access='+issued.credential+'&graphic='+graphic.id);await expect(output.locator('.group-graphic')).toHaveCount(1);await expect(output.locator('.graphic-timing')).toContainText('[DEMO]');await output.reload();await expect(output.locator('.group-graphic')).toHaveCount(1);await output.close();
+ await page.locator('.studio').screenshot({path:path.resolve(__dirname,'../../docs/screenshots/league-demo-studio.png')});
+ await page.getByRole('button',{name:'Clear program now'}).click();await expect(page.locator('.studio-monitors>div').nth(1).locator('.group-graphic')).toHaveCount(0);await expect(page.locator('.studio-monitors>div').first().locator('.group-graphic')).not.toHaveCount(0);
+ await page.request.post('/api/group/hosting',{data:{enabled:false}});await page.getByRole('button',{name:'Stop and close demo'}).click();await expect(page.getByRole('button',{name:'Start league demo',exact:true})).toBeEnabled();expect(errors).toEqual([]);
+});

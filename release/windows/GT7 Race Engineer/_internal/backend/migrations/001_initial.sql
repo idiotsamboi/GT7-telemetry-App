@@ -1,0 +1,10 @@
+
+CREATE TABLE IF NOT EXISTS sessions(id TEXT PRIMARY KEY,started TEXT NOT NULL,ended TEXT,status TEXT NOT NULL,provenance TEXT NOT NULL,meta TEXT NOT NULL,report TEXT,protected INTEGER NOT NULL DEFAULT 0);
+CREATE TABLE IF NOT EXISTS samples(id INTEGER PRIMARY KEY,session TEXT NOT NULL,lap_id TEXT,mono REAL NOT NULL,packet_id INTEGER NOT NULL,payload TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS sample_session_time ON samples(session,mono);
+CREATE TABLE IF NOT EXISTS laps(id TEXT PRIMARY KEY,session TEXT NOT NULL,payload TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS lap_session ON laps(session);
+CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY,session TEXT,utc TEXT,payload TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS event_session ON events(session,id);
+CREATE TABLE IF NOT EXISTS profiles(name TEXT PRIMARY KEY,payload TEXT NOT NULL);
+PRAGMA user_version=1;

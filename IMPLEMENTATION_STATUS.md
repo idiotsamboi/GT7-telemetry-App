@@ -1,3 +1,27 @@
+# Current source update: circuit maps and race artwork
+
+41 venues / 122 layouts are selectable in Live Race, with local logos or original text badges. A bounded 4096-point capture learns a full continuous driving path after the initial partial lap and persists live maps by chosen layout. JSON import/export uses validated world coordinates. Selection is manual, not automatic circuit identification. 574 official transparent car thumbnails are local; missing images show a labelled generic fallback. README and docs/USER_GUIDE.md describe the current source features and startup steps. Existing 1.3.0 archives have not been rebuilt for this update.
+
+Local AI evidence ranking, pit-intent cancellation and source launcher interpreter recovery are also implemented. Orange Pi hardware validation remains outstanding.
+
+# Audit and hands-free update 1.3.0
+
+Hands-free microphone operation now starts automatically, handles Vosk end-of-utterance results, resumes after each command, and suppresses recognition during engineer speech plus a 0.6-second tail. Microphone errors are visible; failed workers retry after 30 seconds. Device/model changes restart the microphone. Manual PTT remains available when hands-free is disabled. No raw microphone audio is retained.
+
+Fixed optional empty text settings, loading/off-track metric accumulation, replay-seek delta references, and unhandled audio/capability fetch failures. Heartbeat is configurable from 0.25 to 15 seconds, with a 1-second default. It is a keepalive, not telemetry sampling frequency. Hardware comparison results are in docs/heartbeat-handsfree-validation.json and docs/heartbeat-confirmation.json.
+
+Audit: 190 Python tests and five Playwright workflows passed, all 53 referenced brand images exist, all required Vosk model components exist, Python dependencies are consistent, and npm reported no production vulnerabilities. Actual microphone capture runs on the default Realtek device at 16 kHz; three synthesized requests decoded correctly through the actual offline Vosk model. Physical voice accuracy depends on microphone placement/background noise. Orange Pi hardware operation remains unverified.
+
+Historical status follows; newer entries supersede older test counts and feature notes.
+
+# Engineer update 1.2.0
+
+100 distinct offline requests and 300 response forms are implemented, tested, and searchable in Engineer. Speech is enabled for new configurations; Resume engineer also enables it. Named device selection, speaker-only testing, waveform validation, device-rate conversion, and explicit playback/error state are available. Actual source and frozen Windows speech tests completed successfully through the default display-audio endpoint. The Windows and ARM64 Linux release artifacts are version 1.2.0. See VOICE_COMMANDS.md for the complete catalogue.
+
+# Windows beta and broadcast update
+
+Windows x64 portable beta is in release/GT7-Race-Engineer-1.1.0-beta-windows-x64.zip. Frozen executable model/backend/audio-library smoke test and actual Edge WebView2 rendering passed on this PC. The launcher offers native-window and browser modes without a console. Broadcast styling, semantic channel colors, clutch display, offline brand identities, unavailable race-flag/sector indicators, and bounded live delta alignment are implemented. Validation: 71 Python tests and 3 Playwright workflows passed. Linux ARM64 package rebuilt with the same interface; Orange Pi hardware execution remains unverified.
+
 # Desktop release 1.1 update
 
 See `release/INSTALL.md` for the Ubuntu 24.04 ARM64 desktop package. Live PS5 reception was independently verified on 2026-09-24: a 15-second observation received 900 valid A packets at 60 Hz with zero sequence gaps, parsing errors or storage drops. Prior C-format reception also validated. Vosk small English downloaded from its publisher and loaded successfully; default audio devices configured. Settings now has a nonintrusive reception test; Telemetry has bounded causal analysis. GTK/WebKit desktop packaging includes ARM64 Python wheels and model. Orange Pi installation, physical audio and sustained thermal/RAM performance remain unverified. Full advanced corner/reference coaching is not complete. Earlier status below is historical and may be superseded by this update.

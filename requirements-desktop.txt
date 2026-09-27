@@ -26,3 +26,5 @@ pycparser==3.0
 charset-normalizer==3.5.1
 urllib3==2.8.0
 numpy==2.2.6
+
+Pillow==12.3.0

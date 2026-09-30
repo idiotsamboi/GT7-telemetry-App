@@ -245,4 +245,4 @@ def test_antifarm_pure_functions():
     factor, reason = combined_factor(duplicate_source(['a', 'a']), low_information([1, 2, 3]))
     assert factor == 0.5 and reason == 'duplicate_sources:1'
     assert combined_factor() == (1.0, 'no_reduction')
-    assert events_mod.KINDS == ('PB_SET', 'LEVEL_UP', 'ACHIEVEMENT_UNLOCKED', 'CHALLENGE_COMPLETED', 'SESSION_ENDED')
+    assert events_mod.KINDS == ('PB_SET', 'LEVEL_UP', 'ACHIEVEMENT_UNLOCKED', 'CHALLENGE_COMPLETED', 'SESSION_ENDED', 'MASTERY_CHANGED')

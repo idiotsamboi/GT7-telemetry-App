@@ -17,9 +17,9 @@ from .notifications import add_notification
 log = logging.getLogger('gamification')
 
 MAX_EVENTS_PER_DRIVER = 2000
-KINDS = ('PB_SET', 'LEVEL_UP', 'ACHIEVEMENT_UNLOCKED', 'CHALLENGE_COMPLETED', 'SESSION_ENDED')
+KINDS = ('PB_SET', 'LEVEL_UP', 'ACHIEVEMENT_UNLOCKED', 'CHALLENGE_COMPLETED', 'SESSION_ENDED', 'MASTERY_CHANGED')
 _LEVELS = {'PB_SET': 'IMPORTANT', 'LEVEL_UP': 'CRITICAL', 'ACHIEVEMENT_UNLOCKED': 'IMPORTANT',
-           'CHALLENGE_COMPLETED': 'IMPORTANT', 'SESSION_ENDED': 'NORMAL'}
+           'CHALLENGE_COMPLETED': 'IMPORTANT', 'SESSION_ENDED': 'NORMAL', 'MASTERY_CHANGED': 'IMPORTANT'}
 
 
 def event_id(kind: str, driver_id: str, source: str, source_id: str) -> str:

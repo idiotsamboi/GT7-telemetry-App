@@ -7,6 +7,8 @@ import json
 import math
 from statistics import median, pstdev
 
+from .track_components import corner_coverage, discovery_level, strategy_component, training_component
+
 DEFAULT_WEIGHTS = {'pace': .25, 'consistency': .20, 'corners': .25, 'training': .15, 'strategy': .15}
 
 MASTERY_DDL = '''
@@ -122,9 +124,12 @@ def update_mastery(db, driver_id, source_id, session, evidence, context, stamp):
     coverage_pct = round(100.0 * len(sampled_corners) / total_corners_count, 1) if total_corners_count > 0 else 0.0
 
     corner_coverage_info = {'total_cataloged': total_corners_count, 'sampled': len(sampled_corners), 'percentage': coverage_pct} if total_corners_count > 0 else None
+    catalogue = (context.get('corner_catalogue') or {}).get(layout)
+    strategy = strategy_component((previous or {}).get('strategy_state', {}).get('recent_fuel_l'), laps)
+    training = training_component((context.get('training') or {}).get(layout))
 
     components = {'pace': round(pace, 2) if pace is not None else None, 'consistency': evidence['consistency_score'],
-                  'corners': avg_corner_score, 'training': None, 'strategy': None}
+                  'corners': avg_corner_score, 'training': training['score'], 'strategy': strategy['score']}
     payload = {'layout_id': layout, 'car_id': car, 'first_visit': previous['first_visit'] if previous else stamp,
                'last_visit': stamp, 'visit_count': (previous['visit_count'] if previous else 0) + 1,
                'lap_count': (previous['lap_count'] if previous else 0) + len(laps),
@@ -133,9 +138,15 @@ def update_mastery(db, driver_id, source_id, session, evidence, context, stamp):
                'pb_improvement_ms': baseline - pb if baseline is not None else None,
                'largest_pb_improvement_ms': max(previous.get('largest_pb_improvement_ms') or 0, baseline - pb) if previous and baseline is not None else None,
                'components': components, **components_score(components), 'confidence': round(min(.85, len(laps)/20), 3),
-               'mastery_level': 'Learning', 'mastered': False, 'source_id': source_id, 'algorithm_version': 1,
+               'mastery_level': 'Visited', 'mastered': False, 'source_id': source_id, 'algorithm_version': 1,
                'corner_observations_updated': corners_updated, 'corner_coverage_total': corner_coverage_info,
-               'comparison': 'same authoritative layout and car; calculated application-comparable laps'}
+               'comparison': 'same authoritative layout and car; calculated application-comparable laps',
+               'corner_coverage': corner_coverage(all_corners, catalogue),
+               'component_details': {'strategy': {k: v for k, v in strategy.items() if k != 'recent_fuel_l'}, 'training': training},
+               'strategy_state': {'recent_fuel_l': strategy['recent_fuel_l']}}
+    payload['score_confidence'] = round(payload['confidence'] * payload['component_coverage'], 3)
+    payload['previous_mastery_level'] = (previous or {}).get('mastery_level')
+    payload['mastery_level'] = discovery_level(payload, payload['previous_mastery_level'])
     db.execute('INSERT OR REPLACE INTO career_track_mastery VALUES(?,?,?,?,?,?)', (driver_id, layout, car, stamp, source_id, json.dumps(payload)))
     db.execute('INSERT INTO career_mastery_history VALUES(?,?,?,?,?,?)', (source_id, driver_id, layout, car, stamp, json.dumps(payload)))
     return payload

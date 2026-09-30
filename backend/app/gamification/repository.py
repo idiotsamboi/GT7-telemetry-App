@@ -10,6 +10,7 @@ import uuid
 from .models import DriverProfile, SessionScorecard
 from .scoring import ALGORITHM_VERSION, MAX_LAPS, SKILLS, LevelCurve, evaluate, update_skill
 from .mastery import update_mastery, tracks, corners
+from .rewards import apply_track_rewards
 from .challenges import advance_challenges, list_challenges, transition_challenge
 from .career import update_learning, engineer, chapters, skill_level, ensure_engineer, FOCUSES
 from .bundles import export_career, import_career
@@ -227,7 +228,9 @@ class CareerRepository:
                 captured_spatial = {r[0]: json.loads(r[1]) for r in db.execute('SELECT lap_id,payload FROM career_spatial_evidence WHERE session_id=? LIMIT ?', (session_id, MAX_LAPS))}
                 measured_context = {**context, 'spatial': captured_spatial if context.get('features', {}).get('corner_mastery', True) else {}}
                 if context.get('features', {}).get('track_mastery', True):
-                    update_mastery(db, driver_id, source_id, session, evidence, measured_context, stamp)
+                    mastered = update_mastery(db, driver_id, source_id, session, evidence, measured_context, stamp)
+                    if mastered:
+                        total += apply_track_rewards(db, driver_id, source_id, session_id, mastered, stamp, persisted['provenance'])
                 if context.get('features', {}).get('dynamic_challenges', True):
                     total += advance_challenges(db, driver_id, source_id, session, evidence, measured_context, stamp)
                 db.execute('UPDATE career_profiles SET total_xp=total_xp+?,eligible_sessions=eligible_sessions+1,comparable_laps=comparable_laps+? WHERE id=?', (total, evidence['comparable_laps'], driver_id))

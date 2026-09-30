@@ -17,11 +17,11 @@
 | F013 | Track Discovery Levels | TRACK MASTERY | P1 | IMPLEMENTED | YES | YES | YES | YES | None | 2026-09-30 |
 | F014 | Track PB Progression | TRACK MASTERY | P1 | IMPLEMENTED | YES | YES | YES | YES | None | 2026-09-30 |
 | F015 | Track Consistency | TRACK MASTERY | P1 | IMPLEMENTED | YES | YES | YES | YES | None | 2026-09-30 |
-| F016 | Strategy Mastery | TRACK MASTERY | P1 | IN_PROGRESS | PARTIAL | YES | PARTIAL | NO | None | 2026-09-30 |
-| F017 | Training Completion | TRACK MASTERY | P1 | IN_PROGRESS | PARTIAL | YES | PARTIAL | NO | None | 2026-09-30 |
-| F018 | Corner Coverage | TRACK MASTERY | P1 | IN_PROGRESS | PARTIAL | YES | PARTIAL | NO | None | 2026-09-30 |
-| F019 | Track Mastery Missions | TRACK MASTERY | P1 | IN_PROGRESS | PARTIAL | YES | PARTIAL | NO | None | 2026-09-30 |
-| F020 | Track Mastery Rewards | TRACK MASTERY | P1 | IN_PROGRESS | PARTIAL | YES | PARTIAL | NO | None | 2026-09-30 |
+| F016 | Strategy Mastery | TRACK MASTERY | P1 | IMPLEMENTED | PARTIAL | YES | PARTIAL | NO | None | 2026-09-30 |
+| F017 | Training Completion | TRACK MASTERY | P1 | IMPLEMENTED | PARTIAL | YES | PARTIAL | NO | None | 2026-09-30 |
+| F018 | Corner Coverage | TRACK MASTERY | P1 | IMPLEMENTED | PARTIAL | YES | PARTIAL | NO | None | 2026-09-30 |
+| F019 | Track Mastery Missions | TRACK MASTERY | P1 | IMPLEMENTED | PARTIAL | YES | PARTIAL | NO | None | 2026-09-30 |
+| F020 | Track Mastery Rewards | TRACK MASTERY | P1 | IMPLEMENTED | PARTIAL | YES | PARTIAL | NO | None | 2026-09-30 |
 | F021 | Corner Identification | CORNER MASTERY | P1 | IMPLEMENTED | YES | YES | YES | YES | None | 2026-09-30 |
 | F022 | Corner Performance Record | CORNER MASTERY | P1 | IMPLEMENTED | YES | YES | YES | YES | None | 2026-09-30 |
 | F023 | Corner Mastery | CORNER MASTERY | P1 | IMPLEMENTED | YES | YES | YES | YES | None | 2026-09-30 |

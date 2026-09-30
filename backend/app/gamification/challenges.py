@@ -10,6 +10,7 @@ from statistics import median
 
 from ..domain.training_defs import clean_laps, consistent_streak
 from .scoring import evaluate
+from .track_components import mission_component
 
 
 CHALLENGES_DDL = '''
@@ -135,6 +136,44 @@ def _offers(db, driver_id, source_id, evidence, laps, stamp):
             _history(db, dict(id=challenge_id, driver_id=driver_id), 'offered', stamp)
 
 
+def _offer_track_mission(db, driver_id, source_id, evidence, laps, stamp):
+    """F019: one mission per week/layout/car, targeting the weakest measurable mastery component."""
+    row = db.execute('SELECT payload FROM career_track_mastery WHERE driver_id=? AND layout_id=? AND car_id=?',
+                     (driver_id, evidence['layout_id'], evidence['car_id'])).fetchone()
+    component = mission_component(json.loads(row[0])) if row and len(laps) >= 3 else None
+    if not component:
+        return
+    current = _time(stamp)
+    monday = current.replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=current.weekday())
+    durations = [lap['duration_ms'] for lap in laps]
+    center = median(durations)
+    baseline_pct = max(abs(d - center) / center * 100 for d in durations)
+    consistency = component == 'consistency'
+    tolerance = round(max(.1, baseline_pct * .9), 4)
+    target = 3
+    bucket = f"{monday.date().isoformat()}:{evidence['layout_id']}:{evidence['car_id']}"
+    challenge_id = 'challenge:v1:' + hashlib.sha256(f'{driver_id}:track_mission:{bucket}'.encode()).hexdigest()[:32]
+    description = (f'Track mission (consistency): complete {target} consecutive comparable laps within {tolerance:g}% of their median time in one session.'
+                   if consistency else f'Track mission (pace): complete {target} comparable laps in one future session on this layout and car.')
+    payload = dict(title='Track mission: ' + component, description=description, component=component,
+                   why=f'{component.capitalize()} is your weakest measurable component on this layout and car (calculated).',
+                   calendar_timezone='UTC',
+                   requirements=dict(layout_id=evidence['layout_id'], car_id=evidence['car_id'],
+                                     evaluator='consistent_streak' if consistency else 'clean_laps', count=target,
+                                     tolerance_pct=tolerance if consistency else None, future_sessions_only=True,
+                                     provenance='live', comparable_only=True),
+                   confidence=round(min(.9, len(laps) / 20), 3), difficulty='stretch' if consistency else 'steady',
+                   reward_xp=25, repeat_cap=1, progress=0, current=0, target=target,
+                   evidence=dict(baseline_source_id=source_id, baseline_lap_ids=evidence['comparable_lap_ids'],
+                                 baseline_max_deviation_pct=round(baseline_pct, 4), official_validity='unknown'),
+                   completion_evidence=None)
+    expiry = monday + timedelta(days=7)
+    inserted = db.execute('INSERT OR IGNORE INTO career_challenges VALUES(?,?,?,?,?,?,?,?,?)',
+                          (challenge_id, driver_id, 'track_mission', bucket, 'offered', stamp, expiry.isoformat(), None, _json(payload)))
+    if inserted.rowcount:
+        _history(db, dict(id=challenge_id, driver_id=driver_id), 'offered', stamp)
+
+
 def advance_challenges(db, driver_id, source_id, session, evidence, context, stamp):
     """Return newly awarded XP; all writes join the caller's eligible transaction.
 
@@ -198,4 +237,6 @@ def advance_challenges(db, driver_id, source_id, session, evidence, context, sta
             _history(db, row, status, stamp)
         db.execute('UPDATE career_challenges SET status=?,payload=? WHERE id=?', (status, _json(payload), row['id']))
     _offers(db, driver_id, source_id, evidence, laps, stamp)
+    if context.get('features', {}).get('track_mastery', True):
+        _offer_track_mission(db, driver_id, source_id, evidence, laps, stamp)
     return total

@@ -120,6 +120,22 @@ class CareerProcessor:
             self.failed_events += 1
             self._error(error)
 
+    def _track_context(self, context: dict) -> None:
+        """F017/F018 inputs gathered outside the career transaction; absent data stays absent."""
+        try:
+            layouts = {c.get('layout_id') for c in context.get('laps', {}).values() if isinstance(c, dict) and c.get('layout_id')}
+            from ..tracks import LAYOUTS
+            from ..track_catalogue import bundled_document
+            context['training'] = {p['layout_id']: p for p in self.runtime.training.list_progress(LAYOUTS)}
+            catalogue = {}
+            for layout in layouts:
+                doc = bundled_document(layout)
+                if doc and isinstance(doc.get('corners'), list) and doc['corners']:
+                    catalogue[layout] = len(doc['corners'])
+            context['corner_catalogue'] = catalogue
+        except Exception as error:
+            self._error(error)
+
     def _process_session(self, sid: str, driver_id: str, integrity: bool = True) -> None:
         # The barrier is off the event loop. A missing final session remains pending.
         self.runtime.store.flush()
@@ -131,6 +147,7 @@ class CareerProcessor:
         context['features'] = {key: context.get('features', {}).get(key, True) and self.runtime.feature(key) for key in ('track_mastery', 'corner_mastery', 'dynamic_challenges', 'engineer_missions')}
         if not context['features']['corner_mastery']:
             context['spatial'] = {}
+        self._track_context(context)
         self.repository.process_session(detail.to_public(), driver_id, context)   # events are written in the same transaction
 
     def _handle(self, job: CareerJob) -> None:

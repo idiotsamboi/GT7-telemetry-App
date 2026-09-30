@@ -1,0 +1,174 @@
+.wd-shell{position:fixed;inset:0;background:#040404;color:#e9e9ec;display:flex;flex-direction:column;z-index:50;font-variant-numeric:tabular-nums;user-select:none}
+.wd-topbar{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid #1c1c1f}
+.wd-lap{font-size:13px;letter-spacing:1.5px;color:#9a9aa4}.wd-lap b{color:#f4d34e;margin-left:6px;font-size:16px}
+.wd-track{font-size:10px;letter-spacing:.6px;color:#6b6b74;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wd-track i{font-style:normal;color:#3c3c42;margin:0 2px}
+.wd-hz{font-size:9px;letter-spacing:1px;color:#5c5c64}
+.wd-flagpill{display:inline-flex;align-items:center;gap:5px;font-size:11px;letter-spacing:1.4px;padding:6px 12px;border-radius:4px;background:#1a1a1d;color:#9a9aa4;border:1px solid #2c2c30;white-space:nowrap}
+.wd-flag-green{background:#0f2a1e;color:#4be08f;border-color:#1e4c34}
+.wd-flag-yellow{background:#332a0d;color:#f4d34e;border-color:#54461a}
+.wd-flag-blue{background:#0d2233;color:#6fc2f4;border-color:#1a3d54}
+.wd-flag-red{background:#330d10;color:#ff6c76;border-color:#54181d}
+.wd-live{margin-left:auto;font-size:10px;letter-spacing:1.6px;color:#6b6b74;flex-shrink:0}
+.wd-live-on{color:#4be08f}
+.wd-live-on:before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#4be08f;margin-right:6px}
+.wd-exit{background:none;border:1px solid #2c2c30;color:#8a8a92;min-height:32px;padding:6px 9px;border-radius:6px;flex-shrink:0}
+.wd-exit:hover{color:#e9e9ec;border-color:#454550}
+.wd-page{flex:1;display:flex;align-items:center;justify-content:center;padding:10px 16px;min-height:0;overflow:auto}
+.wd-race{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:1500px;height:100%;justify-content:space-between}
+.wd-race-top{display:flex;align-items:center;justify-content:center;gap:clamp(14px,4vw,60px);width:100%;flex:1;min-height:0}
+.wd-col{display:flex;flex-direction:column;gap:10px;width:150px;flex-shrink:0;justify-content:center}
+.wd-col-right{align-items:flex-end;width:130px;justify-content:center;gap:18px}
+.wd-vbars-row{display:flex;gap:10px;justify-content:center;flex:1;min-height:0;max-height:220px}
+.wd-mini-stat-row{display:flex;gap:10px;justify-content:center}
+.wd-dial-col{display:flex;flex-direction:column;align-items:center;gap:6px;min-height:0}
+.wd-stat small{display:block;font-size:10px;letter-spacing:1.4px;color:#8a8a94;margin-bottom:8px}
+.wd-bar{height:10px;border-radius:5px;background:#1c1c1f;overflow:hidden}
+.wd-bar-fill{height:100%;border-radius:5px;transition:width .15s linear}
+.wd-throttle{background:#25e58b}.wd-brake{background:#ff354b}.wd-clutch{background:#9edbff}
+.wd-vstat{display:flex;flex-direction:column;align-items:center;gap:6px;height:100%}
+.wd-vstat small{font-size:9px;letter-spacing:1px;color:#8a8a94}
+.wd-vbar{width:14px;flex:1;min-height:60px;border-radius:7px;background:#1c1c1f;overflow:hidden;display:flex;align-items:flex-end}
+.wd-vbar-fill{width:100%;border-radius:7px;transition:height .1s linear}
+.wd-mini-stat{text-align:center;margin-top:4px}
+.wd-mini-stat small{display:block;font-size:8px;letter-spacing:1px;color:#8a8a94}
+.wd-mini-stat b{font-size:15px;font-weight:600}
+.wd-corner{text-align:right}
+.wd-corner small{display:block;font-size:10px;letter-spacing:1.4px;color:#8a8a94;margin-bottom:4px}
+.wd-corner b{font-size:26px;font-weight:600}
+.wd-good{color:#4be08f!important}.wd-bad{color:#ff6c76!important}.wd-dim{color:#5c5c64!important}
+.wd-heating{color:#e0a030;font-size:.85em;margin-left:4px;animation:wd-heating-pulse 1.2s ease-in-out infinite}
+@keyframes wd-heating-pulse{0%,100%{opacity:.6}50%{opacity:1}}
+.wd-dial-wrap{position:relative;width:min(32vh,300px);height:min(32vh,300px);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.wd-shift-hint{display:flex;align-items:center;gap:5px;font-size:11px;letter-spacing:1px;font-weight:600;padding:4px 10px;border-radius:5px;background:#151516}
+.wd-shiftstrip{display:flex;gap:3px;width:100%;max-width:900px}
+.wd-shiftled{flex:1;height:9px;border-radius:2px;background:#161616;transition:background .05s linear}
+.wd-led-green.wd-shiftled{background:#25e58b}
+.wd-led-amber.wd-shiftled{background:#f4d34e}
+.wd-led-red.wd-shiftled{background:#ff354b}
+.wd-shiftstrip-flash .wd-led-red{animation:wd-led-flash .18s steps(1) infinite}
+@keyframes wd-led-flash{50%{background:#161616}}
+.wd-lamprow{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;width:100%;max-width:900px}
+.wd-lamp{border:1px solid #1c1c1f;border-radius:5px;background:#0d0d0e;padding:6px 4px;text-align:center;color:#3f3f45;transition:all .15s ease}
+.wd-lamp small{font-size:8px;letter-spacing:.6px;font-weight:600}
+.wd-lamp-on{background:#191913;border-color:#4a4a2a;color:#f4d34e}
+.wd-tilerow{display:grid;grid-template-columns:1.3fr .9fr 1.3fr 1fr;gap:8px;width:100%;max-width:1100px}
+.wd-tile{background:#0d0d0e;border:1px solid #1c1c1f;border-radius:8px;padding:8px 10px;min-width:0;overflow:hidden}
+.wd-tilerow{align-items:stretch}
+.wd-tile small{display:block;font-size:8px;letter-spacing:1px;color:#8a8a94;margin-bottom:3px}
+.wd-tile b{font-size:16px;font-weight:600}
+.wd-tile-sub{display:block;font-size:9px;color:#8a8a94;margin-top:2px}
+.wd-tile-tyres{display:flex;justify-content:space-between;gap:4px;padding:6px 8px}
+.wd-tyre-mini{text-align:center}
+.wd-tyre-mini small{font-size:7px;color:#8a8a94}
+.wd-tyre-mini b{font-size:13px;display:block}
+.wd-tile-dyn{display:flex;flex-direction:column;gap:6px;justify-content:center}
+.wd-slip-row{display:flex;align-items:center;gap:6px}
+.wd-slip-row small{margin:0;margin-right:2px}
+.wd-slip-row span{font-size:10px;font-weight:600;width:20px;text-align:center}
+.wd-mini-map{position:relative;height:100%;min-height:70px;overflow:hidden}
+.wd-mini-map .shared-track-map,.wd-mini-map svg.circuit-map{height:100%!important;width:100%!important;max-height:none!important}
+.wd-mini-map-status{position:absolute;bottom:2px;left:4px;font-size:7px;letter-spacing:.6px;color:#8a8a94;background:#0d0d0ecc;padding:1px 4px;border-radius:3px}
+.wd-message{padding:4px 20px 8px;font-size:11px;color:#b7b7bd;border-bottom:1px solid #1c1c1f;text-align:center}
+.wd-settings{padding:12px 20px;border-bottom:1px solid #1c1c1f;background:#0a0a0b}
+.wd-settings>small{font-size:9px;letter-spacing:1.4px;color:#8a8a94}
+.wd-settings-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.wd-settings-grid label{display:flex;align-items:center;gap:6px;font-size:11px;color:#c5c5cb}
+.wd-map-page{display:flex;flex-direction:column;gap:10px;width:100%;height:100%;max-width:1100px}
+.wd-map-header{display:flex;align-items:center;gap:12px}
+.wd-map-full{flex:1;min-height:0;position:relative;background:#0a0a0b;border:1px solid #1c1c1f;border-radius:10px;overflow:hidden}
+.wd-map-full .shared-track-map,.wd-map-full svg.circuit-map{height:100%!important;width:100%!important;max-height:none!important}
+.wd-map-full .empty-trace{height:100%}
+.wd-map-footer{display:flex;justify-content:center;gap:40px;padding:8px 0}
+.wd-map-footer small{display:block;font-size:9px;letter-spacing:1.2px;color:#8a8a94;text-align:center}
+.wd-map-footer b{font-size:20px;font-weight:600;display:block;text-align:center}
+.wd-dial{width:100%;height:100%}
+.wd-tick{stroke:#232327;stroke-width:4;stroke-linecap:round;transition:stroke .1s ease}
+.wd-tick-on{stroke:#f4d34e}
+.wd-tick-red{stroke:#ff354b}
+.wd-dial-face{fill:#0a0a0b;stroke:#1c1c1f;stroke-width:2}
+.wd-dial-redline{animation:wd-redline-pulse .5s ease-in-out infinite}
+@keyframes wd-redline-pulse{0%,100%{filter:drop-shadow(0 0 0 rgba(255,53,75,0))}50%{filter:drop-shadow(0 0 10px rgba(255,53,75,.65))}}
+.wd-dial-readout{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.wd-gear{font-size:78px;font-weight:700;color:#f2f2f4;line-height:1}
+.wd-gear.wd-dim{color:#4c4c52}
+.wd-speed{font-size:22px;font-weight:600;color:#d7d7dc;margin-top:10px}
+.wd-speed small{font-size:11px;color:#8a8a94;font-weight:400}
+.wd-rpm-label{font-size:10px;color:#8a8a94;letter-spacing:1px;margin-top:10px}
+.wd-timing,.wd-fuel{width:100%;max-width:560px;display:flex;flex-direction:column;gap:26px}
+.wd-timing-main{text-align:center}
+.wd-timing-main>small{font-size:11px;letter-spacing:1.6px;color:#8a8a94}
+.wd-timing-big{font-size:64px;font-weight:600;letter-spacing:-2px;margin:10px 0}
+.wd-delta-bar{height:14px;border-radius:7px;background:#1c1c1f;overflow:hidden;margin:14px 0 8px}
+.wd-delta-bar>div{height:100%;background:#6b6b74;transition:width .3s ease}
+.wd-delta-bar.wd-good>div{background:#25e58b}.wd-delta-bar.wd-bad>div{background:#ff354b}
+.wd-race-delta{width:100%;max-width:420px;margin:0}
+.wd-subtle{font-size:11px;color:#8a8a94}
+.wd-timing-rows{display:flex;flex-direction:column;gap:2px}
+.wd-row{display:flex;justify-content:space-between;padding:13px 4px;border-bottom:1px solid #1c1c1f;font-size:13px;color:#9a9aa4}
+.wd-row b{color:#e9e9ec;font-size:16px;font-weight:600}
+.wd-fuel-main{text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+.wd-fuel-main>small{font-size:11px;letter-spacing:1.6px;color:#8a8a94}
+.wd-fuel-big{font-size:58px;font-weight:600;margin:10px 0}
+.wd-fuel-big span{font-size:20px;color:#8a8a94;margin-left:6px}
+.wd-fuel-gauge{height:16px;border-radius:8px;background:#1c1c1f;overflow:hidden;border:1px solid #232327}
+.wd-fuel-gauge>div{height:100%;background:linear-gradient(90deg,#ff354b,#f4d34e,#25e58b);transition:width .3s ease}
+.wd-tyres{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.wd-tyres-mini{width:100%;max-width:520px}
+.wd-tyre{background:#111113;border:1px solid #232327;border-radius:8px;padding:10px;text-align:center}
+.wd-tyre small{display:block;font-size:9px;color:#8a8a94;margin-bottom:5px}
+.wd-tyre b{font-size:18px;transition:color .2s ease}
+.wd-tyres-big{width:100%;max-width:560px;gap:16px}
+.wd-tyre-big{padding:22px 10px}
+.wd-tyre-big b{font-size:34px;font-weight:600}
+.wd-tyre-big b span{font-size:14px;margin-left:2px;font-weight:400}
+.wd-pager{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-top:1px solid #1c1c1f;flex-wrap:wrap}
+.wd-pager button{background:none;border:1px solid #232327;color:#8a8a94;min-height:32px;padding:6px 12px;border-radius:6px;font-size:10px;letter-spacing:1.2px;transition:transform .15s ease,color .15s ease,border-color .15s ease}
+.wd-pager button:active{transform:scale(.92)}
+.wd-dot.active{color:#f4d34e;border-color:#54461a;background:#1a1608}
+.wd-stale .wd-gear,.wd-stale .wd-speed,.wd-stale .wd-timing-big,.wd-stale .wd-fuel-big{color:#4c4c52}
+@media(max-width:900px) and (min-height:561px){.wd-race-top{flex-direction:column;gap:20px}.wd-col{flex-direction:row;width:auto;gap:26px}.wd-col-right{align-items:center}.wd-corner{text-align:center}.wd-topbar{flex-wrap:wrap;row-gap:8px}.wd-track{order:5;width:100%;white-space:normal}}
+@media(max-height:560px){
+ .wd-topbar{padding:6px 14px}
+ .wd-message{padding:2px 14px 4px;font-size:10px}
+ .wd-race{gap:3px}
+ .wd-page{padding:2px 12px}
+ .wd-race-top{min-height:112px;flex:0 0 auto}
+ .wd-dial-wrap{width:104px;height:104px}
+ .wd-race-delta{margin:2px 0!important;height:8px!important}
+ .wd-delta-bar{height:8px}
+ .wd-gear{font-size:38px}
+ .wd-speed{font-size:14px;margin-top:2px}
+ .wd-speed small{font-size:9px}
+ .wd-rpm-label{font-size:7px;margin-top:3px}
+ .wd-shift-hint{padding:2px 8px;font-size:9px}
+ .wd-shiftled{height:6px}
+ .wd-lamprow{gap:4px}
+ .wd-lamp{padding:2px}
+ .wd-lamp small{font-size:6.5px}
+ .wd-tilerow{gap:5px;height:66px}
+ .wd-tile{padding:3px 6px}
+ .wd-tile b{font-size:11px}
+ .wd-tile small{font-size:6.5px;margin-bottom:1px}
+ .wd-tile-sub{font-size:7px;margin-top:0}
+ .wd-tyre-mini b{font-size:10px}
+ .wd-mini-map{min-height:0}
+ .wd-mini-map-status{font-size:6px}
+ .wd-tile-dyn{gap:2px}
+ .wd-corner b{font-size:17px}
+ .wd-corner small{font-size:8px;margin-bottom:1px}
+ .wd-col{gap:4px}
+ .wd-vbars-row{max-height:120px}
+ .wd-vbar{min-height:36px}
+ .wd-vstat small{font-size:7px}
+ .wd-mini-stat b{font-size:11px}
+ .wd-mini-stat small{font-size:6.5px}
+ .wd-pager{padding:6px}
+ .wd-pager button{min-height:24px;padding:3px 8px;font-size:8px}
+ .wd-timing-big,.wd-fuel-big{font-size:38px;margin:4px 0}
+ .wd-timing-rows,.wd-fuel{gap:8px}
+ .wd-row{padding:6px 4px;font-size:11px}
+ .wd-tyres-big{gap:8px}
+ .wd-tyre-big{padding:10px 6px}
+ .wd-tyre-big b{font-size:22px}
+}

@@ -4,7 +4,10 @@ __pycache__/
 node_modules/
 /data/
 /data-preview/
+/data-frontend-dev/
 *.db*
 test-results/
 playwright-report/
 *.tsbuildinfo
+.pytest_tmp/
+scratch/pytest_tmp/

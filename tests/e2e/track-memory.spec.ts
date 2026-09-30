@@ -14,8 +14,8 @@ test('reference preview, candidate confirmation and shared OBS map',async({page}
  await expect(panel.locator('.tiny-badge')).toHaveText('Saved map');await expect(panel.getByRole('img',{name:'Position-derived circuit map and delta-colored driving line',exact:true})).toBeVisible();
  await panel.screenshot({path:path.resolve(__dirname,'../../docs/screenshots/track-memory.png')});
  await page.getByRole('button',{name:'Race Control',exact:true}).click();await page.getByLabel('League name',{exact:true}).fill('Track memory synthetic test');await page.getByRole('button',{name:'Create league',exact:true}).click();
- await page.getByLabel('Circuit',{exact:true}).selectOption(venue.id);await page.getByLabel('Layout',{exact:true}).selectOption('10');await page.getByRole('button',{name:'Create group',exact:true}).click();
- await page.getByRole('button',{name:'start session',exact:true}).click();await expect(page.getByText('Shared circuit map',{exact:false})).toBeVisible();
+ await page.getByLabel('Circuit',{exact:true}).selectOption(venue.id);await page.getByLabel('Layout',{exact:true}).selectOption('10');await page.getByRole('button',{name:'Create event',exact:true}).click();
+ await page.getByRole('button',{name:'start',exact:true}).click();await expect(page.getByText('Shared circuit map',{exact:false})).toBeVisible();
  const state=await (await page.request.get('/api/group/state')).json();expect(state.snapshot.map_model.layout_id).toBe('10');expect(state.snapshot.map_revision).toBeTruthy();
  await page.request.post('/api/group/session/close',{data:{}});expect(errors).toEqual([]);
 });

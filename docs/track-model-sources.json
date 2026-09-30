@@ -1,0 +1,134 @@
+{
+  "repository": "https://github.com/jbhoorasingh/gt7-datalogger-track-data",
+  "commit": "dd9ab8ef689536fc41126cc587928dfe8a0c9ad8",
+  "files": {
+    "signatures.json": {
+      "sha256": "9b205e13a312c63e6aad92b2831061f59ac9b2b1c465e4939d2d70422f7588aa",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/signatures.json"
+    },
+    "index.json": {
+      "sha256": "f689f88055112b9f09cd9fa4a2859aeb6020785c342cc3249982c563d5a53c57",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/index.json"
+    },
+    "vendor/circuits.json": {
+      "sha256": "6f5dab992d41e1d8c7c128860e9eda96fe8a7102a6be04ab199117cef9f96e03",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/vendor/circuits.json"
+    },
+    "vendor/README.md": {
+      "sha256": "53ba305a4b7e5eb3e9da16179c5681ccff41cdd3e4d6aba8c7ae17a6818dc889",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/vendor/README.md"
+    },
+    "LICENSE": {
+      "sha256": "c3d12e76f7abb9b51dcd25b5cf60f44fc9991c9d772a9bda292d037f8a8f108a",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/LICENSE"
+    },
+    "LICENSE-MIT": {
+      "sha256": "608c43946623a20aa93a28b13397d58a1bfd9521cb3fea6cf6a16d2a936d109c",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/LICENSE-MIT"
+    },
+    "tracks/alsace-test-course.json": {
+      "sha256": "a007404534344b1a31cf99f9bf15a18e0696f14dbd5d74796ec44d72bdc2fd68",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/alsace-test-course.json"
+    },
+    "tracks/autodrome-lago-maggiore-full-course.json": {
+      "sha256": "419aeb7da25b50211d78b893fd30bc03fc4f29eb0837079eae4800430a2cccb5",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/autodrome-lago-maggiore-full-course.json"
+    },
+    "tracks/autodrome-lago-maggiore-east-end.json": {
+      "sha256": "9f765a7c98e29300b3060eb53efa0625d95c3beb373e9555660df8cd877333b4",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/autodrome-lago-maggiore-east-end.json"
+    },
+    "tracks/autodrome-lago-maggiore-centre.json": {
+      "sha256": "88a5ef8b3bcb4c72d63b5d0763f6e71f136724de20dece72f4d8a9046d1b467c",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/autodrome-lago-maggiore-centre.json"
+    },
+    "tracks/autodromo-nazionale-monza.json": {
+      "sha256": "146712463a042c12f91a3a22a90aab4dda5f670b4e1c3ad3076dd142b3761775",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/autodromo-nazionale-monza.json"
+    },
+    "tracks/autopolis-international-racing-course.json": {
+      "sha256": "ef199ceedf85535123de4cf931700c5931b8f825be3d6e6ae68affce8354e5c7",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/autopolis-international-racing-course.json"
+    },
+    "tracks/brands-hatch-indy-circuit.json": {
+      "sha256": "2155837682e1b0c0f10298fb50e6ebc8c6f533d076834c96edc21d2f8497c57f",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/brands-hatch-indy-circuit.json"
+    },
+    "tracks/bb-raceway.json": {
+      "sha256": "c4bf0291f998833c5a80fee7a33ec37f22742e37d4fe3c27e6302e4b2e586a10",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/bb-raceway.json"
+    },
+    "tracks/bb-raceway-reverse.json": {
+      "sha256": "3d4340c758a159caba203d07e87d210aab29ffd8c033e97d326680ae5d95dfb4",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/bb-raceway-reverse.json"
+    },
+    "tracks/circuit-de-barcelona-catalunya-gp-layout.json": {
+      "sha256": "7c6df78b04a934a4753367e80e4aff0cd7128a7d9ff5b512ef72504134cba6d6",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/circuit-de-barcelona-catalunya-gp-layout.json"
+    },
+    "tracks/circuit-de-spa-francorchamps.json": {
+      "sha256": "d23f0720c1425d81b5b82d5b95e37371c504a81f26575c3d97b5cbc242472e12",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/circuit-de-spa-francorchamps.json"
+    },
+    "tracks/daytona-road-course.json": {
+      "sha256": "c30489ec8b0edf539a065d109fdec9833d2d818007203f736a95edeb1fe24f73",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/daytona-road-course.json"
+    },
+    "tracks/daytona-tri-oval.json": {
+      "sha256": "5863eba7a87c457d55bce6e21394c049b029543277f566d240aa3bc537af5335",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/daytona-tri-oval.json"
+    },
+    "tracks/deep-forest-raceway.json": {
+      "sha256": "acb54ba7d35a5452df5d78e0bde6c8ba2a796ade41bc7fd116d197e4d9ac1e87",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/deep-forest-raceway.json"
+    },
+    "tracks/dragon-trail-gardens.json": {
+      "sha256": "7772c4aa793dcc00f481ffa9d2a0b02b1614b2317fed162677fd9f1d0edd015e",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/dragon-trail-gardens.json"
+    },
+    "tracks/fuji-international-speedway.json": {
+      "sha256": "4fe15195749bec8e21c22e4434a49a82736196120533cc1fc4d2edecec5eb71c",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/fuji-international-speedway.json"
+    },
+    "tracks/high-speed-ring.json": {
+      "sha256": "20bb17bcc75157ac6b63eb1a0fa87d296fa778102dc9b2e632713dcb3c4e6446",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/high-speed-ring.json"
+    },
+    "tracks/kyoto-driving-park-miyabi.json": {
+      "sha256": "336b3adc6fffb506efcad40e9007b1179e8882ca56e8e740d297e5ef78e044d8",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/kyoto-driving-park-miyabi.json"
+    },
+    "tracks/mount-panorama-motor-racing-circuit.json": {
+      "sha256": "ea344814a0677aca58fe1e6d1a0f31004f99244459b968e2985cddecf70aa96b",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/mount-panorama-motor-racing-circuit.json"
+    },
+    "tracks/northern-isle-speedway.json": {
+      "sha256": "d214fd1de12ca119ade83bf545e22742ff579c80e06c4a7d7dddd3d69d069973",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/northern-isle-speedway.json"
+    },
+    "tracks/red-bull-ring-short-track.json": {
+      "sha256": "95a5e9bf86189c18986573db6cc61dec0fa0f83d8a203cb572327f70a62c7195",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/red-bull-ring-short-track.json"
+    },
+    "tracks/sardegna-road-track-a.json": {
+      "sha256": "8437b1717a59dbbdeec31f4c375f78b6dab26cefe91b47ed0e131058e6afd641",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/sardegna-road-track-a.json"
+    },
+    "tracks/suzuka-circuit.json": {
+      "sha256": "3576e5a969ec19b607d05f047af9768ffc2df0149311a112c24fc1bd38a7450a",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/suzuka-circuit.json"
+    },
+    "tracks/trial-mountain-circuit.json": {
+      "sha256": "5ce8b2027525c00af57c1cf28cd5af7c5bc15e465201faeb1a137a1cfd459951",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/trial-mountain-circuit.json"
+    },
+    "tracks/tsukuba-circuit.json": {
+      "sha256": "e1b8abad191bfb1ea12c0114b94868ecf2071a463c5b094ebea686d5faf67bc7",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/tsukuba-circuit.json"
+    },
+    "tracks/weathertech-raceway-laguna-seca.json": {
+      "sha256": "123e27069b3b342bb9870bc878c12931b1bb949a89816fe26e208b6fa7dcd7b2",
+      "url": "https://raw.githubusercontent.com/jbhoorasingh/gt7-datalogger-track-data/dd9ab8ef689536fc41126cc587928dfe8a0c9ad8/tracks/weathertech-raceway-laguna-seca.json"
+    }
+  }
+}

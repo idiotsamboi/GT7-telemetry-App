@@ -1,0 +1,17 @@
+{
+  "source_commit": "dd9ab8ef689536fc41126cc587928dfe8a0c9ad8",
+  "recording_provenance": "live",
+  "session_id": "c1459fef6c9a4c6abbc47042e6dbae97",
+  "lap_id": "5ce2f75dcf604986b18aa31f31b6b6b7",
+  "reference": "Willow Springs International Raceway: Big Willow",
+  "sample_stride": 12,
+  "samples": 542,
+  "median_distance_m": 3.35156771169353,
+  "p95_distance_m": 24.90095921211048,
+  "transform": "none; raw x/z metres",
+  "recording_quality": [
+    "source sequence gap",
+    "telemetry gap"
+  ],
+  "live_ps5_check": "not performed; recorded live data only"
+}

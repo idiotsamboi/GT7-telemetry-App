@@ -8,8 +8,9 @@ test('group controls, ten graphic renderers, and preview program isolation',asyn
  await page.getByLabel('League name',{exact:true}).fill('Synthetic UI league');
  await page.getByRole('button',{name:'Create league',exact:true}).click();
  await expect(page.getByLabel('Saved league')).not.toHaveValue('');
- await page.getByRole('button',{name:'Create group',exact:true}).click();
+ await page.getByRole('button',{name:'Create event',exact:true}).click();
  await expect(page.getByRole('heading',{name:'Race director'})).toBeVisible();
+ await page.getByRole('button',{name:'Studio',exact:true}).click();await page.getByRole('button',{name:'Edit',exact:true}).click();
  await page.getByRole('button',{name:'Create workspace',exact:true}).click();
  await expect(page.getByRole('heading',{name:'Draft preview · 1920 × 1080'})).toBeVisible();
  await page.getByText('Add a graphic',{exact:true}).click();

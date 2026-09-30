@@ -2,7 +2,7 @@ import asyncio,json,math
 from types import SimpleNamespace
 from unittest.mock import patch
 import pytest
-from backend.app.tracks import TrackMap,LAYOUTS,REFERENCES
+from backend.app.tracks import TrackMap,LAYOUTS,REFERENCES,CORPUS_MAX_BYTES
 from backend.app.track_geometry import Fingerprint,shape_fit,transform
 from backend.app.telemetry import demo_sample
 from backend.app.group.service import GroupService
@@ -58,6 +58,23 @@ def test_atomic_failure_history_restore_and_legacy(tmp_path):
  m.import_map('10',route(scale=1.01));assert m.library['10']['versions'][0]['revision']==original
  m.restore('10',original);assert m.library['10']['revision']==original and m.library['10']['restored_from']==original
 
+def test_training_corpus_logs_confirmed_and_matched_laps(tmp_path):
+ m=TrackMap(tmp_path);clean(m)
+ m.confirm(m.candidates[0]['id'],'10')
+ assert m.corpus_records==1 and m.corpus_layouts=={'10'}
+ lines=(m.root/'_corpus.jsonl').read_text(encoding='utf-8').strip().splitlines();assert len(lines)==1
+ first=json.loads(lines[0]);assert first['layout_id']=='10' and first['source']=='user confirmed' and len(first['points'])>=20
+ m.leave();clean(m)
+ assert m.corpus_records==2 and m.snapshot()['corpus']=={'records':2,'layouts':1,'bytes':m.corpus_bytes,'full':False}
+ second=json.loads((m.root/'_corpus.jsonl').read_text(encoding='utf-8').strip().splitlines()[1])
+ assert second['source']=='automatic match' and second['layout_id']=='10'
+ # Reopening from disk restores accumulated corpus counters rather than resetting them.
+ reopened=TrackMap(tmp_path);assert reopened.corpus_records==2 and reopened.corpus_layouts=={'10'}
+ # A full corpus stops appending instead of growing without bound.
+ m.corpus_bytes=CORPUS_MAX_BYTES
+ m._log_corpus('10',route(),{},'automatic match')
+ assert m.corpus_full and m.corpus_records==2
+
 def test_similarity_no_stretch_or_reflection_and_rate_limit(tmp_path):
  p=route();world=[[2*x+90,2*y-160] for x,y in p];fit=shape_fit(p,world)
  assert fit['error_m']<.001 and fit['reflected'] is False
@@ -77,13 +94,16 @@ def test_offline_coverage_and_stable_ids():
   if item['status']=='verified':assert item['approximate'] and len(item['points'])>=20
 
 def test_group_freezes_library_revision(tmp_path):
- tracker=TrackMap(tmp_path);tracker.import_map('10',route())
+ # Layout '793' has no offline v3 bundle model, so sync_track_library falls back
+ # to the legacy learned-line path this test exercises (see test_track_service.py
+ # for the v3-preferred path, which '10'/Suzuka would otherwise take instead).
+ tracker=TrackMap(tmp_path);tracker.import_map('793',route())
  service=GroupService(SimpleNamespace(track_map=tracker,store=SimpleNamespace(path=tmp_path/'db.sqlite'),config=SimpleNamespace(root=tmp_path)))
  async def check():
   league=await service.league_save({'name':'Test'})
-  await service.create_group({'name':'Test','event_name':'Test','league_id':league['id'],'layout_id':'10'})
+  await service.create_group({'name':'Test','event_name':'Test','league_id':league['id'],'layout_id':'793'})
   await service.session_action('start');old=service.active()['map_revision'];assert old
-  tracker.import_map('10',route(scale=1.01));await service.sync_track_library()
+  tracker.import_map('793',route(scale=1.01));await service.sync_track_library()
   assert service.active()['map_revision']==old and service.active()['pending_map']['revision']!=old
   await service.session_action('end');await service.sync_track_library();assert service.active()['map_revision']==old
   await service.session_action('start');assert service.active()['map_revision']!=old and not service.active()['pending_map']

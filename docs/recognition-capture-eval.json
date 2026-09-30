@@ -1,0 +1,290 @@
+{
+  "suite": "Vendor paths held out from surveyed model construction; no capture-derived models tested",
+  "source": {
+    "repo": "https://github.com/zetetos/gt-telemetry",
+    "path": "data/circuits",
+    "commit": "ba82a67f7d095e44ee112cc93db83c821227f21e",
+    "license": "MIT"
+  },
+  "source_checksum": "6f5dab992d41e1d8c7c128860e9eda96fe8a7102a6be04ab199117cef9f96e03",
+  "simulated_speed_mps": 50,
+  "limits": "20m source sampling; simulated timestamps; one start per capture",
+  "captures": 21,
+  "false_lock_captures": 0,
+  "correct_first_locks": 21,
+  "results": [
+    {
+      "layout_id": "1224",
+      "capture": "alsace_test_course.json",
+      "capture_sha256": "747336824f15640d13f0effe2a36c21d7dc2839ce76ba026f6b27eac0487cf72",
+      "source_points": 102,
+      "first_lock": {
+        "layout_id": "1224",
+        "distance_m": 569.7549988898369,
+        "simulated_time_s": 11.395099977796741
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "365",
+      "capture": "autodrome_lago_maggiore_full_course.json",
+      "capture_sha256": "1dfce76b4d9dac377bda0fb73e936582501049c64e1d0707660423f6019e90b7",
+      "source_points": 280,
+      "first_lock": {
+        "layout_id": "365",
+        "distance_m": 3103.500804154485,
+        "simulated_time_s": 62.07001608308971
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "469",
+      "capture": "autodromo_nazionale_monza.json",
+      "capture_sha256": "c531e64a5b43608a60650b7a8620dc7b33279183061cde8547b10448812de145",
+      "source_points": 281,
+      "first_lock": {
+        "layout_id": "469",
+        "distance_m": 965.321664309298,
+        "simulated_time_s": 19.30643328618594
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "896",
+      "capture": "autopolis_international_racing_course.json",
+      "capture_sha256": "316f75535c98af42fb14a37c7bd13e52e8421e69535287d2ac43dc212317dafb",
+      "source_points": 226,
+      "first_lock": {
+        "layout_id": "896",
+        "distance_m": 432.6690799163945,
+        "simulated_time_s": 8.653381598327888
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "357",
+      "capture": "bb_raceway.json",
+      "capture_sha256": "48c61a8f9d78cf60ce312951886133a68b122dcbe3c35d6464dc1da580ca8d2f",
+      "source_points": 83,
+      "first_lock": {
+        "layout_id": "357",
+        "distance_m": 427.7952776102973,
+        "simulated_time_s": 8.555905552205946
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "346",
+      "capture": "brands_hatch_indy_circuit.json",
+      "capture_sha256": "869b30bed1ae5ff83b0fe454ed16608e43233d16e06b0fb4cfa791e1a1deb394",
+      "source_points": 94,
+      "first_lock": {
+        "layout_id": "346",
+        "distance_m": 1303.7208093350848,
+        "simulated_time_s": 26.074416186701697
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "874",
+      "capture": "circuit_de_barcelona_catalunya_gp_layout.json",
+      "capture_sha256": "b8ce2f4b62a7296215c8d94eecaddb15f16ed24b031c71ea6f18626bc7edfcbf",
+      "source_points": 225,
+      "first_lock": {
+        "layout_id": "874",
+        "distance_m": 4018.3576056741485,
+        "simulated_time_s": 80.36715211348297
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "462",
+      "capture": "circuit_de_spa_francorchamps.json",
+      "capture_sha256": "87065cf4916eaa8ab11904e3c648ac91b2b3e12d559924a8c686c7c98c9fabd0",
+      "source_points": 339,
+      "first_lock": {
+        "layout_id": "462",
+        "distance_m": 426.32675320274797,
+        "simulated_time_s": 8.526535064054956
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "1163",
+      "capture": "daytona_road_course.json",
+      "capture_sha256": "3ad9892d261f71d1914bdc2d9887b8f05c5b8cf422ac75b0dc472d8d683253f8",
+      "source_points": 279,
+      "first_lock": {
+        "layout_id": "1163",
+        "distance_m": 426.7398461050271,
+        "simulated_time_s": 8.534796922100542
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "4",
+      "capture": "daytona_tri_oval.json",
+      "capture_sha256": "1412ae79ac85f195a77ad28a5e7a9cf1b16749edd828b0deb2f0bf2ef28ba1c5",
+      "source_points": 194,
+      "first_lock": {
+        "layout_id": "4",
+        "distance_m": 438.899861008152,
+        "simulated_time_s": 8.777997220163039
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "51",
+      "capture": "deep_forest_raceway.json",
+      "capture_sha256": "7f4e813a94806862c0857d18f7c36a3070e045eef6b3b8339372d8d3cb346897",
+      "source_points": 205,
+      "first_lock": {
+        "layout_id": "51",
+        "distance_m": 431.76944231491933,
+        "simulated_time_s": 8.635388846298385
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "847",
+      "capture": "dragon_trail_gardens.json",
+      "capture_sha256": "c2b042c45b45b6c87d7353ad94611fcd4806daa75bce8a359a53fe126aa9e271",
+      "source_points": 211,
+      "first_lock": {
+        "layout_id": "847",
+        "distance_m": 428.33613681788614,
+        "simulated_time_s": 8.566722736357722
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "16",
+      "capture": "fuji_international_speedway.json",
+      "capture_sha256": "01addefa304d973d643513de3324855228041aee5b7003c53f765b22de74ca35",
+      "source_points": 220,
+      "first_lock": {
+        "layout_id": "16",
+        "distance_m": 434.86325656168214,
+        "simulated_time_s": 8.69726513123364
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "11",
+      "capture": "high_speed_ring.json",
+      "capture_sha256": "6ba0cef050bb62efffa17d8423255c3dac70ff6e5a06cc8cdec57c1aec793ff2",
+      "source_points": 211,
+      "first_lock": {
+        "layout_id": "11",
+        "distance_m": 435.0714959816747,
+        "simulated_time_s": 8.701429919633496
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "440",
+      "capture": "kyoto_driving_park_miyabi.json",
+      "capture_sha256": "2e53a232a64f7348ac0aa57a50ea2428a33ff9972c5b943b9df4403c991aeda2",
+      "source_points": 94,
+      "first_lock": {
+        "layout_id": "440",
+        "distance_m": 1570.5114337647697,
+        "simulated_time_s": 31.410228675295393
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "116",
+      "capture": "mount_panorama_motor_racing_circuit.json",
+      "capture_sha256": "2f173cdd96de0a266711d42f17899c055757444d5a0f896336c013ad7c66c137",
+      "source_points": 301,
+      "first_lock": {
+        "layout_id": "116",
+        "distance_m": 429.5377106796301,
+        "simulated_time_s": 8.590754213592602
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "921",
+      "capture": "sardegna_road_track_a.json",
+      "capture_sha256": "16650a72af8289c757f4a4fdadc88f2a1d0d8fa1af707f1474e91b91a5bee9b7",
+      "source_points": 249,
+      "first_lock": {
+        "layout_id": "921",
+        "distance_m": 1406.8271788859975,
+        "simulated_time_s": 28.13654357771995
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "10",
+      "capture": "suzuka_circuit.json",
+      "capture_sha256": "3a43f158eed530038bc7b673eca85b64ea8c840635ec3038fa1922731d372888",
+      "source_points": 280,
+      "first_lock": {
+        "layout_id": "10",
+        "distance_m": 431.91836502585636,
+        "simulated_time_s": 8.638367300517125
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "1024",
+      "capture": "trial_mountain_circuit.json",
+      "capture_sha256": "8d7179d10a26b4bdb93e227b88d57cdc7de269110f657519afaeef8fcff1f345",
+      "source_points": 261,
+      "first_lock": {
+        "layout_id": "1024",
+        "distance_m": 432.7187148439718,
+        "simulated_time_s": 8.654374296879437
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "471",
+      "capture": "tsukuba_circuit.json",
+      "capture_sha256": "b2dc55ba8a15b3d930baa5daf1e46c7c26b845ce9d56188feeec14ce7c02e30d",
+      "source_points": 102,
+      "first_lock": {
+        "layout_id": "471",
+        "distance_m": 425.41365053971043,
+        "simulated_time_s": 8.508273010794207
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    },
+    {
+      "layout_id": "41",
+      "capture": "weathertech_raceway_laguna_seca.json",
+      "capture_sha256": "c631a831bf49e901a83de18344ad262ee4f2e37c07624de2bcb9da5bc5c783e6",
+      "source_points": 175,
+      "first_lock": {
+        "layout_id": "41",
+        "distance_m": 430.4536378490085,
+        "simulated_time_s": 8.609072756980169
+      },
+      "false_locks": [],
+      "closed_within_100m": true
+    }
+  ]
+}

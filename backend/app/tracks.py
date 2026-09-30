@@ -21,9 +21,21 @@ def atomic(path,data):
   stream.write(json.dumps(data,separators=(',',':'),allow_nan=False));stream.flush();os.fsync(stream.fileno())
  temp.replace(path)
 
+CORPUS_MAX_BYTES=40*1024*1024
+
 class TrackMap:
  def __init__(self,root):
   self.root=Path(root)/'track-maps';self.root.mkdir(exist_ok=True);self.lock=threading.RLock();self.io_lock=threading.RLock()
+  self.corpus_path=self.root/'_corpus.jsonl';self.corpus_bytes=self.corpus_path.stat().st_size if self.corpus_path.exists() else 0;self.corpus_records=0;self.corpus_layouts=set();self.corpus_full=False
+  if self.corpus_path.exists():
+   try:
+    with self.corpus_path.open(encoding='utf-8') as stream:
+     for line in stream:
+      if not line.strip():continue
+      self.corpus_records+=1
+      try:self.corpus_layouts.add(json.loads(line).get('layout_id'))
+      except (ValueError,TypeError):pass
+   except OSError:pass
   self.library={};self.fingerprints={};self.alignments={};self.queue=deque(maxlen=8);self.candidates=[];self.pending=None;self.error=None;self.generation=0;self.last_scan=-1e30;self.scan_count=0
   self.layout_id='';self.preferred='';self.saved=None;self.bound=False;self.manual=False;self.suggestions=[];self.provenance='live';self.status='Recognizing';self.reason='Drive a clean lap to recognize a saved layout.';self.reset()
   for path in self.root.glob('*.json'):
@@ -124,6 +136,19 @@ class TrackMap:
     self.library[key]=data;self.fingerprints[key]=fp;self.alignments.pop(key,None)
     if self.layout_id==key:self.saved=data;self.status='Saved map'
    return data
+ def _log_corpus(self,layout_id,points,quality,source):
+  """Append-only training corpus: every recognized/confirmed clean lap ever
+  seen, kept alongside (not instead of) the current-best map per layout so
+  the recognition system accumulates more matched geometry over time. Bounded
+  total size; stops appending rather than growing without limit."""
+  with self.io_lock:
+   if self.corpus_bytes>=CORPUS_MAX_BYTES:
+    self.corpus_full=True;return
+   record=json.dumps({'ts':time.time(),'layout_id':layout_id,'source':source,'points':points,'quality':quality or {}},separators=(',',':'),allow_nan=False)+'\n'
+   try:
+    with self.corpus_path.open('a',encoding='utf-8') as stream:stream.write(record)
+    self.corpus_bytes+=len(record.encode('utf-8'));self.corpus_records+=1;self.corpus_layouts.add(layout_id)
+   except OSError as error:self.error='Training corpus not written: '+str(error)[:160]
  def _retain(self,candidate,suggestions):
   with self.io_lock:
    item={**candidate,'suggestions':suggestions};items=[x for x in self.candidates if x['id']!=item['id']]+[item];items=items[-8:]
@@ -148,6 +173,7 @@ class TrackMap:
     if not key and self._distinct(matches):key=matches[0]['layout_id']
     if key:
      saved=self._write(key,candidate['points'],quality=candidate['quality'])
+     self._log_corpus(key,candidate['points'],candidate['quality'],'automatic match')
      with self.lock:
       if self.generation==candidate['generation'] and live:self.layout_id=key;self.bound=True;self.saved=saved;self.status='Saved map';self.reason='Clean lap matched a unique saved layout.' if not candidate['layout_id'] else 'Clean lap saved under the selected layout.'
     else:
@@ -177,6 +203,7 @@ class TrackMap:
   with self.lock:item=next((copy.deepcopy(x) for x in self.candidates if x['id']==candidate_id),None)
   if not item or item.get('provenance')!='live':raise ValueError('Live candidate not found')
   data=self._write(layout_id,item['points'],quality={**item['quality'],'identity':'user confirmed'})
+  self._log_corpus(layout_id,item['points'],item['quality'],'user confirmed')
   with self.lock:self.reset();self.layout_id=layout_id;self.preferred=layout_id;self.bound=True;self.manual=True;self.saved=data;self.status='Saved map';self.reason='Layout confirmed and saved.';self.suggestions=[];self.generation+=1
   with self.io_lock:
    items=[x for x in self.candidates if x['id']!=candidate_id];atomic(self.root/'_candidates.json',items)
@@ -208,4 +235,4 @@ class TrackMap:
  def snapshot(self):
   with self.lock:
    data=self.saved;reference=self.reference(self.layout_id);versions=(self.library.get(self.layout_id) or {}).get('versions',[])
-   return {'schema':2,'layout_id':self.layout_id,'preferred_layout_id':self.preferred,'selection':LAYOUTS.get(self.layout_id),'kind':data['kind'] if data else 'learning current lap','points':list(data['points'] if data else self.points),'complete':bool(data),'recording_points':len(self.points),'status':self.status,'reason':self.reason,'recognition':{'mode':'automatic with fallback','bound':self.bound,'manual':self.manual,'candidates':copy.deepcopy(self.suggestions),'requires_complete_lap':True},'revision':data.get('revision') if data else None,'versions':[{'revision':v['revision'],'updated':v.get('updated'),'kind':v['kind']} for v in versions],'reference':reference,'alignment':copy.deepcopy(self.alignments.get(self.layout_id,{'status':'unavailable','points':[]})) if self.provenance=='live' else {'status':'unavailable for demo/replay','points':[]},'reference_coverage':REFERENCES.get(self.layout_id,{}).get('status','unavailable'),'unnamed_candidates':[{k:v for k,v in c.items() if k not in ('points','generation')} for c in reversed(self.candidates)],'save_pending':bool(self.queue),'save_error':self.error,'provenance':self.provenance}
+   return {'schema':2,'layout_id':self.layout_id,'preferred_layout_id':self.preferred,'selection':LAYOUTS.get(self.layout_id),'kind':data['kind'] if data else 'learning current lap','points':list(data['points'] if data else self.points),'complete':bool(data),'recording_points':len(self.points),'status':self.status,'reason':self.reason,'recognition':{'mode':'automatic with fallback','bound':self.bound,'manual':self.manual,'candidates':copy.deepcopy(self.suggestions),'requires_complete_lap':True},'revision':data.get('revision') if data else None,'versions':[{'revision':v['revision'],'updated':v.get('updated'),'kind':v['kind']} for v in versions],'reference':reference,'alignment':copy.deepcopy(self.alignments.get(self.layout_id,{'status':'unavailable','points':[]})) if self.provenance=='live' else {'status':'unavailable for demo/replay','points':[]},'reference_coverage':REFERENCES.get(self.layout_id,{}).get('status','unavailable'),'unnamed_candidates':[{k:v for k,v in c.items() if k not in ('points','generation')} for c in reversed(self.candidates)],'save_pending':bool(self.queue),'save_error':self.error,'provenance':self.provenance,'corpus':{'records':self.corpus_records,'layouts':len(self.corpus_layouts),'bytes':self.corpus_bytes,'full':self.corpus_full}}

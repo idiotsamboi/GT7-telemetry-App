@@ -6,6 +6,18 @@
       "runtimeExecutable": ".venv/Scripts/python.exe",
       "runtimeArgs": ["run.py", "run", "--data", "data-preview", "--port", "8010"],
       "port": 8010
+    },
+    {
+      "name": "gt7-backend-dev",
+      "runtimeExecutable": ".venv/Scripts/python.exe",
+      "runtimeArgs": ["run.py", "run", "--data", "data-frontend-dev"],
+      "port": 8000
+    },
+    {
+      "name": "gt7-frontend-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "frontend", "run", "dev"],
+      "port": 5173
     }
   ]
 }

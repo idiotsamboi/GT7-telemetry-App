@@ -6,11 +6,12 @@ def utcnow():return datetime.now(timezone.utc).isoformat()
 
 class Sessions:
     def __init__(self,store,settings):
-        self.store=store; self.settings=settings; self.id=None; self.status='disconnected'; self.laps=[]; self.latest=None; self.last_report=None; self.manual_ended=False; self.lap_id=None; self.quality=set(); self.meta={}; self.reference=None
+        self.store=store; self.settings=settings; self.id=None; self.status='disconnected'; self.laps=[]; self.latest=None; self.last_report=None; self.manual_ended=False; self.lap_id=None; self.quality=set(); self.meta={}; self.reference=None; self.emit=None  # emit(kind,data): set by Runtime to publish lifecycle events on the bus
     def start(self,s=None):
         self.id=uuid.uuid4().hex; self.started=utcnow(); self.ended=None; self.laps=[]; self.quality=set(); self.status='driving' if s else 'connected/idle'; self.provenance=s.provenance if s else 'live'; self.number=None; self.acc=Accumulator(); self.partial=True; self.lap_id=uuid.uuid4().hex; self.manual_ended=False; self.latest=None
         self.meta={'track':self.settings.track,'layout':self.settings.layout,'direction':self.settings.direction,'notes':self.settings.setup_notes,'car_id':s.values['car_id'] if s else None,'settings':self.settings.model_dump(mode='json'),'parser_version':'1.0','official_validity':'unknown'}
         self.persist()
+        if self.emit:self.emit('session_started',{'session_id':self.id,'provenance':self.provenance})
     def persist(self):
         if self.id:self.store.put('session',(self.id,self.started,self.ended,self.status,self.provenance,json.dumps(self.meta),json.dumps(self.report())))
     def close_lap(self,complete,game_ms=None):
@@ -18,6 +19,7 @@ class Sessions:
         summary=self.acc.summary(); duration=game_ms if complete and game_ms and 1000<game_ms<3600000 else round(self.acc.elapsed*1000)
         lap={'id':self.lap_id,'number':self.number,'duration_ms':duration,'timing_source':'game completed lap' if complete and game_ms and 1000<game_ms<3600000 else 'estimated active receive time','complete':complete,'partial':self.partial,'official_validity':'unknown','quality':sorted(self.quality), 'comparable':complete and not self.partial and not self.quality and not summary['refuel'],**summary}
         self.laps.append(lap); self.store.put('lap',(self.lap_id,self.id,json.dumps(lap)))
+        if complete and self.emit:self.emit('lap_completed',{'session_id':self.id,'lap':lap})
         # Bound live aggregate memory; all original laps remain on disk.
         self.laps=self.laps[-2000:]
     def consume(self,s):
@@ -45,7 +47,9 @@ class Sessions:
     def end(self,status='completed'):
         if not self.id:return self.last_report
         self.close_lap(False); self.status=status; self.ended=utcnow(); self.persist(); result=self.report(); result['id']=self.id
-        self.last_report=result; self.id=None; self.manual_ended=True; return result
+        self.last_report=result; ended_id=self.id; self.id=None; self.manual_ended=True
+        if self.emit:self.emit('session_ended',{'session_id':ended_id,'status':status})
+        return result
     def report(self):
         return {'status':self.status,'provenance':getattr(self,'provenance','unknown'),'laps':self.laps,'pace':lap_statistics(self.laps),'improvements':improvements(self.laps),'quality':sorted(self.quality),'recording':{'application_drops':self.store.drops,'failed_rows':self.store.failed_rows,'scope':'application lifetime; includes current session'},'official_validity':'unknown','report_status':'incremental summary ready','fuel':self.fuel()}
     def fuel(self):

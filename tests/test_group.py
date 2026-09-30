@@ -2,7 +2,7 @@
 from types import SimpleNamespace
 import asyncio
 import pytest
-from fastapi import HTTPException
+from backend.app.core.errors import AppError
 from fastapi.testclient import TestClient
 from backend.app.group.service import GroupService
 from backend.app.group.public import public_app
@@ -46,7 +46,7 @@ def test_group_admission_revocation_and_public_boundary(tmp_path):
   assert c.post('/group-api/workspaces',json={},headers={'origin':'http://testserver'}).status_code==403
   asyncio.run(s.admit(pid,'removed'))
   assert c.get('/group-api/me').status_code in (401,403)
-  with pytest.raises(HTTPException):asyncio.run(s.authenticate(token))
+  with pytest.raises(AppError):asyncio.run(s.authenticate(token))
 
 
 def test_invitation_rotation_does_not_revoke_member(tmp_path):
@@ -58,7 +58,7 @@ def test_invitation_rotation_does_not_revoke_member(tmp_path):
   join=await s.join({'credential':invitation['credential'],'identity':{'display_name':'Driver','number':'7'}})
   s.repo.revoke(invitation['id'],'invite_driver')
   assert (await s.authenticate(join['token']))['kind']=='driver'
-  with pytest.raises(HTTPException):await s.join({'credential':invitation['credential'],'identity':{'display_name':'Other'}})
+  with pytest.raises(AppError):await s.join({'credential':invitation['credential'],'identity':{'display_name':'Other'}})
  asyncio.run(check())
 
 def test_publishing_binding_privacy_delay_and_workspace_isolation(tmp_path):
@@ -73,12 +73,12 @@ def test_publishing_binding_privacy_delay_and_workspace_isolation(tmp_path):
   packet={'version':1,'group_id':g['id'],'session_id':g['session_id'],'participant_id':p['id'],'entry_id':p['entry_id'],'boot_id':'test-boot','sequence':1,'source_mono':1,'source_utc':time.time(),'provenance':'live','layout_id':'','local_session_id':'local','values':{'car_id':1,'lap':None,'fuel':31.5,'flags':1}}
   assert s.telemetry(principal,packet)
   assert not s.telemetry(principal,packet)
-  with pytest.raises(HTTPException):s.telemetry(principal,{**packet,'entry_id':'spoofed'})
+  with pytest.raises(AppError):s.telemetry(principal,{**packet,'entry_id':'spoofed'})
   spec=await s.invite('spectator');view=await s.join({'credential':spec['credential'],'identity':{'display_name':'Viewer'}});vp=await s.authenticate(view['token'])
   assert 'fuel' not in s.public_state(vp)['entries'][0]['fields']
   assert s.public_state(principal)['entries'][0]['fields']['fuel']['value']==31.5
   own=await s.save_workspace({'name':'Private workspace'},principal=vp)
-  with pytest.raises(HTTPException):s.workspace(own['id'],principal)
+  with pytest.raises(AppError):s.workspace(own['id'],principal)
   before=own['program_revision'];await s.save_workspace({'name':'Draft change'},own['id'],vp)
   assert s.workspace(own['id'])['program_revision']==before
   assert s.workspace(own['id'])['program']['name']=='Private workspace'
@@ -87,7 +87,38 @@ def test_publishing_binding_privacy_delay_and_workspace_isolation(tmp_path):
   await s.configure({'delay_s':10})
   assert s.public_state(vp)['buffering']
   await s.configure({'required_sharing':['basic','telemetry']})
-  with pytest.raises(HTTPException):s.telemetry(principal,{**packet,'sequence':2})
+  with pytest.raises(AppError):s.telemetry(principal,{**packet,'sequence':2})
+ asyncio.run(check())
+
+def test_entry_reassignment_revokes_the_old_drivers_own_row_access(tmp_path):
+ # Regression: entry_update() only updated the NEW participant's entry_id;
+ # the driver reassigned AWAY from an entry kept a stale entry_id pointing at
+ # it. filter_snapshot()'s "is this row mine" check matched on that stale
+ # entry_id, so the old driver's still-valid credential would see the row
+ # filtered by the NEW driver's own (broader) sharing consent instead of the
+ # group's publication redaction - a privacy leak across a driver swap.
+ import time
+ s=GroupService(SimpleNamespace(store=SimpleNamespace(path=tmp_path/'db.sqlite'),config=SimpleNamespace(root=tmp_path)))
+ async def check():
+  league=await s.league_save({'name':'Test'})
+  g=await s.create_group({'name':'Test','event_name':'Test event','league_id':league['id'],'approval':False})
+  inv1=await s.invite('driver');old=await s.join({'credential':inv1['credential'],'identity':{'display_name':'Old driver','number':'1'},'accepted_sharing':['basic','fuel']})
+  inv2=await s.invite('driver');new=await s.join({'credential':inv2['credential'],'identity':{'display_name':'New driver','number':'2'},'accepted_sharing':['basic','fuel']})
+  old_principal=await s.authenticate(old['token']);new_principal=await s.authenticate(new['token'])
+  entry_id=old['participant']['entry_id']
+  packet={'version':1,'group_id':g['id'],'session_id':g['session_id'],'participant_id':old['participant']['id'],'entry_id':entry_id,'boot_id':'b','sequence':1,'source_mono':1,'source_utc':time.time(),'provenance':'live','layout_id':'','local_session_id':'l','values':{'car_id':1,'lap':None,'fuel':12.3,'flags':1}}
+  assert s.telemetry(old_principal,packet)
+  def row_fields():return next(r for r in s.public_state(old_principal)['entries'] if r['entry_id']==entry_id)['fields']  # entries[0] isn't reliably this entry - both are equally "unranked" with no position yet
+  # Before reassignment this row genuinely is old_principal's own - seeing their
+  # own broader personal consent (fuel) here is correct, existing behavior, not
+  # the bug; the leak only appears once the row stops being theirs (below).
+  assert 'fuel' in row_fields()
+  await s.entry_update(entry_id,{'participant_id':new['participant']['id']})
+  assert s.member(old_principal)[1]['entry_id'] is None  # old driver's own entry_id was cleared, not left dangling
+  # The old driver's credential is still otherwise valid (no revocation on reassignment); it must now
+  # be treated exactly like any other viewer - the group's basic-only publication, not the new driver's
+  # broader personal consent.
+  assert 'fuel' not in row_fields()
  asyncio.run(check())
 
 
@@ -135,9 +166,9 @@ def test_branding_upload_reencodes_and_rejects_unsafe_input(tmp_path):
  raw=io.BytesIO();Image.new('RGBA',(20,10),(255,0,0,0)).save(raw,format='PNG')
  asset=assets.upload(league['id'],raw.getvalue())
  with Image.open(assets.path(asset['id'])) as image:assert image.mode=='RGBA' and image.size==(20,10)
- with pytest.raises(HTTPException):assets.upload(league['id'],b'<svg xmlns="http://www.w3.org/2000/svg"/>')
- with pytest.raises(HTTPException):assets.path('../../secret')
- with pytest.raises(HTTPException):assets.upload(league['id'],b'x'*(5*1024*1024+1))
+ with pytest.raises(AppError):assets.upload(league['id'],b'<svg xmlns="http://www.w3.org/2000/svg"/>')
+ with pytest.raises(AppError):assets.path('../../secret')
+ with pytest.raises(AppError):assets.upload(league['id'],b'x'*(5*1024*1024+1))
 
 
 def test_wrapped_zone_uncertainty_and_independent_cancellation():
@@ -168,7 +199,7 @@ def test_league_demo_is_synthetic_and_preserves_existing_group(tmp_path,count):
   s.demo['paused']=False;s.demo['last']=time.monotonic()-.5;await tick(s);assert s.demo['elapsed']>original
   await s.session_action('close');await tick(s);assert s.demo is None
   league=await s.league_save({'name':'Live league'});await s.create_group({'name':'Real event','event_name':'Race','league_id':league['id']})
-  with pytest.raises(HTTPException):await start_demo(s,8)
+  with pytest.raises(AppError):await start_demo(s,8)
   assert s.group()['name']=='Real event'
  asyncio.run(check())
 

@@ -1,16 +1,16 @@
 import {useState} from 'react';
-async function call(path:string,body?:any,method='POST'){const r=await fetch('/api/group/'+path,{method:body===undefined?'GET':method,headers:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});const value=await r.json();if(!r.ok)throw Error(typeof value.detail==='string'?value.detail:JSON.stringify(value.detail));return value}
+import {groupApi} from './domain/api';
 const VARIANTS=['primary','light','dark','compact','watermark'];
 export default function LeagueBranding({league,onSaved,onClose}:{league:any,onSaved:()=>void,onClose:()=>void}){
  const [draft,setDraft]=useState<any>(structuredClone(league.branding)),[error,setError]=useState(''),[status,setStatus]=useState(''),[sponsorName,setSponsorName]=useState(''),[teamName,setTeamName]=useState(''),[preview,setPreview]=useState<'dark'|'light'|'transparent'>('dark');
  const change=(k:string,v:any)=>{setDraft({...draft,[k]:v});setStatus('')};
- const upload=async(file:File)=>{if(file.size>5*1024*1024)throw Error('Image exceeds 5 MiB');const r=await fetch(`/api/group/leagues/${league.id}/assets`,{method:'POST',body:file});const data=await r.json();if(!r.ok)throw Error(data.detail||'Upload failed');return data};
+ const upload=async(file:File)=>{if(file.size>5*1024*1024)throw Error('Image exceeds 5 MiB');return groupApi.uploadLeagueAsset(league.id,file)};
  async function setLogo(variant:string,file?:File){if(!file)return;try{const asset=await upload(file);change('logos',{...draft.logos,[variant]:asset.id});setError('')}catch(e:any){setError(e.message)}}
  function addSponsor(){if(!sponsorName)return;change('sponsors',[...draft.sponsors,{id:crypto.randomUUID(),name:sponsorName,asset:'',enabled:true}]);setSponsorName('')}
  async function sponsorLogo(id:string,file?:File){if(!file)return;try{const asset=await upload(file);change('sponsors',draft.sponsors.map((s:any)=>s.id===id?{...s,asset:asset.id}:s));setError('')}catch(e:any){setError(e.message)}}
  function addTeam(){if(!teamName)return;change('teams',[...draft.teams,{id:crypto.randomUUID(),name:teamName,asset:'',color:'#ffffff'}]);setTeamName('')}
  async function teamLogo(id:string,file?:File){if(!file)return;try{const asset=await upload(file);change('teams',draft.teams.map((t:any)=>t.id===id?{...t,asset:asset.id}:t));setError('')}catch(e:any){setError(e.message)}}
- async function save(){try{await call('leagues/'+league.id,draft,'PUT');setStatus('Branding saved');setError('');onSaved()}catch(e:any){setError(e.message)}}
+ async function save(){try{await groupApi.updateLeague(league.id,draft);setStatus('Branding saved');setError('');onSaved()}catch(e:any){setError(e.message)}}
  const img=(id:string,size='512')=>`/api/group/assets/${id}/${size}.png`;
  return <section className="card branding-editor"><div className="studio-title"><h2>League branding · {league.branding.name}</h2><button onClick={onClose}>Close editor</button></div>{error&&<p role="alert" className="amber-text">{error}</p>}{status&&<p role="status">{status}</p>}
  <div className="form-grid"><label>League name<input value={draft.name} onChange={e=>change('name',e.target.value)}/></label><label>Short name<input value={draft.short_name} onChange={e=>change('short_name',e.target.value)}/></label><label>Tagline<input value={draft.tagline} onChange={e=>change('tagline',e.target.value)}/></label><label>Font<select value={draft.font} onChange={e=>change('font',e.target.value)}>{['system','sans','mono'].map(x=><option key={x}>{x}</option>)}</select></label></div>

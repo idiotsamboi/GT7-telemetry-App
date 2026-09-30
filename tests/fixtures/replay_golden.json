@@ -1,0 +1,40 @@
+{
+ "events": [
+  "lap"
+ ],
+ "laps": [
+  {
+   "comparable": false,
+   "complete": true,
+   "duration_ms": 30000,
+   "number": 1,
+   "partial": true,
+   "timing_source": "game completed lap"
+  },
+  {
+   "comparable": true,
+   "complete": true,
+   "duration_ms": 30000,
+   "number": 2,
+   "partial": false,
+   "timing_source": "game completed lap"
+  },
+  {
+   "comparable": false,
+   "complete": false,
+   "duration_ms": 6650,
+   "number": 3,
+   "partial": false,
+   "timing_source": "estimated active receive time"
+  }
+ ],
+ "pace": {
+  "best_ms": 30000,
+  "count": 1,
+  "mean_ms": 30000,
+  "median_ms": 30000,
+  "std_ms": 0.0,
+  "trend_ms": null
+ },
+ "quality": []
+}

@@ -93,6 +93,8 @@ Source installs store settings, recordings, logs and learned maps in `data/`; `-
 
 The app runs offline after dependencies/models are installed. Circuit/car assets are local; the optional asset refresh script and model installers need internet. Car/track artwork belongs to its respective rights holders and is not covered by the metadata licence. [Asset provenance](docs/track-car-assets-provenance.json), [third-party notices](THIRD_PARTY_NOTICES.md), [protocol details](PROTOCOL.md) and [field capabilities](DATA_FIELDS.md) document sources and limitations.
 
+Offline circuit geometry, including real elevation for 22 layouts, is built from jbhoorasingh/gt7-datalogger-track-data (CC0) and vthinsel/GT7Tracks (MIT); see [docs/TRACKS.md](docs/TRACKS.md) for what each source contributes.
+
 ## Development and verification
 
 ```sh
@@ -106,18 +108,34 @@ npm run build
 npm run test:e2e
 ```
 
+More checks, and where things live:
+
+```sh
+.venv/bin/python scripts/gen-contracts.py --check   # generated contracts (docs + frontend registries) are current
+.venv/bin/python scripts/bench_ingest.py            # hot-path micro-benchmark; compare before/after touching ingestion
+.venv/bin/python run.py run --demo --scenario packet_loss_burst   # deterministic synthetic scenario (never mixed with live data)
+.venv/bin/python run.py run --safe-mode             # experimental features, mic, local AI and the console heartbeat stay off
+cd frontend && npm run check:arch                   # components use src/domain clients, never fetch()
+```
+
+`pytest` on Windows may need `--basetemp=<a writable folder>` if the default temp directory is locked down.
+Architecture: [ARCHITECTURE.md](ARCHITECTURE.md) is the map; [docs/architecture/](docs/architecture/) has the audit, per-area guides,
+generated contracts and the tech-debt register; decisions are in [docs/adr/](docs/adr/). Adding a feature: [docs/architecture/EXTENDING_THE_APP.md](docs/architecture/EXTENDING_THE_APP.md).
+
 Browser tests need a running **isolated test instance**, not your live recording data; see `frontend/playwright.config.ts`. The default browser is installed Chrome. A standalone `run.py connection-test --ps5 <address>` requires the normal receiver to be stopped first. Only one receiver may own the PS5 UDP port.
 
 Bug reports should include OS/architecture, app version or commit, packet variant, steps to reproduce and relevant errors. Remove pairing tokens, personal paths and network identifiers before posting logs. Hardware measurements are welcome; synthetic tests are not proof of Orange Pi compatibility.
 
 ## Race Control development preview
 
-The source build now includes league/event setup, group admission, driver forwarding, Race Control and a ten-template Broadcast Studio preview. This is not yet the completed release or included in the existing beta downloads. See [setup, implemented features and remaining validation](docs/RACE_CONTROL.md).
+The source build now includes league/event setup, group admission, driver forwarding, Race Control and a 26-template Broadcast Studio preview. This is not yet the completed release or included in the existing beta downloads. See [setup, implemented features and remaining validation](docs/RACE_CONTROL.md).
 
-The Race Control preview now includes a **4/8/16-driver league demo**, a driver inspection/control desk, and side-by-side OBS preview/program monitors with drag placement and individual graphic outputs. Start it from **Race Control → Start league demo**; see the [OBS rehearsal guide](docs/RACE_CONTROL.md#league-demo-and-obs-rehearsal).
+The Race Control preview now includes a **4/8/16-driver league demo**, a driver inspection/control desk, and side-by-side OBS preview/program monitors with drag placement and individual graphic outputs. Start it from **Race Control → Start rehearsal demo**; see the [OBS rehearsal guide](docs/RACE_CONTROL.md#league-demo-and-obs-rehearsal).
 
 ### Automatic track memory
 
 Track recognition now remembers clean learned laps, keeps revision history, and asks for confirmation when identity is ambiguous. Includes 101 offline approximate reference outlines across the existing 122-layout catalogue, shared Race Control/OBS maps and session revision freezing. See the [track-memory guide](docs/TRACK_MEMORY.md) and [reference coverage report](docs/TRACK_REFERENCE_COVERAGE.md).
 
 If the dashboard is stuck, use **Recovery** or open `/recovery`. See the [recovery guide](docs/RECOVERY.md).
+
+The [broadcast graphics guide](docs/BROADCAST_GRAPHICS.md) lists all 26 graphics, their dimensions and sharing requirements, including the new classification strip, team roster, lap-time board, speed comparison, connection status and event information.

@@ -2,6 +2,7 @@
 import sqlite3,json,threading,time,hashlib,secrets,uuid
 from pathlib import Path
 from contextlib import contextmanager
+from .migrations import upgrade,stamp
 
 def uid():return uuid.uuid4().hex
 def digest(token):return hashlib.sha256(token.encode()).hexdigest()
@@ -30,13 +31,13 @@ CREATE INDEX IF NOT EXISTS group_frame_session ON group_frames(session_id,utc);
  def docs(self,kind,parent=None):
   with self.connect() as db:
    rows=db.execute('SELECT payload FROM group_documents WHERE kind=?'+(' AND parent=?' if parent is not None else '')+' ORDER BY rowid LIMIT 10000',(kind,parent) if parent is not None else (kind,)).fetchall()
-  return [json.loads(r[0]) for r in rows]
+  return [upgrade(kind,json.loads(r[0])) for r in rows]
  def get(self,kind,id):
   with self.connect() as db:r=db.execute('SELECT payload FROM group_documents WHERE kind=? AND id=?',(kind,id)).fetchone()
-  return json.loads(r[0]) if r else None
+  return upgrade(kind,json.loads(r[0])) if r else None
  def commit(self,documents=(),event=None):
   with self.lock,self.connect() as db:
-   for kind,id,parent,data in documents:db.execute('INSERT INTO group_documents VALUES(?,?,?,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload,parent=excluded.parent',(kind,id,parent,encode(data)))
+   for kind,id,parent,data in documents:db.execute('INSERT INTO group_documents VALUES(?,?,?,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload,parent=excluded.parent',(kind,id,parent,encode(stamp(kind,data))))
    seq=None
    if event:
     group,session,actor,kind,data=event

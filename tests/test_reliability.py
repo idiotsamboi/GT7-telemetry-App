@@ -21,12 +21,19 @@ def test_each_rule(name):
         if name=='pedal_overlap':v['throttle']=v['brake']=.5 if trigger else 0
         if name=='pit_speed':v['position']=[0,0,0] if trigger else [5000,0,5000]
         return s
-    rule=Rules(cfg);s=sample(False);assert not any(e.category==name for e in rule.evaluate(s,'s'));s.mono=20;assert not any(e.category==name for e in rule.evaluate(s,'s'))
-    s=sample(True);s.mono=21;rule.evaluate(s,'s');s.mono=21+RULES[name]['persist']+.1;events=rule.evaluate(s,'s');event=next(e for e in events if e.category==name)
-    s.mono+=1;assert not any(e.category==name for e in rule.evaluate(s,'s'))
-    noisy=Rules(cfg)
+    # tyre_heat_rate isn't in the generic conditions dict - it needs an explicit
+    # tyre_heat= argument built from TyreHeatMonitor's own output shape - and it
+    # has its own extra warm-up-laps suppression, skipped here to exercise the
+    # same persist/cooldown/noise shape every other rule is held to.
+    def extra(trigger):
+        if name!='tyre_heat_rate':return {}
+        return {'tyre_heat':{'rates':[.3 if trigger else 0.]*4,'anomalies':[6. if trigger else 0.]*4,'method':'time baseline'}}
+    rule=Rules(cfg);rule.laps_since_start=5;s=sample(False);assert not any(e.category==name for e in rule.evaluate(s,'s',**extra(False)));s.mono=20;assert not any(e.category==name for e in rule.evaluate(s,'s',**extra(False)))
+    s=sample(True);s.mono=21;rule.evaluate(s,'s',**extra(True));s.mono=21+RULES[name]['persist']+.1;events=rule.evaluate(s,'s',**extra(True));event=next(e for e in events if e.category==name)
+    s.mono+=1;assert not any(e.category==name for e in rule.evaluate(s,'s',**extra(True)))
+    noisy=Rules(cfg);noisy.laps_since_start=5
     for i in range(30):
-        s=sample(i%2==0);s.mono=i*.1;assert not any(e.category==name for e in noisy.evaluate(s,'s'))
+        s=sample(i%2==0);s.mono=i*.1;assert not any(e.category==name for e in noisy.evaluate(s,'s',**extra(i%2==0)))
     log=[];scheduler=Scheduler(cfg,log.append);scheduler.offer(event);assert scheduler.next(event.timestamp+30,'s') is None
     assert any(x['decision']=='expired' for x in log)
 

@@ -1,5 +1,19 @@
 import math,hashlib,json
 
+class TrackProgressAdapter:
+ """Wraps a v3 TrackProgress so group timing can use it exactly like Projection.
+
+ A v3 offline model is surveyed/computed geometry, available immediately for a
+ known layout_id - unlike Projection, which needs a learned line driven first.
+ It is preferred over Projection whenever one exists for the group's layout.
+ """
+ def __init__(self,geometry):
+  self.geometry=geometry;self.length=geometry.length;self.revision=geometry.revision
+ def project(self,position,previous=None):
+  previous_s=previous*self.length if previous is not None else None
+  hit=self.geometry.project(position,previous_s=previous_s)
+  return hit.fraction if hit else None
+
 def validate_map(points):
  if not isinstance(points,list) or not 20<=len(points)<=4096:raise ValueError('Map needs 20–4096 points')
  if any(not isinstance(p,list) or len(p)!=2 or any(not isinstance(x,(int,float)) or not math.isfinite(x) for x in p) for p in points):raise ValueError('Invalid map positions')

@@ -2,10 +2,11 @@
 import json, re, queue, multiprocessing as mp, time, math, array, shutil, subprocess, threading, tempfile, wave, os
 from pathlib import Path
 from .requests import CATALOG
+from .core.platform import IS_WINDOWS
 
 ALIASES={
- 'radio check':'radio','status':'status','how much fuel':'fuel','fuel status':'fuel','can i finish':'finish','how much do i need to save':'save','when should i pit':'pit',
- 'box this lap':'box','last lap':'last','best lap':'best','delta to reference':'delta','where am i losing time':'loss','how are the tyres':'tyres','how are the tires':'tyres',
+ 'radio check':'radio','status':'status','how much fuel':'fuel','fuel status':'fuel','can i finish':'finish','how much do i need to save':'save','when should i pit':'pit','what are my fuel options':'fuel_options',
+ 'box this lap':'box','last lap':'last','best lap':'best','delta to reference':'delta','where am i losing time':'loss','what cost me the most':'loss','compare my braking':'compare_braking','how are the tyres':'tyres','how are the tires':'tyres',
  'what happened that lap':'lap_summary','compare with my best':'compare','use the last lap as reference':'reference','mark this corner':'corner','mark that incident':'incident',
  'show live':'show_live','show analysis':'show_analysis','show strategy':'show_strategy','repeat':'repeat','speak less':'less','speak more':'more',
  'quiet for two minutes':'quiet','mute':'mute','stop talking':'stop','resume engineer':'resume','end session':'end'}
@@ -18,6 +19,8 @@ def intent(text):
     text=text.removeprefix('please ').removeprefix('engineer ').replace('tires','tyres').replace('tire','tyre')
     if text in ALIASES:return ALIASES[text],None
     if text.startswith('save a note ') and len(text)>12:return 'note',text[12:500]
+    m=re.fullmatch(r'how was (?:turn (\d+)|(.+))',text)
+    if m:return 'corner_report',(m[1] or m[2]).strip()
     m=re.fullmatch(r'set target lap time (\d{1,2}):(\d{2})(?:\.(\d{1,3}))?',text)
     if m and int(m[2])<60:return 'target',(int(m[1])*60+int(m[2]))*1000+int((m[3] or '').ljust(3,'0'))
     numbers={'one':1,'two':2,'three':3,'four':4,'five':5,'six':6,'seven':7,'eight':8,'nine':9,'ten':10,'twenty':20,'thirty':30,'forty':40,'fifty':50}
@@ -135,7 +138,7 @@ class Speaker:
         self.finished=time.monotonic()
     def _execute(self,args,text,env=None):
         if self.cancelled.is_set():return
-        self.process=subprocess.Popen(args,stdin=subprocess.PIPE,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,env=env,creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
+        self.process=subprocess.Popen(args,stdin=subprocess.PIPE,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,env=env,creationflags=subprocess.CREATE_NO_WINDOW if IS_WINDOWS else 0)
         try:_,err=self.process.communicate(text.encode('utf-8'),timeout=45)
         except subprocess.TimeoutExpired:
             self.process.kill();self.process.communicate();raise RuntimeError('Speech synthesis timed out')
@@ -145,7 +148,7 @@ class Speaker:
             self.engine='Piper';self._execute(['piper','--model',settings.piper_model,'--output_file',str(path)],text)
         else:
             binary=shutil.which('espeak-ng') or shutil.which('espeak')
-            if os.name=='nt' and not binary:
+            if IS_WINDOWS and not binary:
                 self.engine='Windows system voice'
                 env=os.environ.copy();env['GT7_SPEECH_WAV']=str(path)
                 script="$ErrorActionPreference='Stop'; [Console]::InputEncoding=[System.Text.Encoding]::UTF8; Add-Type -AssemblyName System.Speech; $voice=New-Object System.Speech.Synthesis.SpeechSynthesizer; $voice.Volume="+str(settings.voice_volume)+"; $voice.Rate="+str(max(-10,min(10,round((settings.voice_rate-165)/20))))+"; try { $voice.SetOutputToWaveFile($env:GT7_SPEECH_WAV); $voice.Speak([Console]::In.ReadToEnd()) } finally { $voice.Dispose() }"

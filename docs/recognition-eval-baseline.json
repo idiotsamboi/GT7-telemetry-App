@@ -1,0 +1,4866 @@
+{
+  "suite": "synthetic perturbations of bundled model geometry; not independent held-out validation",
+  "seed": 71227,
+  "world_layouts": 98,
+  "evaluated_layouts": 98,
+  "trials_per_layout": 3,
+  "model_retained_bytes": 13750548,
+  "runtime_ms": {
+    "p50": 19.8435,
+    "p95": 48.6921,
+    "samples": 42540
+  },
+  "false_lock_trials": 0,
+  "within_1km_rate": 0.7517006802721088,
+  "confusion": {
+    "358->358": 3,
+    "439->439": 3,
+    "1224->1224": 3,
+    "1225->1225": 3,
+    "602->602": 1,
+    "792->792": 3,
+    "794->794": 3,
+    "1226->1226": 1,
+    "1231->1231": 1,
+    "1232->1232": 1,
+    "1233->1233": 2,
+    "469->469": 1,
+    "742->742": 1,
+    "896->896": 3,
+    "356->356": 3,
+    "449->449": 3,
+    "819->819": 2,
+    "820->820": 3,
+    "822->822": 2,
+    "823->823": 2,
+    "119->119": 3,
+    "346->346": 2,
+    "357->357": 3,
+    "444->444": 3,
+    "1249->1249": 1,
+    "825->825": 2,
+    "826->826": 2,
+    "827->827": 2,
+    "828->828": 2,
+    "829->829": 3,
+    "830->830": 3,
+    "462->462": 3,
+    "372->372": 3,
+    "600->600": 3,
+    "4->4": 3,
+    "1163->1163": 3,
+    "51->51": 3,
+    "747->747": 3,
+    "363->363": 3,
+    "601->601": 3,
+    "847->847": 3,
+    "853->853": 3,
+    "353->353": 3,
+    "443->443": 3,
+    "16->16": 3,
+    "154->154": 3,
+    "11->11": 3,
+    "1069->1069": 3,
+    "440->440": 3,
+    "613->613": 2,
+    "776->776": 2,
+    "777->777": 1,
+    "116->116": 3,
+    "470->470": 3,
+    "838->838": 2,
+    "839->839": 3,
+    "841->841": 3,
+    "843->843": 3,
+    "921->921": 3,
+    "922->922": 2,
+    "453->453": 3,
+    "599->599": 3,
+    "1260->1260": 3,
+    "10->10": 3,
+    "351->351": 3,
+    "361->361": 3,
+    "362->362": 3,
+    "450->450": 3,
+    "451->451": 2,
+    "915->915": 3,
+    "1024->1024": 3,
+    "1034->1034": 3,
+    "471->471": 3,
+    "41->41": 3,
+    "122->122": 3,
+    "125->125": 3,
+    "452->452": 3,
+    "1240->1240": 1,
+    "1292->1292": 2,
+    "1293->1293": 2,
+    "1299->1299": 3,
+    "1300->1300": 3,
+    "1007->1007": 3,
+    "1273->1273": 3,
+    "1308->1308": 3,
+    "1309->1309": 3,
+    "1316->1316": 3,
+    "1317->1317": 3,
+    "1318->1318": 3,
+    "2001->2001": 3,
+    "2002->2002": 3,
+    "2004->2004": 3
+  },
+  "layouts": [
+    {
+      "layout_id": "454",
+      "name": "24 Heures du Mans Racing Circuit",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "ambiguous": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 109
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "ambiguous": 118
+          }
+        }
+      ],
+      "correct_lock_rate": 0.0,
+      "within_1km_rate": 0.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": null,
+      "p95_lock_distance_m": null
+    },
+    {
+      "layout_id": "854",
+      "name": "24 Heures du Mans Racing Circuit No Chicane",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 105
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "ambiguous": 112
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "ambiguous": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 0.0,
+      "within_1km_rate": 0.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": null,
+      "p95_lock_distance_m": null
+    },
+    {
+      "layout_id": "358",
+      "name": "Alsace - Village",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "358",
+            "time_s": 22.200000000000003,
+            "distance_m": 1110
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "ambiguous": 66,
+            "locked": 39
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "358",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 111
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "358",
+            "time_s": 6.6000000000000005,
+            "distance_m": 330
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 115
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360,
+      "p95_lock_distance_m": 1110
+    },
+    {
+      "layout_id": "439",
+      "name": "Alsace - Village Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "439",
+            "time_s": 19.0,
+            "distance_m": 950
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 50,
+            "locked": 54
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "439",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 110
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "439",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 115
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 950
+    },
+    {
+      "layout_id": "1224",
+      "name": "Alsace - Test Course",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1224",
+            "time_s": 17.6,
+            "distance_m": 880
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "ambiguous": 47,
+            "locked": 62
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1224",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1224",
+            "time_s": 6.0,
+            "distance_m": 300
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 880
+    },
+    {
+      "layout_id": "1225",
+      "name": "Alsace - Test Course Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1225",
+            "time_s": 24.400000000000002,
+            "distance_m": 1220
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 81,
+            "locked": 28
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1225",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 109
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1225",
+            "time_s": 12.4,
+            "distance_m": 620
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "ambiguous": 27,
+            "locked": 88
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 620,
+      "p95_lock_distance_m": 1220
+    },
+    {
+      "layout_id": "365",
+      "name": "Autodrome Lago Maggiore - Full Course",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "ambiguous": 104
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "ambiguous": 109
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "ambiguous": 106
+          }
+        }
+      ],
+      "correct_lock_rate": 0.0,
+      "within_1km_rate": 0.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": null,
+      "p95_lock_distance_m": null
+    },
+    {
+      "layout_id": "602",
+      "name": "Autodrome Lago Maggiore - Full Course Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 103
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "602",
+            "time_s": 18.0,
+            "distance_m": 900
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "ambiguous": 51,
+            "locked": 60
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "ambiguous": 112
+          }
+        }
+      ],
+      "correct_lock_rate": 0.3333333333333333,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 900,
+      "p95_lock_distance_m": 900
+    },
+    {
+      "layout_id": "792",
+      "name": "Autodrome Lago Maggiore - West End",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "792",
+            "time_s": 12.200000000000001,
+            "distance_m": 610
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "ambiguous": 21,
+            "locked": 87
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "792",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "792",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 29,
+            "ambiguous": 7,
+            "locked": 105
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 610
+    },
+    {
+      "layout_id": "794",
+      "name": "Autodrome Lago Maggiore - West End Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "794",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "794",
+            "time_s": 23.8,
+            "distance_m": 1190
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 76,
+            "locked": 30
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "794",
+            "time_s": 11.200000000000001,
+            "distance_m": 560
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "ambiguous": 23,
+            "locked": 91
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 560,
+      "p95_lock_distance_m": 1190
+    },
+    {
+      "layout_id": "1226",
+      "name": "Autodrome Lago Maggiore - East",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "ambiguous": 104
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1226",
+            "time_s": 7.800000000000001,
+            "distance_m": 390
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 29,
+            "ambiguous": 119
+          }
+        }
+      ],
+      "correct_lock_rate": 0.3333333333333333,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 390,
+      "p95_lock_distance_m": 390
+    },
+    {
+      "layout_id": "1231",
+      "name": "Autodrome Lago Maggiore - East Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "ambiguous": 103
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1231",
+            "time_s": 8.200000000000001,
+            "distance_m": 410
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 4,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "ambiguous": 116
+          }
+        }
+      ],
+      "correct_lock_rate": 0.3333333333333333,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 410,
+      "p95_lock_distance_m": 410
+    },
+    {
+      "layout_id": "1232",
+      "name": "Autodrome Lago Maggiore - West",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1232",
+            "time_s": 12.200000000000001,
+            "distance_m": 610
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "ambiguous": 20,
+            "locked": 86
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 112
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "ambiguous": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 0.3333333333333333,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 610,
+      "p95_lock_distance_m": 610
+    },
+    {
+      "layout_id": "1233",
+      "name": "Autodrome Lago Maggiore - West Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1233",
+            "time_s": 11.600000000000001,
+            "distance_m": 580
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "ambiguous": 18,
+            "locked": 93
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1233",
+            "time_s": 20.200000000000003,
+            "distance_m": 1010
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "ambiguous": 65,
+            "locked": 49
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 795.0,
+      "p95_lock_distance_m": 1010
+    },
+    {
+      "layout_id": "469",
+      "name": "Autodromo Nazionale Monza",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 109
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "469",
+            "time_s": 17.2,
+            "distance_m": 860
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "ambiguous": 54,
+            "locked": 62
+          }
+        }
+      ],
+      "correct_lock_rate": 0.3333333333333333,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 860,
+      "p95_lock_distance_m": 860
+    },
+    {
+      "layout_id": "742",
+      "name": "Autodromo Nazionale Monza No Chicane",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "742",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 110
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "ambiguous": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 0.3333333333333333,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 380
+    },
+    {
+      "layout_id": "896",
+      "name": "Autopolis International Racing Course",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "896",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "896",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 111
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "896",
+            "time_s": 9.0,
+            "distance_m": 450
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "ambiguous": 10,
+            "locked": 101
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 400,
+      "p95_lock_distance_m": 450
+    },
+    {
+      "layout_id": "356",
+      "name": "Blue Moon Bay Speedway",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "356",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "356",
+            "time_s": 7.0,
+            "distance_m": 350
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 109
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "356",
+            "time_s": 19.400000000000002,
+            "distance_m": 970
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "ambiguous": 60,
+            "locked": 51
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 400,
+      "p95_lock_distance_m": 970
+    },
+    {
+      "layout_id": "449",
+      "name": "Blue Moon Bay Speedway Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "449",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 105
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "449",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "449",
+            "time_s": 6.2,
+            "distance_m": 310
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 116
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "819",
+      "name": "Blue Moon Bay Speedway - Infield B",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "819",
+            "time_s": 10.8,
+            "distance_m": 540
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 14,
+            "locked": 95
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 107
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "819",
+            "time_s": 22.8,
+            "distance_m": 1140
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "ambiguous": 80,
+            "locked": 37
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 840.0,
+      "p95_lock_distance_m": 1140
+    },
+    {
+      "layout_id": "820",
+      "name": "Blue Moon Bay Speedway - Infield A",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "820",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "locked": 104
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "820",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "820",
+            "time_s": 6.2,
+            "distance_m": 310
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "822",
+      "name": "Blue Moon Bay Speedway - Infield A Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "822",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 105
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "822",
+            "time_s": 8.200000000000001,
+            "distance_m": 410
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 4,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 29,
+            "ambiguous": 116
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 405.0,
+      "p95_lock_distance_m": 410
+    },
+    {
+      "layout_id": "823",
+      "name": "Blue Moon Bay Speedway - Infield B Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "ambiguous": 109
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "823",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "823",
+            "time_s": 6.6000000000000005,
+            "distance_m": 330
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "locked": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 350.0,
+      "p95_lock_distance_m": 370
+    },
+    {
+      "layout_id": "119",
+      "name": "Brands Hatch Grand Prix Circuit",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "119",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 100
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "119",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "119",
+            "time_s": 24.8,
+            "distance_m": 1240
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "ambiguous": 85,
+            "locked": 25
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 400,
+      "p95_lock_distance_m": 1240
+    },
+    {
+      "layout_id": "346",
+      "name": "Brands Hatch Indy Circuit",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "ambiguous": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "346",
+            "time_s": 20.6,
+            "distance_m": 1030
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "ambiguous": 64,
+            "locked": 45
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "346",
+            "time_s": 25.0,
+            "distance_m": 1250
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "ambiguous": 88,
+            "locked": 26
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 1140.0,
+      "p95_lock_distance_m": 1250
+    },
+    {
+      "layout_id": "357",
+      "name": "BB Raceway",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "357",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "357",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 110
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "357",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 112
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "444",
+      "name": "BB Raceway Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "444",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "444",
+            "time_s": 7.800000000000001,
+            "distance_m": 390
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "444",
+            "time_s": 6.6000000000000005,
+            "distance_m": 330
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 111
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 390,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "874",
+      "name": "Circuit de Barcelona-Catalunya Grand Prix Layout",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "ambiguous": 109
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 111
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "ambiguous": 111
+          }
+        }
+      ],
+      "correct_lock_rate": 0.0,
+      "within_1km_rate": 0.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": null,
+      "p95_lock_distance_m": null
+    },
+    {
+      "layout_id": "1249",
+      "name": "Circuit de Barcelona-Catalunya GP Layout No Chicane",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1249",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "ambiguous": 107
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "ambiguous": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 0.3333333333333333,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 400,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "825",
+      "name": "Circuit de Sainte-Croix - A",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "825",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 112
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "825",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360.0,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "826",
+      "name": "Circuit de Sainte-Croix - A Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 103
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "826",
+            "time_s": 26.0,
+            "distance_m": 1300
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 87,
+            "locked": 20
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "826",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 116
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 810.0,
+      "p95_lock_distance_m": 1300
+    },
+    {
+      "layout_id": "827",
+      "name": "Circuit de Sainte-Croix - B",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "827",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 109
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "ambiguous": 111
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "827",
+            "time_s": 24.400000000000002,
+            "distance_m": 1220
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "ambiguous": 83,
+            "locked": 29
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 810.0,
+      "p95_lock_distance_m": 1220
+    },
+    {
+      "layout_id": "828",
+      "name": "Circuit de Sainte-Croix - B Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "ambiguous": 102
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "828",
+            "time_s": 18.400000000000002,
+            "distance_m": 920
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "ambiguous": 54,
+            "locked": 58
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "828",
+            "time_s": 14.200000000000001,
+            "distance_m": 710
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 29,
+            "ambiguous": 38,
+            "locked": 80
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 815.0,
+      "p95_lock_distance_m": 920
+    },
+    {
+      "layout_id": "829",
+      "name": "Circuit de Sainte-Croix - C",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "829",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 109
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "829",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 112
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "829",
+            "time_s": 26.200000000000003,
+            "distance_m": 1310
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "ambiguous": 96,
+            "locked": 20
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 400,
+      "p95_lock_distance_m": 1310
+    },
+    {
+      "layout_id": "830",
+      "name": "Circuit de Sainte-Croix - C Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "830",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "830",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 111
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "830",
+            "time_s": 6.6000000000000005,
+            "distance_m": 330
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 115
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "462",
+      "name": "Circuit de Spa-Francorchamps",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "462",
+            "time_s": 8.200000000000001,
+            "distance_m": 410
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 105
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "462",
+            "time_s": 7.0,
+            "distance_m": 350
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "locked": 114
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "462",
+            "time_s": 5.800000000000001,
+            "distance_m": 290
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 28,
+            "locked": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 350,
+      "p95_lock_distance_m": 410
+    },
+    {
+      "layout_id": "372",
+      "name": "Colorado Springs - Lake",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "372",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "372",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 111
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "372",
+            "time_s": 6.6000000000000005,
+            "distance_m": 330
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 115
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "600",
+      "name": "Colorado Springs - Lake Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "600",
+            "time_s": 8.200000000000001,
+            "distance_m": 410
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 105
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "600",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 112
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "600",
+            "time_s": 5.6000000000000005,
+            "distance_m": 280
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 28,
+            "locked": 119
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 410
+    },
+    {
+      "layout_id": "4",
+      "name": "Daytona Tri-Oval",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "4",
+            "time_s": 17.400000000000002,
+            "distance_m": 870
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "ambiguous": 46,
+            "locked": 63
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "4",
+            "time_s": 29.0,
+            "distance_m": 1450
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 103,
+            "locked": 6
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "4",
+            "time_s": 10.0,
+            "distance_m": 500
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "ambiguous": 16,
+            "locked": 97
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 870,
+      "p95_lock_distance_m": 1450
+    },
+    {
+      "layout_id": "1163",
+      "name": "Daytona Road Course",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1163",
+            "time_s": 9.4,
+            "distance_m": 470
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "ambiguous": 7,
+            "locked": 100
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1163",
+            "time_s": 7.800000000000001,
+            "distance_m": 390
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1163",
+            "time_s": 16.8,
+            "distance_m": 840
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 29,
+            "ambiguous": 51,
+            "locked": 61
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 470,
+      "p95_lock_distance_m": 840
+    },
+    {
+      "layout_id": "51",
+      "name": "Deep Forest Raceway",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "51",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "51",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "51",
+            "time_s": 6.2,
+            "distance_m": 310
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "747",
+      "name": "Deep Forest Raceway Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "747",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "747",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "747",
+            "time_s": 7.0,
+            "distance_m": 350
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "locked": 110
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "363",
+      "name": "Dragon Trail - Seaside",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "363",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "363",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "363",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "locked": 111
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "601",
+      "name": "Dragon Trail - Seaside Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "601",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 110
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "601",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 110
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "601",
+            "time_s": 6.2,
+            "distance_m": 310
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "847",
+      "name": "Dragon Trail - Gardens",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "847",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "847",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 110
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "847",
+            "time_s": 5.800000000000001,
+            "distance_m": 290
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 29,
+            "locked": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "853",
+      "name": "Dragon Trail - Gardens Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "853",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "853",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 111
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "853",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "353",
+      "name": "Fishermans Ranch",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "353",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "353",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "locked": 112
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "353",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 116
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "443",
+      "name": "Fishermans Ranch Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "443",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "443",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 111
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "443",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 110
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "16",
+      "name": "Fuji International Speedway",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "16",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "16",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "16",
+            "time_s": 5.800000000000001,
+            "distance_m": 290
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 29,
+            "locked": 120
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "154",
+      "name": "Goodwood Motor Circuit",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "154",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "154",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 110
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "154",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 106
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "11",
+      "name": "High Speed Ring",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "11",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "11",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 112
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "11",
+            "time_s": 6.2,
+            "distance_m": 310
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 28,
+            "locked": 115
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "1069",
+      "name": "High Speed Ring Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1069",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1069",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 109
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1069",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "376",
+      "name": "Kyoto Driving Park - Yamagiwa",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "ambiguous": 109
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "ambiguous": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "ambiguous": 118
+          }
+        }
+      ],
+      "correct_lock_rate": 0.0,
+      "within_1km_rate": 0.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": null,
+      "p95_lock_distance_m": null
+    },
+    {
+      "layout_id": "440",
+      "name": "Kyoto Driving Park - Miyabi",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "440",
+            "time_s": 16.0,
+            "distance_m": 800
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 40,
+            "locked": 68
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "440",
+            "time_s": 7.800000000000001,
+            "distance_m": 390
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "440",
+            "time_s": 11.600000000000001,
+            "distance_m": 580
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "ambiguous": 25,
+            "locked": 91
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 580,
+      "p95_lock_distance_m": 800
+    },
+    {
+      "layout_id": "613",
+      "name": "Kyoto Driving Park - Yamagiwa Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "613",
+            "time_s": 10.0,
+            "distance_m": 500
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "ambiguous": 9,
+            "locked": 96
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "613",
+            "time_s": 12.4,
+            "distance_m": 620
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 23,
+            "locked": 87
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "ambiguous": 109
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 560.0,
+      "p95_lock_distance_m": 620
+    },
+    {
+      "layout_id": "776",
+      "name": "Kyoto Driving Park - Yamagiwa+Miyabi",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "776",
+            "time_s": 13.8,
+            "distance_m": 690
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 28,
+            "locked": 79
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "ambiguous": 105
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "776",
+            "time_s": 6.6000000000000005,
+            "distance_m": 330
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 510.0,
+      "p95_lock_distance_m": 690
+    },
+    {
+      "layout_id": "777",
+      "name": "Kyoto Driving Park - Yamagiwa+Miyabi Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "ambiguous": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "ambiguous": 109
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "777",
+            "time_s": 6.6000000000000005,
+            "distance_m": 330
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 111
+          }
+        }
+      ],
+      "correct_lock_rate": 0.3333333333333333,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 330,
+      "p95_lock_distance_m": 330
+    },
+    {
+      "layout_id": "116",
+      "name": "Mount Panorama Motor Racing Circuit",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "116",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "116",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 112
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "116",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "locked": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "470",
+      "name": "Red Bull Ring",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "470",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "470",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 111
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "470",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "locked": 112
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "838",
+      "name": "Sardegna - Road Track - C Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "838",
+            "time_s": 27.200000000000003,
+            "distance_m": 1360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 95,
+            "locked": 14
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "838",
+            "time_s": 29.0,
+            "distance_m": 1450
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "ambiguous": 100,
+            "locked": 5
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "ambiguous": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 1405.0,
+      "p95_lock_distance_m": 1450
+    },
+    {
+      "layout_id": "839",
+      "name": "Sardegna - Road Track - B Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "839",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 104
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "839",
+            "time_s": 25.8,
+            "distance_m": 1290
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "ambiguous": 90,
+            "locked": 21
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "839",
+            "time_s": 6.0,
+            "distance_m": 300
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 27,
+            "locked": 117
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 400,
+      "p95_lock_distance_m": 1290
+    },
+    {
+      "layout_id": "841",
+      "name": "Sardegna - Road Track - B",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "841",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "841",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 110
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "841",
+            "time_s": 6.2,
+            "distance_m": 310
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 115
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "843",
+      "name": "Sardegna - Road Track - C",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "843",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 110
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "843",
+            "time_s": 20.400000000000002,
+            "distance_m": 1020
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "ambiguous": 64,
+            "locked": 48
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "843",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "locked": 109
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 400,
+      "p95_lock_distance_m": 1020
+    },
+    {
+      "layout_id": "921",
+      "name": "Sardegna - Road Track - A",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "921",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "921",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 110
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "921",
+            "time_s": 6.6000000000000005,
+            "distance_m": 330
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "locked": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "922",
+      "name": "Sardegna - Road Track - A Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "922",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 105
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "ambiguous": 113
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "922",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "locked": 109
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380.0,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "453",
+      "name": "Sardegna - Windmills",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "453",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "453",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 109
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "453",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 111
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "599",
+      "name": "Sardegna - Windmills Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "599",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 109
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "599",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "locked": 112
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "599",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 340,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "1260",
+      "name": "Special Stage Route X",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1260",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1260",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1260",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "10",
+      "name": "Suzuka Circuit",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "10",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 103
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "10",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "10",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 112
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "351",
+      "name": "Tokyo Expressway - Central Clockwise",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "351",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "351",
+            "time_s": 7.800000000000001,
+            "distance_m": 390
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "351",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 110
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 390,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "361",
+      "name": "Tokyo Expressway - East Clockwise",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "361",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "361",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 111
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "361",
+            "time_s": 7.0,
+            "distance_m": 350
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "locked": 109
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "362",
+      "name": "Tokyo Expressway - South Clockwise",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "362",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "362",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "362",
+            "time_s": 6.2,
+            "distance_m": 310
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 117
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "450",
+      "name": "Tokyo Expressway - Central Counterclockwise",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "450",
+            "time_s": 9.0,
+            "distance_m": 450
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 5,
+            "locked": 103
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "450",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 109
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "450",
+            "time_s": 7.0,
+            "distance_m": 350
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "locked": 111
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 450
+    },
+    {
+      "layout_id": "451",
+      "name": "Tokyo Expressway - East Counterclockwise",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "451",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 113
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "451",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 116
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 355.0,
+      "p95_lock_distance_m": 370
+    },
+    {
+      "layout_id": "915",
+      "name": "Tokyo Expressway - South Counterclockwise",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "915",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "915",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "915",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 118
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "1024",
+      "name": "Trial Mountain Circuit",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1024",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 100
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1024",
+            "time_s": 7.800000000000001,
+            "distance_m": 390
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 110
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1024",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 390,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "1034",
+      "name": "Trial Mountain Circuit - Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1034",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1034",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 109
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1034",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "471",
+      "name": "Tsukuba Circuit",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "471",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "471",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 111
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "471",
+            "time_s": 6.6000000000000005,
+            "distance_m": 330
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 112
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "41",
+      "name": "WeatherTech Raceway Laguna Seca",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "41",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 102
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "41",
+            "time_s": 7.800000000000001,
+            "distance_m": 390
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 111
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "41",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 390,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "122",
+      "name": "Willow Springs International Raceway: Big Willow",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "122",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 105
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "122",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 105
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "122",
+            "time_s": 6.0,
+            "distance_m": 300
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 28,
+            "locked": 116
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 400,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "125",
+      "name": "Willow Springs International Raceway: Horse Thief Mile",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "125",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 111
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "125",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "125",
+            "time_s": 6.0,
+            "distance_m": 300
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 29,
+            "locked": 116
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "452",
+      "name": "Willow Springs International Raceway: Horse Thief Mile Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "452",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "locked": 105
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "452",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 105
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "452",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 116
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "1240",
+      "name": "Watkins Glen Long Course",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "ambiguous": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "ambiguous": 103
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1240",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 110
+          }
+        }
+      ],
+      "correct_lock_rate": 0.3333333333333333,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 340,
+      "p95_lock_distance_m": 340
+    },
+    {
+      "layout_id": "1264",
+      "name": "Watkins Glen Short Course",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "ambiguous": 112
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 28,
+            "ambiguous": 119
+          }
+        }
+      ],
+      "correct_lock_rate": 0.0,
+      "within_1km_rate": 0.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": null,
+      "p95_lock_distance_m": null
+    },
+    {
+      "layout_id": "1292",
+      "name": "Grand Valley - Highway 1",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1292",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1292",
+            "time_s": 25.6,
+            "distance_m": 1280
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 85,
+            "locked": 23
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 29,
+            "ambiguous": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.3333333333333333,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 840.0,
+      "p95_lock_distance_m": 1280
+    },
+    {
+      "layout_id": "1293",
+      "name": "Grand Valley - Highway 1 Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1293",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": null,
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 106
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1293",
+            "time_s": 12.0,
+            "distance_m": 600
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 29,
+            "ambiguous": 28,
+            "locked": 83
+          }
+        }
+      ],
+      "correct_lock_rate": 0.6666666666666666,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 500.0,
+      "p95_lock_distance_m": 600
+    },
+    {
+      "layout_id": "1299",
+      "name": "Grand Valley - South",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1299",
+            "time_s": 13.4,
+            "distance_m": 670
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "ambiguous": 26,
+            "locked": 84
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1299",
+            "time_s": 10.200000000000001,
+            "distance_m": 510
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "ambiguous": 13,
+            "locked": 93
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1299",
+            "time_s": 19.0,
+            "distance_m": 950
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 26,
+            "ambiguous": 66,
+            "locked": 53
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 670,
+      "p95_lock_distance_m": 950
+    },
+    {
+      "layout_id": "1300",
+      "name": "Grand Valley - South Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1300",
+            "time_s": 14.600000000000001,
+            "distance_m": 730
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "ambiguous": 31,
+            "locked": 73
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1300",
+            "time_s": 22.400000000000002,
+            "distance_m": 1120
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "ambiguous": 70,
+            "locked": 38
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1300",
+            "time_s": 9.8,
+            "distance_m": 490
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "ambiguous": 17,
+            "locked": 96
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 730,
+      "p95_lock_distance_m": 1120
+    },
+    {
+      "layout_id": "1007",
+      "name": "Michelin Raceway Road Atlanta",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1007",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1007",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 113
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1007",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 117
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "1273",
+      "name": "Lake Louise Tri-Oval",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1273",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 104
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1273",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 106
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1273",
+            "time_s": 24.8,
+            "distance_m": 1240
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "ambiguous": 87,
+            "locked": 26
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 400,
+      "p95_lock_distance_m": 1240
+    },
+    {
+      "layout_id": "1308",
+      "name": "Lake Louise Short Track",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1308",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 105
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1308",
+            "time_s": 20.400000000000002,
+            "distance_m": 1020
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "ambiguous": 65,
+            "locked": 46
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1308",
+            "time_s": 6.800000000000001,
+            "distance_m": 340
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 116
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 400,
+      "p95_lock_distance_m": 1020
+    },
+    {
+      "layout_id": "1309",
+      "name": "Lake Louise Long Track",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1309",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 40,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1309",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 35,
+            "locked": 109
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1309",
+            "time_s": 7.0,
+            "distance_m": 350
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 33,
+            "locked": 109
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "1316",
+      "name": "Lake Louise Tri-Oval Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1316",
+            "time_s": 10.8,
+            "distance_m": 540
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 14,
+            "locked": 90
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1316",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "ambiguous": 2,
+            "locked": 99
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1316",
+            "time_s": 6.2,
+            "distance_m": 310
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 400,
+      "p95_lock_distance_m": 540
+    },
+    {
+      "layout_id": "1317",
+      "name": "Lake Louise Short Track Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1317",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 104
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1317",
+            "time_s": 18.8,
+            "distance_m": 940
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "ambiguous": 52,
+            "locked": 55
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1317",
+            "time_s": 21.0,
+            "distance_m": 1050
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 32,
+            "ambiguous": 69,
+            "locked": 43
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 0.6666666666666666,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 940,
+      "p95_lock_distance_m": 1050
+    },
+    {
+      "layout_id": "1318",
+      "name": "Lake Louise Long Track Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "1318",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 39,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "1318",
+            "time_s": 7.2,
+            "distance_m": 360
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 34,
+            "locked": 112
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "1318",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 29,
+            "locked": 117
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 360,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "2001",
+      "name": "Eiger Nordwand",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "2001",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "2001",
+            "time_s": 7.4,
+            "distance_m": 370
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "2001",
+            "time_s": 6.6000000000000005,
+            "distance_m": 330
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 113
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 370,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "2002",
+      "name": "Eiger Nordwand Reverse",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "2002",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 107
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "2002",
+            "time_s": 7.6000000000000005,
+            "distance_m": 380
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 36,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "2002",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 30,
+            "locked": 114
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 380,
+      "p95_lock_distance_m": 400
+    },
+    {
+      "layout_id": "2004",
+      "name": "Circuit Gilles-Villeneuve",
+      "trials": [
+        {
+          "sigma_m": 1,
+          "first_lock": {
+            "layout_id": "2004",
+            "time_s": 8.0,
+            "distance_m": 400
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 37,
+            "locked": 105
+          }
+        },
+        {
+          "sigma_m": 3,
+          "first_lock": {
+            "layout_id": "2004",
+            "time_s": 7.800000000000001,
+            "distance_m": 390
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 38,
+            "locked": 108
+          }
+        },
+        {
+          "sigma_m": 5,
+          "first_lock": {
+            "layout_id": "2004",
+            "time_s": 6.4,
+            "distance_m": 320
+          },
+          "false_locks": [],
+          "states": {
+            "candidates": 31,
+            "locked": 111
+          }
+        }
+      ],
+      "correct_lock_rate": 1.0,
+      "within_1km_rate": 1.0,
+      "false_lock_trials": 0,
+      "median_lock_distance_m": 390,
+      "p95_lock_distance_m": 400
+    }
+  ],
+  "unverified": [
+    "Orange Pi A55 timing",
+    "independent held-out captures",
+    "pit exit",
+    "live PS5"
+  ]
+}

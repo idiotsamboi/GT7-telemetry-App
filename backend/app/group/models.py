@@ -1,6 +1,7 @@
 from typing import Literal,Annotated
 from pydantic import BaseModel,Field,ConfigDict,field_validator
 import math
+from .graphics import legacy_graphics,template_ids
 
 class Model(BaseModel):
     model_config=ConfigDict(extra='forbid',allow_inf_nan=False)
@@ -49,9 +50,22 @@ class GroupConfig(Model):
     provenance:Literal['live','demo']='live'
     branding:dict=Field(default_factory=dict,max_length=12)
     allow_workspace_branding:bool=True
+    pit_loss_s:float|None=Field(None,ge=5,le=120)
+    refuel_rate_lps:float|None=Field(None,ge=0.5,le=20)
+    share_traffic_with_drivers:bool=False
+    battles_include_lapping:bool=False
+    battle_weights:dict[Literal['gap','close','pos','dur'],float]|None=None
+    steward_popup_kinds:list[Literal['incident','investigation','warning','time','laps','disqualification','order','correction']]=['investigation','warning','time','laps','disqualification']
+    steward_popup_s:int=Field(10,ge=3,le=60)
+    auto_steward_paused:bool=False
     @field_validator('required_sharing','publication')
     @classmethod
     def basic_required(cls,v):return sorted(set(['basic',*v]))
+    @field_validator('battle_weights')
+    @classmethod
+    def weights_valid(cls,v):
+        if v is not None and (not v or any(isinstance(x,bool) or not isinstance(x,(int,float)) or x<0 for x in v.values())):raise ValueError('Battle weights must be non-negative numbers')
+        return v
 
 class Identity(Model):
     display_name:Text
@@ -132,18 +146,11 @@ class Zone(Model):
     start:float=Field(ge=0,lt=1)
     end:float=Field(ge=0,lt=1)
 
-GRAPHICS={
- 'timing':('Timing tower',440,850),'session':('Session bar',1200,100),
- 'flag':('Flag banner',1000,130),'message':('Race-control message',1100,160),
- 'driver':('Driver lower third',900,210),'telemetry':('Selected-car telemetry',620,260),
- 'comparison':('Head-to-head comparison',1000,300),'map':('Track map',600,600),
- 'results':('Grid/results panel',1200,850),'slate':('League/event slate',1920,1080),
- 'fastest_lap':('Fastest lap announcement',900,160),'class_leader':('Class leader panel',680,460),
- 'penalty':('Penalty / investigation notice',1000,160),'podium':('Podium',900,620),
- 'sponsor':('Sponsor rotation',700,220)}
+# Derived from the template registry (group/graphics.py): id -> (name, width, height).
+GRAPHICS=legacy_graphics()
 class Graphic(Model):
     id:Annotated[str,Field(max_length=64)]
-    template:Literal['timing','session','flag','message','driver','telemetry','comparison','map','results','slate','fastest_lap','class_leader','penalty','podium','sponsor']
+    template:Literal.__getitem__(template_ids())
     visible:bool=True
     x:int=Field(0,ge=0,le=1920)
     y:int=Field(0,ge=0,le=1080)
@@ -153,6 +160,15 @@ class Graphic(Model):
     slot:Literal['primary','a','b']='primary'
     duration_s:int=Field(0,ge=0,le=3600)
     settings:dict=Field(default_factory=dict,max_length=10)
+    @field_validator('settings')
+    @classmethod
+    def settings_valid(cls,v):
+        import math
+        if set(v)-{'title','rows','opacity'}:raise ValueError('Unsupported graphic setting')
+        if 'title' in v and (not isinstance(v['title'],str) or len(v['title'])>160):raise ValueError('Graphic title must be text up to 160 characters')
+        if 'rows' in v and (isinstance(v['rows'],bool) or not isinstance(v['rows'],int) or not 1<=v['rows']<=32):raise ValueError('Graphic rows must be an integer from 1 to 32')
+        if 'opacity' in v and (isinstance(v['opacity'],bool) or not isinstance(v['opacity'],(int,float)) or not math.isfinite(v['opacity']) or not 0<=v['opacity']<=1):raise ValueError('Graphic opacity must be from zero to one')
+        return v
 class WorkspaceConfig(Model):
     name:Text='Broadcast'
     preset:Literal['formula','endurance','minimal','neon','vintage','rally','oval','carbon','heritage','holo']='formula'
@@ -168,6 +184,9 @@ class WorkspaceConfig(Model):
     cycle_s:int=Field(0,ge=0,le=300)
     branding:dict=Field(default_factory=dict,max_length=12)
     graphics:list[Graphic]=Field(default_factory=list,max_length=20)
+    battle_auto_take:bool=False
+    auto_steward:bool=True
+    steward_popup_graphic_id:Annotated[str,Field(max_length=64)]=''
     @field_validator('slots')
     @classmethod
     def slots_valid(cls,v):

@@ -3,6 +3,7 @@ No model output can invent a metric, change settings, or create a race alert.
 """
 import asyncio,json,math,os,secrets,socket,subprocess,time,urllib.request,threading
 from pathlib import Path
+from .core.platform import IS_WINDOWS
 
 def memory_available_mb():
     try:
@@ -81,7 +82,7 @@ class LocalAI:
         if free is not None and free<512:return 'Low available memory'
         if thermal is not None and thermal>=75:return 'Board temperature is high'
         if runtime.degraded or runtime.health_cache.get('loop_lag_ms',0)>100:return 'Telemetry processing has priority'
-        if self.process and os.name!='nt':
+        if self.process and not IS_WINDOWS:
             try:
                 for line in Path(f'/proc/{self.process.pid}/status').read_text().splitlines():
                     if line.startswith('VmRSS:') and int(line.split()[1])>1200*1024:return 'Local model exceeded the 1200 MB resident-memory budget'
@@ -110,9 +111,9 @@ class LocalAI:
         with self.lock:
             if generation!=self.generation:raise RuntimeError('Local inference cancelled')
             self.log=(root/'local-ai.log').open('wb')
-            self.process=subprocess.Popen(command,stdout=self.log,stderr=self.log,creationflags=(subprocess.CREATE_NO_WINDOW|subprocess.BELOW_NORMAL_PRIORITY_CLASS) if os.name=='nt' else 0)
+            self.process=subprocess.Popen(command,stdout=self.log,stderr=self.log,creationflags=(subprocess.CREATE_NO_WINDOW|subprocess.BELOW_NORMAL_PRIORITY_CLASS) if IS_WINDOWS else 0)
             process=self.process
-        if os.name!='nt':
+        if not IS_WINDOWS:
             try:os.setpriority(os.PRIO_PROCESS,process.pid,10)
             except (AttributeError,OSError):pass
         deadline=time.monotonic()+45

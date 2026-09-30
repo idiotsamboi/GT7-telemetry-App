@@ -82,3 +82,38 @@ def test_track_selection_and_map_api(tmp_path):
   assert c.get('/api/track-map').json()['complete']
   assert c.put('/api/track-map',json={'layout_id':'../escape','points':points}).status_code==422
   settings['track_id']='nonsense';assert c.put('/api/settings',json=settings).status_code==422
+
+def test_training_endpoints_exclude_special_stage_x_and_support_retry(tmp_path):
+ import json as _json
+ from backend.app.config import Config
+ Config(tmp_path).save({'http_port':18150,'hands_free':False,'speech_enabled':False})
+ with TestClient(create_app(tmp_path),base_url='http://127.0.0.1:8000') as c:
+  c.post('/api/pair',json={})
+  candidates=c.get('/api/training/candidates').json()
+  ids={row['id'] for row in candidates}
+  assert not ids&{'1260','1261','1262'}  # Special Stage Route X is not offered
+  for excluded in ('1260','1261','1262'):
+   assert c.post('/api/training/start',json={'layout_id':excluded}).status_code==422
+   assert c.post('/api/training/restart',json={'layout_id':excluded}).status_code==422
+  layout_id=candidates[0]['id']
+  assert c.post('/api/training/start',json={'layout_id':layout_id}).json()['active']
+  before=c.get('/api/state').json()['training']['retake_id']
+  assert c.post('/api/training/retry-lap',json={}).json()['retake_id']==before+1
+  # Deleting the currently-active layout's own captures is refused.
+  assert c.post('/api/training/restart',json={'layout_id':layout_id}).status_code==409
+  assert c.post('/api/training/stop',json={}).status_code==200
+  # Seed one already-saved lap directly, as consume() would have via real telemetry.
+  path=tmp_path/'track-training'/f'{layout_id}.jsonl'
+  path.write_text(_json.dumps({'ts':1,'layout_id':layout_id,'points':[[0,0,0]]*80})+'\n',encoding='utf-8')
+  # Once a layout has any capture it drops off "untrained" candidates...
+  assert layout_id not in {row['id'] for row in c.get('/api/training/candidates').json()}
+  progress={row['layout_id']:row for row in c.get('/api/training/progress').json()}
+  assert progress[layout_id]['laps_saved']==1 and not progress[layout_id]['complete']
+  # ...but resuming it to finish the goal still works.
+  assert c.post('/api/training/start',json={'layout_id':layout_id}).json()['active']
+  assert c.post('/api/training/stop',json={}).status_code==200
+  # Restart from scratch wipes the saved captures and returns it to the pool.
+  assert c.post('/api/training/restart',json={'layout_id':layout_id}).status_code==200
+  assert not path.exists()
+  assert layout_id in {row['id'] for row in c.get('/api/training/candidates').json()}
+  assert layout_id not in {row['layout_id'] for row in c.get('/api/training/progress').json()}

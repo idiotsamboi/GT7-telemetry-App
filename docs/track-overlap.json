@@ -1,0 +1,560 @@
+[
+  {
+    "layout_id": "454",
+    "other_layout_id": "854",
+    "longest_shared_m": 11429.3,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "854",
+    "other_layout_id": "454",
+    "longest_shared_m": 11451.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "358",
+    "other_layout_id": "1224",
+    "longest_shared_m": 1437.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "439",
+    "other_layout_id": "1225",
+    "longest_shared_m": 1454.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1224",
+    "other_layout_id": "358",
+    "longest_shared_m": 1255.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1225",
+    "other_layout_id": "439",
+    "longest_shared_m": 1490.9,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "365",
+    "other_layout_id": "792",
+    "longest_shared_m": 1834.9,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "365",
+    "other_layout_id": "1226",
+    "longest_shared_m": 3450.4,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "365",
+    "other_layout_id": "1232",
+    "longest_shared_m": 3949.1,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "365",
+    "other_layout_id": "795",
+    "longest_shared_m": 1715.2,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "602",
+    "other_layout_id": "794",
+    "longest_shared_m": 2194.5,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "602",
+    "other_layout_id": "1231",
+    "longest_shared_m": 3451.4,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "602",
+    "other_layout_id": "1233",
+    "longest_shared_m": 2773.1,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "792",
+    "other_layout_id": "365",
+    "longest_shared_m": 2204.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "792",
+    "other_layout_id": "1232",
+    "longest_shared_m": 2184.9,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "794",
+    "other_layout_id": "602",
+    "longest_shared_m": 2204.5,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "794",
+    "other_layout_id": "1233",
+    "longest_shared_m": 2184.6,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1226",
+    "other_layout_id": "365",
+    "longest_shared_m": 3431.1,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1226",
+    "other_layout_id": "795",
+    "longest_shared_m": 1675.7,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1231",
+    "other_layout_id": "602",
+    "longest_shared_m": 3431.2,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1231",
+    "other_layout_id": "790",
+    "longest_shared_m": 1496.2,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1232",
+    "other_layout_id": "365",
+    "longest_shared_m": 3931.6,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1232",
+    "other_layout_id": "792",
+    "longest_shared_m": 2175.4,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1233",
+    "other_layout_id": "602",
+    "longest_shared_m": 3932.0,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1233",
+    "other_layout_id": "794",
+    "longest_shared_m": 2175.5,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "469",
+    "other_layout_id": "742",
+    "longest_shared_m": 5614.1,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "742",
+    "other_layout_id": "469",
+    "longest_shared_m": 4647.1,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "356",
+    "other_layout_id": "819",
+    "longest_shared_m": 1477.7,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "356",
+    "other_layout_id": "820",
+    "longest_shared_m": 1397.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "449",
+    "other_layout_id": "822",
+    "longest_shared_m": 1417.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "449",
+    "other_layout_id": "823",
+    "longest_shared_m": 1497.6,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "819",
+    "other_layout_id": "356",
+    "longest_shared_m": 1471.3,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "819",
+    "other_layout_id": "820",
+    "longest_shared_m": 1968.4,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "820",
+    "other_layout_id": "356",
+    "longest_shared_m": 1392.1,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "820",
+    "other_layout_id": "819",
+    "longest_shared_m": 1948.9,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "822",
+    "other_layout_id": "449",
+    "longest_shared_m": 1392.1,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "822",
+    "other_layout_id": "823",
+    "longest_shared_m": 1948.9,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "823",
+    "other_layout_id": "449",
+    "longest_shared_m": 1471.3,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "823",
+    "other_layout_id": "822",
+    "longest_shared_m": 1948.5,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "119",
+    "other_layout_id": "346",
+    "longest_shared_m": 1794.4,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "346",
+    "other_layout_id": "119",
+    "longest_shared_m": 1794.0,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "874",
+    "other_layout_id": "1249",
+    "longest_shared_m": 4412.0,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1249",
+    "other_layout_id": "874",
+    "longest_shared_m": 4439.4,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "825",
+    "other_layout_id": "827",
+    "longest_shared_m": 2498.6,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "825",
+    "other_layout_id": "830",
+    "longest_shared_m": 2138.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "826",
+    "other_layout_id": "828",
+    "longest_shared_m": 2498.6,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "826",
+    "other_layout_id": "829",
+    "longest_shared_m": 2138.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "827",
+    "other_layout_id": "825",
+    "longest_shared_m": 2515.4,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "827",
+    "other_layout_id": "829",
+    "longest_shared_m": 2994.5,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "828",
+    "other_layout_id": "826",
+    "longest_shared_m": 2495.4,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "828",
+    "other_layout_id": "830",
+    "longest_shared_m": 2994.5,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "829",
+    "other_layout_id": "826",
+    "longest_shared_m": 2118.6,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "829",
+    "other_layout_id": "827",
+    "longest_shared_m": 2998.0,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "830",
+    "other_layout_id": "825",
+    "longest_shared_m": 2118.6,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "830",
+    "other_layout_id": "828",
+    "longest_shared_m": 2978.0,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "4",
+    "other_layout_id": "1163",
+    "longest_shared_m": 2053.1,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1163",
+    "other_layout_id": "4",
+    "longest_shared_m": 2039.7,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "376",
+    "other_layout_id": "776",
+    "longest_shared_m": 4756.0,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "440",
+    "other_layout_id": "777",
+    "longest_shared_m": 1794.0,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "613",
+    "other_layout_id": "777",
+    "longest_shared_m": 4756.0,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "776",
+    "other_layout_id": "376",
+    "longest_shared_m": 4770.2,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "777",
+    "other_layout_id": "440",
+    "longest_shared_m": 1776.3,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "777",
+    "other_layout_id": "613",
+    "longest_shared_m": 4790.2,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "470",
+    "other_layout_id": "846",
+    "longest_shared_m": 2199.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "838",
+    "other_layout_id": "839",
+    "longest_shared_m": 1355.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "838",
+    "other_layout_id": "922",
+    "longest_shared_m": 1754.5,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "839",
+    "other_layout_id": "838",
+    "longest_shared_m": 1354.9,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "839",
+    "other_layout_id": "922",
+    "longest_shared_m": 1494.4,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "841",
+    "other_layout_id": "843",
+    "longest_shared_m": 1374.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "841",
+    "other_layout_id": "921",
+    "longest_shared_m": 1494.4,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "843",
+    "other_layout_id": "841",
+    "longest_shared_m": 1355.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "843",
+    "other_layout_id": "921",
+    "longest_shared_m": 1754.5,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "921",
+    "other_layout_id": "843",
+    "longest_shared_m": 1375.1,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "922",
+    "other_layout_id": "838",
+    "longest_shared_m": 1355.2,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "361",
+    "other_layout_id": "451",
+    "longest_shared_m": 1695.9,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "362",
+    "other_layout_id": "915",
+    "longest_shared_m": 1358.2,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "451",
+    "other_layout_id": "361",
+    "longest_shared_m": 1676.6,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "915",
+    "other_layout_id": "362",
+    "longest_shared_m": 1358.8,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1240",
+    "other_layout_id": "1264",
+    "longest_shared_m": 3609.6,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1264",
+    "other_layout_id": "1240",
+    "longest_shared_m": 3613.9,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1292",
+    "other_layout_id": "1299",
+    "longest_shared_m": 1655.5,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1293",
+    "other_layout_id": "1300",
+    "longest_shared_m": 1635.6,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1299",
+    "other_layout_id": "1292",
+    "longest_shared_m": 1650.1,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1300",
+    "other_layout_id": "1293",
+    "longest_shared_m": 1630.2,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1273",
+    "other_layout_id": "1308",
+    "longest_shared_m": 1533.0,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1308",
+    "other_layout_id": "1273",
+    "longest_shared_m": 1494.2,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1316",
+    "other_layout_id": "1317",
+    "longest_shared_m": 1533.0,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "1317",
+    "other_layout_id": "1316",
+    "longest_shared_m": 1494.2,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "790",
+    "other_layout_id": "602",
+    "longest_shared_m": 1718.5,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "790",
+    "other_layout_id": "1231",
+    "longest_shared_m": 1698.5,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "795",
+    "other_layout_id": "365",
+    "longest_shared_m": 1709.2,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "795",
+    "other_layout_id": "1226",
+    "longest_shared_m": 1689.3,
+    "geometrically_equivalent": false
+  },
+  {
+    "layout_id": "846",
+    "other_layout_id": "470",
+    "longest_shared_m": 2210.2,
+    "geometrically_equivalent": false
+  }
+]

@@ -8,7 +8,7 @@ def main():
     parser.add_argument('command',nargs='?',choices=['run','diagnostics','connection-test'],default='run')
     parser.add_argument('--data',default=str(Path(__file__).resolve().parent/'data'))
     parser.add_argument('--duration',type=float,default=10,help='Connection test duration in seconds')
-    parser.add_argument('--demo',action='store_true');parser.add_argument('--host');parser.add_argument('--port',type=int);parser.add_argument('--ps5')
+    parser.add_argument('--demo',action='store_true');parser.add_argument('--scenario',help='With --demo: run a deterministic synthetic scenario (normal_laps, lap_transition, fuel_burn_and_refuel, braking_zones, packet_loss_burst, out_of_order, stream_stale_10s, session_end, variant_switch_A_to_C)');parser.add_argument('--safe-mode',action='store_true',help='Start with experimental features, microphone, local AI and the console heartbeat off');parser.add_argument('--host');parser.add_argument('--port',type=int);parser.add_argument('--ps5')
     args=parser.parse_args()
     from backend.app.config import Config
     cfg=Config(args.data)
@@ -49,15 +49,21 @@ def main():
             print(json.dumps({'port_owners':udp_owners(cfg.settings.udp_port)},indent=2))
             print('Stop this application and other telemetry receivers before running the standalone connection test.');sys.exit(1)
         return
-    changes=cfg.settings.model_dump()
-    if args.ps5:changes['ps5_ip']=args.ps5
-    if args.host:changes['http_host']=args.host
-    if args.port:changes['http_port']=args.port;changes['allowed_origins']=[f'http://127.0.0.1:{args.port}',f'http://localhost:{args.port}']
-    cfg.save(changes)
+    overrides={}
+    if args.ps5:overrides['ps5_ip']=args.ps5
+    if args.host:overrides['http_host']=args.host
+    if args.port:overrides.update(http_port=args.port,allowed_origins=[f'http://127.0.0.1:{args.port}',f'http://localhost:{args.port}'])
+    if args.scenario:
+        from backend.app.telemetry.sources import SCENARIOS
+        if args.scenario not in SCENARIOS:parser.error('Unknown scenario; choose one of: '+', '.join(SCENARIOS.ids()))
+        if not args.demo:parser.error('--scenario needs --demo')
+        os.environ['GT7_SCENARIO']=args.scenario      # per run only; Settings.demo_scenario is the persisted developer setting
+    if overrides:cfg.save({**cfg.settings.model_dump(),**overrides})      # never rewrite settings.json just because the app started
     os.environ['GT7_DATA']=str(Path(args.data).resolve())
     if args.demo:os.environ['GT7_DEMO']='1'
+    if args.safe_mode:os.environ['GT7_SAFE_MODE']='1'
     import uvicorn
     from backend.app.api import create_app
     print(f'Open http://127.0.0.1:{cfg.settings.http_port}. LAN pairing token is stored in {cfg.root / "control-token"}.')
-    uvicorn.run(create_app(args.data),host=str(cfg.settings.http_host),port=cfg.settings.http_port,workers=1,access_log=False)
+    uvicorn.run(create_app(args.data,config=cfg),host=str(cfg.settings.http_host),port=cfg.settings.http_port,workers=1,access_log=False)
 if __name__=='__main__':main()

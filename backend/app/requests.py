@@ -1,5 +1,6 @@
 """The offline engineer's 100-request catalogue and three factual response forms."""
 import math,time
+from .telemetry.units import spoken_measure
 
 CATALOG={}
 def legacy(key,phrase,category,forms):
@@ -146,8 +147,12 @@ def answer(runtime,action,base):
         value=value_at(roots,path)
     if value is None or value=='' or (isinstance(value,float) and not math.isfinite(value)):
         return [f"{spec['label'].capitalize()} is not available yet.",f"I do not have a reliable value for {spec['label']}.",f"I need more data or configuration to report {spec['label']}."][index],index
+    template=spec['answers'][index]
     if isinstance(value,(int,float)):
-        number=value*spec['scale'];value=f'{number:.3f}'.rstrip('0').rstrip('.') if abs(number)<10 else f'{number:.1f}'.rstrip('0').rstrip('.')
-    return spec['answers'][index].format(value=value),index
+        number=value*spec['scale']
+        number,unit_word=spoken_measure(number,spec['unit'],runtime.settings.units)      # Settings.units (default: unchanged)
+        if unit_word!=spec['unit']:template=template.replace(spec['unit'],unit_word)
+        value=f'{number:.3f}'.rstrip('0').rstrip('.') if abs(number)<10 else f'{number:.1f}'.rstrip('0').rstrip('.')
+    return template.format(value=value),index
 
 def public_catalog():return list(CATALOG.values())

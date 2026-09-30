@@ -106,6 +106,59 @@ def align_laps(reference,candidate,corridor_m=25):
     if fraction>.1 or coverage<.9:return {'available':False,'reason':'Spatial continuity/corridor or coverage check failed','excluded_fraction':fraction,'coverage':coverage}
     return {'available':True,'quality':'spatial projection with forward continuity; review pit divergence and crossings','confidence':'moderate','excluded_fraction':fraction,'coverage':coverage,'delta':out[::max(1,len(out)//600)]}
 
+def _ols_slope(points):
+    n=len(points)
+    if n<2:return None
+    mean_x=sum(x for x,_ in points)/n;mean_y=sum(y for _,y in points)/n
+    den=sum((x-mean_x)**2 for x,_ in points)
+    if den<=1e-9:return None
+    return sum((x-mean_x)*(y-mean_y) for x,y in points)/den
+
+def fuel_scenarios(prediction,laps,*,reserve_l=2.0,pit_loss_s=None,refuel_rate_lps=None,max_save_percent=8.0,fuel_time_slope_s_per_l=None,gap_to_car_behind_s=None):
+    """Multi-branch fuel strategy (docs/AI_CONTEXT.md 9.1): given a confident
+    fuel deficit, what the realistic options are and which is cheapest. Never
+    invents pit loss or a burn-time cost - both fall back to an explicit,
+    labelled assumption rather than a guess."""
+    if not prediction.get('available') or prediction.get('margin_l') is None:
+        return {'short':False,'branches':[],'recommendation':None,'summary':'Fuel projection unavailable.'}
+    deficit_l=-prediction['margin_l']
+    if deficit_l<=0:
+        return {'short':False,'branches':[],'recommendation':None,'summary':'Fuel is sufficient under current assumptions.'}
+    burn=prediction.get('litres_per_lap');laps_left=prediction.get('laps_remaining')
+    save_percent=100*deficit_l/(laps_left*burn) if laps_left and burn else None
+    comparable=[l for l in laps if l.get('comparable') and l.get('duration_ms') and l.get('fuel_used_l') is not None and l['fuel_used_l']>0]
+    slope=None
+    if len(comparable)>=6:
+        fuels=[l['fuel_used_l'] for l in comparable]
+        if (max(fuels)-min(fuels))/max(.001,statistics.mean(fuels))>=.03:
+            slope=_ols_slope([(l['fuel_used_l'],l['duration_ms']/1000) for l in comparable])
+    if slope is not None:cost_per_l,cost_per_l_source=max(.5,-slope),'measured'
+    else:cost_per_l,cost_per_l_source=fuel_time_slope_s_per_l or 4.0,'assumed'
+    branches=[]
+    if save_percent is None:
+        branches.append({'id':'save','feasible':False,'save_percent':None,'cost_s':None,'text':'Save option unavailable without a burn rate and laps remaining.'})
+    elif save_percent<=max_save_percent:
+        cost=deficit_l*cost_per_l
+        branches.append({'id':'save','feasible':True,'save_percent':round(save_percent,1),'cost_s':round(cost,1),'text':f'Save {save_percent:.0f} percent: lift and coast, about {cost:.0f} seconds over the stint.'})
+    else:
+        branches.append({'id':'save','feasible':False,'save_percent':round(save_percent,1),'cost_s':None,'text':f'Saving {save_percent:.0f} percent is beyond a realistic margin.'})
+    if pit_loss_s is None:
+        branches.append({'id':'splash','feasible':False,'cost_s':None,'text':'Pit loss is unknown; splash cost cannot be estimated.'})
+    else:
+        add_l=deficit_l+.5;refuel_s=add_l/refuel_rate_lps if refuel_rate_lps else 0.
+        cost=pit_loss_s+refuel_s
+        splash={'id':'splash','feasible':True,'add_l':round(add_l,1),'cost_s':round(cost,1),
+                'text':f"Splash for {add_l:.1f} litres: about {cost:.0f} seconds including the stop{'' if refuel_rate_lps else ', plus refuel time'}."}
+        if gap_to_car_behind_s is not None:
+            gap_after=gap_to_car_behind_s-cost;splash['gap_after_s']=round(gap_after,1);splash['loses_position']=gap_after<0
+            splash['gap_check_text']=f"A splash drops you {'behind' if gap_after<0 else 'ahead of'} the car behind by about {abs(gap_after):.0f} seconds."
+        branches.append(splash)
+    feasible=sorted((b for b in branches if b['feasible']),key=lambda b:b['cost_s'])
+    recommendation=feasible[0]['id'] if feasible else None
+    save_branch=next((b for b in branches if b['id']=='save'),None);splash_branch=next((b for b in branches if b['id']=='splash'),None)
+    if recommendation=='splash' and splash_branch.get('loses_position') and save_branch and save_branch['feasible']:recommendation='save'
+    return {'short':True,'deficit_l':round(deficit_l,1),'cost_per_l':round(cost_per_l,2),'cost_per_l_source':cost_per_l_source,'branches':branches,'recommendation':recommendation,'summary':None}
+
 def braking_episodes(rows):
     episodes=[];active=None
     for r in rows:

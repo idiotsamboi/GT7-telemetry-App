@@ -1,17 +1,50 @@
 """Local administration routes. Never mounted on the public group listener."""
-import asyncio, socket
+import asyncio, socket, time
 from urllib.parse import urlparse
-from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import FileResponse
+from typing import Callable
+from fastapi import APIRouter, Request
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.routing import APIRoute
 from pydantic import ValidationError
+from ..core.errors import AppError
+from ..core.defaults import GROUP_PUBLISH_HZ, GROUP_PUBLISH_HZ_LOW_POWER
 from .service import fail
 from .assets import Assets, MAX_UPLOAD
 from .public import public_app, registry
 from .client import MemberClient, address, request as remote_request
 
 
+def error_response(error: AppError) -> JSONResponse:
+    """AppError -> the same `{'detail': ...}` body and status HTTPException produced."""
+    return JSONResponse({'detail': error.detail}, status_code=error.status_code)
+
+
+async def _app_error_handler(request: Request, error: AppError) -> JSONResponse:
+    return error_response(error)
+
+
+def install_error_handlers(app) -> None:
+    """Map AppError to JSON on a FastAPI app (api.py should call this)."""
+    app.add_exception_handler(AppError, _app_error_handler)
+
+
+class AppErrorRoute(APIRoute):
+    """Routers cannot own exception handlers, so this route class converts AppError itself.
+    It keeps the group routes correct on any app, whether or not install_error_handlers ran."""
+
+    def get_route_handler(self) -> Callable:
+        handler = super().get_route_handler()
+
+        async def guarded(request: Request):
+            try:
+                return await handler(request)
+            except AppError as error:
+                return error_response(error)
+        return guarded
+
+
 def router():
- r=APIRouter(prefix='/api/group')
+ r=APIRouter(prefix='/api/group',route_class=AppErrorRoute)
  def service(request):return request.app.state.runtime.group
  @r.get('/state')
  async def state(request:Request):
@@ -89,7 +122,8 @@ def router():
   async for chunk in request.stream():
    raw.extend(chunk)
    if len(raw)>MAX_UPLOAD:fail(413,'Image exceeds 5 MiB')
-  async with s.asset_lock:return await asyncio.to_thread(Assets(s).upload,id,bytes(raw))
+  q=request.query_params
+  async with s.asset_lock:return await asyncio.to_thread(Assets(s).upload,id,bytes(raw),q.get('kind','logo'),q.get('name',''),q.get('license_note',''))
  @r.get('/assets/{id}/{size}.png')
  async def asset(id:str,size:str,request:Request):return FileResponse(Assets(service(request)).path(id,size),media_type='image/png')
  @r.post('/create')
@@ -124,6 +158,33 @@ def router():
  async def message(request:Request):return await service(request).message(await request.json())
  @r.post('/decisions')
  async def decision(request:Request):return await service(request).decision(await request.json())
+ @r.get('/battles')
+ async def battles(request:Request):
+  s=service(request);g=s.active()
+  return {'battles':s.battles.get(g['id'],[]) if g else [],'desk_alerts':list(s.desk_alerts.get(g['id'],[])) if g else []}
+ @r.post('/battles/{id}/dismiss')
+ async def dismiss_battle(id:str,request:Request):
+  s=service(request);g=s.active()
+  if not g:fail(404,'Group not found')
+  engine=s.battle_engines.get(g['id'])
+  if not engine or not engine.dismiss(id,time.time()):fail(404,'Battle not found')
+  return {'dismissed':True}
+ @r.post('/battles/{id}/focus')
+ async def focus_battle(id:str,request:Request):
+  b=await request.json();return await service(request).focus_battle(id,b.get('workspace_id'),b.get('take',False),b.get('ensure_graphics',True))
+ @r.get('/steward-cues')
+ async def steward_cues(request:Request):
+  s=service(request);g=s.active()
+  return {'cues':(g.get('steward_cues') or []) if g else [],'paused':bool(g and g.get('auto_steward_paused'))}
+ @r.delete('/steward-cues/{id}')
+ async def cancel_steward_cue(id:str,request:Request):return await service(request).cancel_steward_cue(id)
+ @r.put('/steward-cues/paused')
+ async def steward_paused(request:Request):
+  b=await request.json();return await service(request).set_steward_paused(b.get('paused',False))
+ @r.get('/projection')
+ async def projection_route(request:Request):
+  s=service(request);g=s.active()
+  return s.projections.get(g['id']) if g else None
  @r.get('/events')
  async def events(request:Request,after:int=0):
   s=service(request);return await asyncio.to_thread(s.repo.events,s.group()['id'],after)
@@ -156,7 +217,9 @@ def router():
   try:joined=await asyncio.to_thread(remote_request,base,'/group-api/join',payload)
   except ValueError as e:fail(422,str(e))
   if s.client:await s.client.close()
-  s.client=MemberClient(s.runtime,base,joined,body.get('rate',5));await s.client.start();return s.client.snapshot()
+  rate=body.get('rate',GROUP_PUBLISH_HZ)
+  if getattr(s.runtime,'performance_profile','DESKTOP')=='LOW_POWER':rate=min(rate,GROUP_PUBLISH_HZ_LOW_POWER)      # display/publish cadence only
+  s.client=MemberClient(s.runtime,base,joined,rate);await s.client.start();return s.client.snapshot()
  @r.post('/connection/response')
  async def response(request:Request):
   c=service(request).client

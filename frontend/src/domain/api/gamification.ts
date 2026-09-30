@@ -12,9 +12,16 @@ export type CareerCorner={corner_id:string,name:string,layout_id:string,car_id:n
 export type CareerChallenge={id:string,title:string,description:string,why:string,status:string,kind:string,progress:number,reward_xp:number,confidence:number,expires_at:string|null,requirements:Record<string,unknown>,evidence:Record<string,unknown>,completion_evidence:Record<string,unknown>|null}
 export type CareerEngineer={focus:string,xp:number,level:number,memory:Record<string,unknown>,missions:{id:string,status:string,challenge:CareerChallenge|null,source_id:string|null}[],briefing:{title:string,why:string,challenge_id:string|null,confidence:number|null,focus_note:string}}
 export type CareerChapters={current:string,scope:string,chapters:{id:string,title:string,required_laps:number,required_challenges:number,completed:boolean}[]}
-export type DriverTitle={id:string,name:string,description:string,unlocked:boolean}
-export type DriverBadge={id:string,name:string,icon:string,unlocked:boolean}
-export type RecentGains={recent_xp:number,sessions_evaluated:number,latest_grade?:string|null,delta_score?:number|null}
+export type ProgressInfo={current:number,target:number,fraction:number}
+export type DriverTitle={id:string,name:string,description:string,unlocked:boolean,stage?:number,progress?:ProgressInfo,evidence?:Record<string,unknown>|null}
+export type DriverBadge={id:string,name:string,icon:string,unlocked:boolean,description?:string,earned_at?:string|null,progress?:ProgressInfo|null,evidence?:Record<string,unknown>|null}
+export type RecentGainSession={session_id:string,created_at:string,xp_awarded:number,xp_by_category:Record<string,number>,grade:string|null,consistency_score:number|null,consistency_delta:number|null,skill_deltas:Record<string,number>|null,pb_events:number}
+export type RecentGains={recent_xp:number,sessions_evaluated:number,latest_grade?:string|null,delta_score?:number|null,provenance?:string,sessions?:RecentGainSession[]}
+export type NextUnlock={kind:'title'|'badge',id:string,name:string,progress:ProgressInfo}
+export type CareerOverview={profile:{id:string,name:string,total_xp:number,eligible_sessions:number,comparable_laps:number},level:CareerLevel,equipped_title:{id:string,name:string}|null,top_badges:{id:string,name:string,icon:string,earned_at:string|null}[],next_unlock:NextUnlock|null,recent_gains:RecentGains|null,provenance:string}
+export type TimelineEvent={id:string,kind:string,title:string,body:string|null,source:string,source_id:string,provenance:string,confidence:number|null,evidence:Record<string,unknown>,created_at:string}
+export type CareerTimeline={items:TimelineEvent[],next_cursor:string|null,provenance:string}
+export type CareerStats={sessions_processed:number,eligible_sessions:number,excluded_sessions:number,comparable_laps:number,personal_bests:number,tracks_visited:number,total_xp:number,level:number,xp_by_category:Record<string,number>,provenance:string,scope:string}
 
 export type CareerDashboardData={
  profile:DriverProfile
@@ -46,6 +53,9 @@ export const gamificationApi={
  titles:()=>get<{equipped:string,titles:DriverTitle[]}>(root+'/titles'),
  equipTitle:(name:string)=>post<{equipped:string}>(root+'/titles/equip?title_name='+encodeURIComponent(name),{}),
  badges:()=>get<DriverBadge[]>(root+'/badges'),
+ overview:(signal?:AbortSignal)=>get<CareerOverview>(root+'/overview',{signal}),
+ timeline:(limit=50,cursor?:string,signal?:AbortSignal)=>get<CareerTimeline>(root+'/timeline?limit='+limit+(cursor?'&cursor='+encodeURIComponent(cursor):''),{signal}),
+ stats:(signal?:AbortSignal)=>get<CareerStats>(root+'/stats',{signal}),
  reset:()=>post<unknown>(root+'/reset',{confirmation:'RESET CAREER'}),
  export:()=>get<unknown>(root+'/export'),
  import:(bundle:unknown)=>post<{driver_id:string}>(root+'/import',{bundle}),

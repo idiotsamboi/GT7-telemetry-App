@@ -103,6 +103,18 @@ def router() -> APIRouter:
     def badges(driver_id: str | None = None, repo=Depends(repository)):
         return invoke(repo.badges, driver_id)
 
+    @api.get('/overview')
+    def overview(driver_id: str | None = None, repo=Depends(repository)):
+        return invoke(repo.overview, driver_id)
+
+    @api.get('/timeline')
+    def timeline(driver_id: str | None = None, limit: int = Query(50, ge=1, le=100), cursor: str | None = Query(None, max_length=200), repo=Depends(repository)):
+        return invoke(repo.timeline, driver_id, limit, cursor)
+
+    @api.get('/stats')
+    def stats(driver_id: str | None = None, repo=Depends(repository)):
+        return invoke(repo.stats, driver_id)
+
     @api.get('/achievements')
     def achievements(driver_id: str | None = None, repo=Depends(repository)):
         return invoke(repo.achievements, driver_id)

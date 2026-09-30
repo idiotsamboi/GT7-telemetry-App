@@ -14,6 +14,7 @@ from .challenges import advance_challenges, list_challenges, transition_challeng
 from .career import update_learning, engineer, chapters, skill_level, ensure_engineer, FOCUSES
 from .bundles import export_career, import_career
 from .notifications import list_notifications, mark_read
+from . import badges as badges_mod, summary, titles as titles_mod
 
 
 def now():
@@ -317,57 +318,56 @@ class CareerRepository:
     def streaks(self, driver_id=None):
         return self.store.query('SELECT * FROM career_streaks WHERE driver_id=?', (self._profile(driver_id)['id'],))
 
+    def _level(self, profile):
+        return self.curve.progress(profile['total_xp'])
+
     def titles(self, driver_id=None):
+        """F005: {equipped, titles:[{id,name,description,stage,unlocked,criteria,progress,evidence}]}."""
         profile = self._profile(driver_id)
-        d_id = profile['id']
-        xp = profile['total_xp']
-        laps = profile['comparable_laps']
-        level = self.curve.progress(xp)['current']
-        available = [
-            {'id': 'novice_driver', 'name': 'Novice Driver', 'description': 'Started driver career', 'unlocked': True},
-            {'id': 'consistent_pacesetter', 'name': 'Consistent Pacesetter', 'description': 'Completed consistency target sessions', 'unlocked': laps >= 5},
-            {'id': 'apex_hunter', 'name': 'Apex Hunter', 'description': 'Completed 100 comparable laps', 'unlocked': laps >= 100},
-            {'id': 'track_master', 'name': 'Track Master', 'description': 'Reached Level 10 or higher', 'unlocked': level >= 10},
-            {'id': 'veteran_racer', 'name': 'Veteran Racer', 'description': 'Completed 500 comparable laps', 'unlocked': laps >= 500},
-            {'id': 'master_driver', 'name': 'Master Driver', 'description': 'Reached Level 50 or higher', 'unlocked': level >= 50}
-        ]
-        equipped = profile.get('current_title') or 'Novice Driver'
-        return {'equipped': equipped, 'titles': available}
+        ach = {a['definition_id'] for a in self.achievements(profile['id'])}
+        evaluated = titles_mod.evaluate_titles(titles_mod.build_stats(profile, self._level(profile)['current'], ach))
+        return {'equipped': profile.get('current_title') or titles_mod.BY_ID[titles_mod.DEFAULT_TITLE_ID].name, 'titles': evaluated,
+                'provenance': titles_mod.PROVENANCE}
 
     def equip_title(self, title_name: str, driver_id=None):
         profile = self._profile(driver_id)
-        titles_info = self.titles(profile['id'])
-        matching = next((t for t in titles_info['titles'] if t['name'].lower() == title_name.strip().lower()), None)
-        if not matching:
-            raise ValueError('Unknown title')
-        if not matching['unlocked']:
+        target = titles_mod.resolve(title_name)
+        state = next(t for t in self.titles(profile['id'])['titles'] if t['id'] == target.id)
+        if not state['unlocked']:
             raise ValueError('Title is locked')
-        self.store.career_transaction(lambda db: db.execute('UPDATE career_profiles SET current_title=? WHERE id=?', (matching['name'], profile['id'])))
-        return {'equipped': matching['name']}
+        def operation(db):
+            # current_title is added lazily (idempotent) so no schema version bump is needed.
+            if 'current_title' not in {r[1] for r in db.execute('PRAGMA table_info(career_profiles)')}:
+                db.execute('ALTER TABLE career_profiles ADD COLUMN current_title TEXT')
+            db.execute('UPDATE career_profiles SET current_title=? WHERE id=?', (target.name, profile['id']))
+        self.store.career_transaction(operation)
+        return {'equipped': target.name}
 
     def badges(self, driver_id=None):
+        """F006: [{id,name,icon,description,unlocked,earned_at,progress{current,target,fraction},evidence}]."""
         profile = self._profile(driver_id)
-        achievements = self.achievements(profile['id'])
-        ach_ids = {a['definition_id'] for a in achievements}
-        all_badges = [
-            {'id': 'FIRST_LAP', 'name': 'First Step', 'icon': 'flag', 'unlocked': 'FIRST_LAP' in ach_ids},
-            {'id': 'TEN_LAPS', 'name': 'Getting Dialed', 'icon': 'disc', 'unlocked': 'TEN_LAPS' in ach_ids},
-            {'id': 'ONE_HUNDRED_LAPS', 'name': 'Century Driver', 'icon': 'award', 'unlocked': 'ONE_HUNDRED_LAPS' in ach_ids},
-            {'id': 'THOUSAND_LAPS', 'name': 'Marathoner', 'icon': 'trophy', 'unlocked': 'THOUSAND_LAPS' in ach_ids}
-        ]
-        return all_badges
+        return badges_mod.list_badges(self.store, profile['id'], self._level(profile)['current'], profile['comparable_laps'])
 
     def recent_gains(self, driver_id=None):
+        return summary.recent_gains(self.store, self._profile(driver_id)['id'])
+
+    def _next_unlock(self, titles, badges):
+        candidates = [dict(kind='title', id=t['id'], name=t['name'], progress=t['progress']) for t in titles['titles'] if not t['unlocked']]
+        candidates += [dict(kind='badge', id=b['id'], name=b['name'], progress=b['progress']) for b in badges if not b['unlocked']]
+        return max(candidates, key=lambda c: c['progress']['fraction'], default=None)
+
+    def overview(self, driver_id=None):
+        """F007 card; fields without stored data are null/empty."""
         profile = self._profile(driver_id)
-        scorecards = self.store.query('SELECT payload FROM career_scorecards WHERE driver_id=? AND status="eligible" ORDER BY created_at DESC LIMIT 2', (profile['id'],))
-        if not scorecards:
-            return {'recent_xp': 0, 'sessions_evaluated': 0, 'delta_score': None}
-        latest = json.loads(scorecards[0]['payload'])
-        previous = json.loads(scorecards[1]['payload']) if len(scorecards) > 1 else None
-        latest_score = latest.get('evidence', {}).get('consistency_score')
-        prev_score = previous.get('evidence', {}).get('consistency_score') if previous else None
-        delta = round(latest_score - prev_score, 2) if (latest_score is not None and prev_score is not None) else None
-        return {'recent_xp': latest.get('xp_awarded', 0), 'sessions_evaluated': len(scorecards), 'latest_grade': latest.get('evidence', {}).get('session_grade'), 'delta_score': delta}
+        titles, badges = self.titles(profile['id']), self.badges(profile['id'])
+        return summary.overview(profile, self._level(profile), titles, badges, self.recent_gains(profile['id']), self._next_unlock(titles, badges))
+
+    def timeline(self, driver_id=None, limit=50, cursor=None):
+        return summary.timeline(self.store, self._profile(driver_id)['id'], limit, cursor)
+
+    def stats(self, driver_id=None):
+        profile = self._profile(driver_id)
+        return summary.stats(self.store, profile['id'], profile, self._level(profile))
 
     def dashboard(self, driver_id=None):
         profile = self._profile(driver_id)

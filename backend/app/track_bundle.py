@@ -37,7 +37,7 @@ def iter_models(path: Path = BUNDLE) -> Iterator[dict[str, Any]]:
                 tail = tail[1:].lstrip()
                 model, consumed = decoder.raw_decode(tail)
             except json.JSONDecodeError:
-                chunk = stream.read(65536)
+                chunk = stream.read(max(65536, len(buffer)))  # geometric growth: avoids quadratic re-parsing
                 if not chunk:
                     raise ValueError("Truncated model bundle") from None
                 buffer += chunk

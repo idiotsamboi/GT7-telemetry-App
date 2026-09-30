@@ -341,7 +341,7 @@ class CareerRepository:
     def badges(self, driver_id=None):
         profile = self._profile(driver_id)
         achievements = self.achievements(profile['id'])
-        ach_ids = {a['id'] for a in achievements}
+        ach_ids = {a['definition_id'] for a in achievements}
         all_badges = [
             {'id': 'FIRST_LAP', 'name': 'First Step', 'icon': 'flag', 'unlocked': 'FIRST_LAP' in ach_ids},
             {'id': 'TEN_LAPS', 'name': 'Getting Dialed', 'icon': 'disc', 'unlocked': 'TEN_LAPS' in ach_ids},

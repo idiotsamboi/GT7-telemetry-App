@@ -1,0 +1,5 @@
+# Phase 3 - track & corner mastery gaps (F011-F030)
+Batch 3a: F016 strategy mastery (fuel-consistency from REPORTED per-lap fuel use, CALCULATED score; null if <3 comparable laps or fuel unavailable), F017 training completion (from training.py progress per layout), F018 corner coverage % (expose existing corner_coverage_total per layout + API), F019 track mastery missions (offer from weakest component via existing challenges), F020 track mastery rewards (badge/title/XP on discovery-level change, idempotent, hysteresis).
+Batch 3b: F026 biggest corner loss, F027 easiest gain, F028 corner challenge, F029 corner streak, F030 corner mastery badges - from career corner records; need stable corner ids, sufficient samples, confidence gates.
+Files: new gamification/{track_components.py, corner_insights.py, rewards.py}; edits mastery.py, repository.py, api.py minimal; domain/api/gamification.ts + CareerDashboard tracks view.
+Tests: tests/test_gamification_track_mastery.py, test_gamification_corner_insights.py. Rollback: flags track_mastery/corner_mastery.

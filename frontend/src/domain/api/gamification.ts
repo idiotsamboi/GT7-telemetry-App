@@ -10,6 +10,8 @@ export type CareerSettings={active_driver_id:string,enabled:boolean}
 export type CornerCoverage={available:boolean,sampled:number,catalogued:number|null,percentage:number|null,provenance:string,reason?:string}
 export type CareerTrack={layout_id:string,car_id:number,visit_count:number,lap_count:number,pb_ms:number,previous_pb_ms:number|null,pb_improvement_ms:number|null,overall_score:number|null,observed_component_score:number|null,component_coverage:number,components:Record<string,number|null>,confidence:number,source_id:string,last_visit:string,mastery_level?:string,score_confidence?:number,corner_coverage?:CornerCoverage}
 export type CareerCorner={corner_id:string,name:string,layout_id:string,car_id:number,score:number|null,confidence:number,sample_count:number,current_loss_s:number|null,reference_lap_id:string,source_id:string,method:string}
+export type CornerFinding={corner_id:string,name:string,loss_s:number,best_segment_ms:number,typical_segment_ms:number,confidence:number|null,sample_count:number,consistency:number|null,provenance:string,reason:string,estimated_gain_s?:number,repeatability?:number,evidence:Record<string,unknown>}
+export type CornerInsights={layout_id:string,car_id:number,provenance:string,min_samples:number,corners_considered:number,biggest_loss:CornerFinding|null,easiest_gain:CornerFinding|null,challenge:{id:string,status:string,expires_at:string|null,title:string,description:string,corner_id:string,target_segment_ms:number,current:number,target:number,confidence:number|null}|null,streaks:{kind:string,corner_id:string,current_count:number,best_count:number,reason:string|null}[],badges:{id:string,name:string,threshold:number,mastered_on_layout:number,unlocked:boolean,earned_at:string|null}[],note:string}
 export type CareerChallenge={id:string,title:string,description:string,why:string,status:string,kind:string,progress:number,reward_xp:number,confidence:number,expires_at:string|null,requirements:Record<string,unknown>,evidence:Record<string,unknown>,completion_evidence:Record<string,unknown>|null}
 export type CareerEngineer={focus:string,xp:number,level:number,memory:Record<string,unknown>,missions:{id:string,status:string,challenge:CareerChallenge|null,source_id:string|null}[],briefing:{title:string,why:string,challenge_id:string|null,confidence:number|null,focus_note:string}}
 export type CareerChapters={current:string,scope:string,chapters:{id:string,title:string,required_laps:number,required_challenges:number,completed:boolean}[]}
@@ -60,6 +62,7 @@ export const gamificationApi={
  reset:()=>post<unknown>(root+'/reset',{confirmation:'RESET CAREER'}),
  export:()=>get<unknown>(root+'/export'),
  import:(bundle:unknown)=>post<{driver_id:string}>(root+'/import',{bundle}),
+ cornerInsights:(layout:string,car:number)=>get<CornerInsights>(root+'/corners/insights?layout_id='+encodeURIComponent(layout)+'&car_id='+car),
  corners:(layout:string)=>get<CareerCorner[]>(root+'/corners/'+encodeURIComponent(layout)),
  challengeAction:(id:string,action:'accept'|'skip')=>post<CareerChallenge>(root+'/challenges/'+encodeURIComponent(id)+'/'+action,{}),
  startMission:(challengeId:string)=>post<unknown>(root+'/missions/'+encodeURIComponent(challengeId)+'/accept',{}),

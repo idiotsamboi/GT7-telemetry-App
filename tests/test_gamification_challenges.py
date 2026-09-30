@@ -4,13 +4,14 @@ import sqlite3
 import pytest
 
 from backend.app.gamification.challenges import CHALLENGES_DDL, advance_challenges, list_challenges, transition_challenge
+from backend.app.gamification.mastery import MASTERY_DDL
 from backend.app.gamification.scoring import evaluate
 
 
 @pytest.fixture
 def db():
     connection = sqlite3.connect(':memory:')
-    connection.executescript(CHALLENGES_DDL)
+    connection.executescript(CHALLENGES_DDL + MASTERY_DDL)
     connection.execute('CREATE TABLE career_xp_events(id TEXT PRIMARY KEY,guard TEXT UNIQUE,driver_id TEXT,session_id TEXT,source_id TEXT,category TEXT,amount INTEGER,created_at TEXT,evidence TEXT)')
     yield connection
     connection.close()

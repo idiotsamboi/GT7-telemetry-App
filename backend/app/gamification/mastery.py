@@ -7,6 +7,7 @@ import json
 import math
 from statistics import median, pstdev
 
+from .corner_insights import apply_corner_progress
 from .track_components import corner_coverage, discovery_level, strategy_component, training_component
 
 DEFAULT_WEIGHTS = {'pace': .25, 'consistency': .20, 'corners': .25, 'training': .15, 'strategy': .15}
@@ -86,6 +87,7 @@ def update_mastery(db, driver_id, source_id, session, evidence, context, stamp):
     pb = min(baseline, current_pb) if baseline is not None else current_pb
     pace = min(100, 100 * baseline / median(durations)) if baseline is not None else None
     corners_updated = 0
+    touched = {}
     for lap_id, spatial in context.get('spatial', {}).items():
         if lap_id not in ids or spatial.get('reference_lap_id') not in ids or spatial.get('layout_id') != layout or spatial.get('car_id') != car or spatial.get('source') != 'calculated':
             continue
@@ -97,6 +99,7 @@ def update_mastery(db, driver_id, source_id, session, evidence, context, stamp):
                 continue
             old = db.execute('SELECT payload FROM career_corner_mastery WHERE driver_id=? AND layout_id=? AND car_id=? AND corner_id=?', (driver_id, layout, car, corner_id)).fetchone()
             old = json.loads(old[0]) if old else {}
+            touched.setdefault(corner_id, old.get('score'))
             history = (old.get('recent_segment_ms', []) + [duration])[-20:]
             count = old.get('sample_count', 0) + 1
             # Until three independent laps exist, report timing evidence only.
@@ -114,6 +117,8 @@ def update_mastery(db, driver_id, source_id, session, evidence, context, stamp):
                        'comparison_window_m': item.get('comparison_window_m')}
             db.execute('INSERT OR REPLACE INTO career_corner_mastery VALUES(?,?,?,?,?,?,?)', (driver_id, layout, car, corner_id, stamp, source_id, json.dumps(payload)))
             corners_updated += 1
+
+    apply_corner_progress(db, driver_id, layout, car, source_id, touched, stamp)   # F029/F030, savepoint-isolated
 
     # Query all corner mastery records for this layout & car to compute whole-circuit coverage (F018)
     all_corners = [json.loads(r[0]) for r in db.execute('SELECT payload FROM career_corner_mastery WHERE driver_id=? AND layout_id=? AND car_id=?', (driver_id, layout, car)).fetchall()]
@@ -142,11 +147,12 @@ def update_mastery(db, driver_id, source_id, session, evidence, context, stamp):
                'corner_observations_updated': corners_updated, 'corner_coverage_total': corner_coverage_info,
                'comparison': 'same authoritative layout and car; calculated application-comparable laps',
                'corner_coverage': corner_coverage(all_corners, catalogue),
-               'component_details': {'strategy': {k: v for k, v in strategy.items() if k != 'recent_fuel_l'}, 'training': training},
+               'component_details': {'strategy': {k: v for k, v in strategy.items() if k != 'recent_fuel_l'}, 'training': {**training, 'scope': 'layout-wide user training captures; not per car, not provenance-gated'}},
                'strategy_state': {'recent_fuel_l': strategy['recent_fuel_l']}}
     payload['score_confidence'] = round(payload['confidence'] * payload['component_coverage'], 3)
     payload['previous_mastery_level'] = (previous or {}).get('mastery_level')
     payload['mastery_level'] = discovery_level(payload, payload['previous_mastery_level'])
+    payload['mastered'] = payload['mastery_level'] == 'Mastered'
     db.execute('INSERT OR REPLACE INTO career_track_mastery VALUES(?,?,?,?,?,?)', (driver_id, layout, car, stamp, source_id, json.dumps(payload)))
     db.execute('INSERT INTO career_mastery_history VALUES(?,?,?,?,?,?)', (source_id, driver_id, layout, car, stamp, json.dumps(payload)))
     return payload

@@ -30,6 +30,9 @@ BADGES: tuple[BadgeDef, ...] = (
     BadgeDef('LEVEL_10', 'Seasoned Driver', 'star', 'level', 10, 'Reach career level 10'),
     BadgeDef('LEVEL_25', 'Veteran Driver', 'star', 'level', 25, 'Reach career level 25'),
     BadgeDef('FIRST_PB', 'Personal Best', 'zap', 'first_pb', 1, 'First application-recorded personal best'),
+    BadgeDef('CORNER_MASTER_1', 'Corner Specialist', 'target', 'corner_mastery', 1, 'Mastered one corner on a layout and car (application-calculated)'),
+    BadgeDef('CORNER_MASTER_3', 'Corner Craftsman', 'target', 'corner_mastery', 3, 'Mastered three corners on one layout and car (application-calculated)'),
+    BadgeDef('CORNER_MASTER_5', 'Corner Virtuoso', 'target', 'corner_mastery', 5, 'Mastered five corners on one layout and car (application-calculated)'),
     BadgeDef('CONSISTENCY_S', 'Metronome', 'target', 'grade_s', 1, 'A session with application consistency grade S'),
 )
 assert len({b.id for b in BADGES}) == len(BADGES)
@@ -42,7 +45,15 @@ def _facts(store, driver_id: str, level: int, comparable_laps: int) -> dict:
     level_events = store.query("SELECT created_at,source_id,json_extract(evidence,'$.to') AS lvl FROM career_events WHERE driver_id=? AND kind='LEVEL_UP' ORDER BY created_at,id LIMIT 100", (driver_id,))
     grade = store.query("SELECT session_id,created_at,json_extract(payload,'$.evidence.consistency_score') AS score FROM career_scorecards "
                         "WHERE driver_id=? AND status='eligible' AND json_extract(payload,'$.evidence.session_grade')='S' ORDER BY created_at LIMIT 1", (driver_id,))
-    return dict(achievements=achievements, pb=pb[0] if pb else None, level_events=level_events, grade=grade[0] if grade else None,
+    per_layout: dict = {}
+    for r in store.query('SELECT payload FROM career_corner_mastery WHERE driver_id=? LIMIT 2000', (driver_id,)):
+        c = json.loads(r['payload'])
+        if c.get('mastered'):
+            key = (c.get('layout_id'), c.get('car_id'))
+            per_layout[key] = per_layout.get(key, 0) + 1
+    corner_events = {r['source_id']: r for r in store.query(
+        "SELECT id,source_id,created_at,evidence FROM career_events WHERE driver_id=? AND kind='ACHIEVEMENT_UNLOCKED' AND source='corner_badge' LIMIT 50", (driver_id,))}
+    return dict(corner_best=max(per_layout.values(), default=0), corner_events=corner_events, achievements=achievements, pb=pb[0] if pb else None, level_events=level_events, grade=grade[0] if grade else None,
                 level=level, comparable_laps=comparable_laps)
 
 
@@ -62,6 +73,12 @@ def evaluate_badge(b: BadgeDef, f: dict) -> dict:
             out.update(unlocked=True, earned_at=ev['created_at'] if ev else None,
                        evidence=dict(provenance=PROVENANCE, source='career_events' if ev else 'career_profiles',
                                      source_id=ev['source_id'] if ev else None, level=f['level']))
+    elif b.kind == 'corner_mastery':
+        ev = f['corner_events'].get(b.id)
+        out['progress'] = dict(current=min(f['corner_best'], b.threshold), target=b.threshold)
+        if ev:
+            out.update(unlocked=True, earned_at=ev['created_at'],
+                       evidence=dict(provenance=PROVENANCE, source='career_events', source_id=b.id, event_id=ev['id'], detail=json.loads(ev['evidence'])))
     elif b.kind == 'first_pb':
         out['progress'] = dict(current=int(bool(f['pb'])), target=1)
         if f['pb']:

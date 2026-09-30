@@ -16,6 +16,6 @@ training_defs.py evaluators, track_service, spatial_coaching, engineer_service.c
 Queue overflow invalidates session rewards; flags default True; perf unproven; PS5 live unverified.
 ## DO-NOT-TOUCH
 telemetry/parser.py, telemetry/bus.py, storage/store.py (hook-blocked); runtime.py/api.py minimal edits.
-## PHASES 0-2 DONE (Phase 2 gate: reviewer fixes applied, events in-transaction, migration 009; 98 gamification+storage+arch tests pass). F005-F010 IMPLEMENTED (backend; overview/timeline/stats UI pending).
+## PHASES 0-3 DONE (F016-F020,F026-F030 added; 114 tests pass at gate). Earlier: PHASES 0-2 DONE (Phase 2 gate: reviewer fixes applied, events in-transaction, migration 009; 98 gamification+storage+arch tests pass). F005-F010 IMPLEMENTED (backend; overview/timeline/stats UI pending).
 ## NEXT
 Write docs/plans/phase-1.md; fix slow test; then F005/F006/F009 (titles/badges/recent gains), F016/F017 real components.

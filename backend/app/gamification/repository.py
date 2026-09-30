@@ -10,6 +10,7 @@ import uuid
 from .models import DriverProfile, SessionScorecard
 from .scoring import ALGORITHM_VERSION, MAX_LAPS, SKILLS, LevelCurve, evaluate, update_skill
 from .mastery import update_mastery, tracks, corners
+from .corner_insights import insights as corner_insights_for
 from .rewards import apply_track_rewards
 from .challenges import advance_challenges, list_challenges, transition_challenge
 from .career import update_learning, engineer, chapters, skill_level, ensure_engineer, FOCUSES
@@ -285,6 +286,14 @@ class CareerRepository:
 
     def corners(self, layout_id, driver_id=None):
         return corners(self.store, self._profile(driver_id)['id'], layout_id)
+
+    def corner_insights(self, layout_id, car_id, driver_id=None):
+        """F026-F030 bundle for one layout and car; fields lacking supported evidence are null."""
+        if not isinstance(layout_id, str) or not layout_id.strip() or len(layout_id) > 120:
+            raise ValueError('layout_id is required')
+        if isinstance(car_id, bool) or not isinstance(car_id, int) or car_id <= 0:
+            raise ValueError('car_id must be a positive integer')
+        return corner_insights_for(self.store, self._profile(driver_id)['id'], layout_id, car_id)
 
     def challenges(self, driver_id=None):
         return list_challenges(self.store, self._profile(driver_id)['id'])

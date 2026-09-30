@@ -9,6 +9,7 @@ import json
 from statistics import median
 
 from ..domain.training_defs import clean_laps, consistent_streak
+from .corner_insights import challenge_gate, corner_records, easiest_gain
 from .scoring import evaluate
 from .track_components import mission_component
 
@@ -174,6 +175,53 @@ def _offer_track_mission(db, driver_id, source_id, evidence, laps, stamp):
         _history(db, dict(id=challenge_id, driver_id=driver_id), 'offered', stamp)
 
 
+def _offer_corner_practice(db, driver_id, source_id, evidence, stamp):
+    """F028: one corner challenge per week/layout/car aimed at the easiest supported gain. Skipping never punishes."""
+    layout, car = evidence.get('layout_id'), evidence.get('car_id')
+    if not isinstance(layout, str) or not layout or not isinstance(car, int) or isinstance(car, bool) or car <= 0:
+        return
+    pick = easiest_gain(corner_records(db, None, driver_id, layout, car))
+    if challenge_gate(pick):
+        return
+    current = _time(stamp)
+    monday = current.replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=current.weekday())
+    bucket = f'{monday.date().isoformat()}:{layout}:{car}'
+    challenge_id = 'challenge:v1:' + hashlib.sha256(f'{driver_id}:corner_practice:{bucket}'.encode()).hexdigest()[:32]
+    target_ms = round(pick['typical_segment_ms'] - pick['estimated_gain_s'] * 1000, 1)
+    target = 3
+    payload = dict(title=f"Corner practice: {pick['name']}",
+                   description=f"Drive {pick['name']} in {round(target_ms)} ms or faster on {target} laps in one future session (segment window as measured by the application).",
+                   corner_id=pick['corner_id'], why=pick['reason'], calendar_timezone='UTC',
+                   requirements=dict(layout_id=layout, car_id=car, evaluator='corner_segment', corner_id=pick['corner_id'],
+                                     target_segment_ms=target_ms, count=target, tolerance_pct=None, future_sessions_only=True,
+                                     provenance='live', comparable_only=True),
+                   confidence=pick['confidence'], difficulty='steady', reward_xp=20, repeat_cap=1, progress=0, current=0, target=target,
+                   evidence=dict(baseline_source_id=source_id, baseline_lap_ids=evidence['comparable_lap_ids'],
+                                 typical_segment_ms=pick['typical_segment_ms'], best_segment_ms=pick['best_segment_ms'],
+                                 estimated_gain_s=pick['estimated_gain_s'], official_validity='unknown'),
+                   completion_evidence=None)
+    inserted = db.execute('INSERT OR IGNORE INTO career_challenges VALUES(?,?,?,?,?,?,?,?,?)',
+                          (challenge_id, driver_id, 'corner_practice', bucket, 'offered', stamp, (monday + timedelta(days=7)).isoformat(), None, _json(payload)))
+    if inserted.rowcount:
+        _history(db, dict(id=challenge_id, driver_id=driver_id), 'offered', stamp)
+
+
+def _corner_observed(context, accepted_ids, requirements):
+    """Laps whose stored, calculated segment for the frozen corner met the frozen target."""
+    count = 0
+    for lap_id, spatial in (context.get('spatial') or {}).items():
+        if lap_id not in accepted_ids or spatial.get('reference_lap_id') not in accepted_ids or spatial.get('source') != 'calculated' \
+                or (spatial.get('layout_id'), spatial.get('car_id')) != (requirements['layout_id'], requirements['car_id']):
+            continue
+        for item in spatial.get('items', [])[:100]:
+            ms, conf = item.get('segment_ms'), item.get('confidence')
+            if item.get('corner_id') == requirements['corner_id'] and isinstance(ms, (int, float)) and not isinstance(ms, bool) and ms > 0 \
+                    and isinstance(conf, (int, float)) and conf >= .5 and ms <= requirements['target_segment_ms']:
+                count += 1
+                break
+    return count
+
+
 def advance_challenges(db, driver_id, source_id, session, evidence, context, stamp):
     """Return newly awarded XP; all writes join the caller's eligible transaction.
 
@@ -218,6 +266,9 @@ def advance_challenges(db, driver_id, source_id, session, evidence, context, sta
         if evaluator == 'consistent_streak':
             observed = consistent_streak({'laps': streak_laps}, dict(count=payload['target'], tolerance_pct=requirements['tolerance_pct'])).current
             current = max(payload['current'], observed)
+        elif evaluator == 'corner_segment':
+            observed = _corner_observed(context, accepted_ids, requirements)
+            current = max(payload['current'], observed)
         else:
             summary_laps = [dict(lap, number=lap.get('number', index)) for index, lap in enumerate(laps)]
             observed = clean_laps({'laps': summary_laps}, {'count': payload['target']}).current
@@ -239,4 +290,6 @@ def advance_challenges(db, driver_id, source_id, session, evidence, context, sta
     _offers(db, driver_id, source_id, evidence, laps, stamp)
     if context.get('features', {}).get('track_mastery', True):
         _offer_track_mission(db, driver_id, source_id, evidence, laps, stamp)
+    if context.get('features', {}).get('corner_mastery', True):
+        _offer_corner_practice(db, driver_id, source_id, evidence, stamp)
     return total

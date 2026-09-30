@@ -130,6 +130,11 @@ def router() -> APIRouter:
     def track(track_id: str, driver_id: str | None = None, repo=Depends(repository)):
         return [item for item in invoke(repo.tracks, driver_id) if item['layout_id'] == track_id]
 
+    @api.get('/corners/insights')
+    def corner_insights(layout_id: str = Query(..., min_length=1, max_length=120), car_id: int = Query(..., ge=1),
+                        driver_id: str | None = None, repo=Depends(repository)):
+        return invoke(repo.corner_insights, layout_id, car_id, driver_id)
+
     @api.get('/corners/{track_id}')
     def corners(track_id: str, driver_id: str | None = None, repo=Depends(repository)):
         return invoke(repo.corners, track_id, driver_id)

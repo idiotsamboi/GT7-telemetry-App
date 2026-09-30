@@ -13,6 +13,7 @@ from .mastery import update_mastery, tracks, corners
 from .challenges import advance_challenges, list_challenges, transition_challenge
 from .career import update_learning, engineer, chapters, skill_level, ensure_engineer, FOCUSES
 from .bundles import export_career, import_career
+from .notifications import list_notifications, mark_read
 
 
 def now():
@@ -238,6 +239,12 @@ class CareerRepository:
             return scorecard
         return self.store.career_transaction(operation)
 
+    def notifications(self, driver_id=None, limit=50):
+        return list_notifications(self.store, self._profile(driver_id)['id'], limit)
+
+    def mark_notification_read(self, notification_id: str, driver_id=None):
+        return mark_read(self.store, self._profile(driver_id)['id'], notification_id, now())
+
     def history(self, driver_id=None, limit=50):
         driver_id = self._profile(driver_id)['id']
         rows = self.store.query('SELECT id,driver_id,session_id,source_id,category,amount,created_at,evidence FROM career_xp_events WHERE driver_id=? ORDER BY created_at DESC,id LIMIT ?', (driver_id, max(1, min(int(limit), 200))))
@@ -403,7 +410,7 @@ class CareerRepository:
                 raise ValueError('Imported archives are read-only; select a local profile to reset progression')
             # Keep source/scorecard tombstones and bindings: old recorded sessions
             # must never become eligible for XP again after a reset.
-            for table in ('career_xp_events', 'career_skills', 'career_achievements'):
+            for table in ('career_xp_events', 'career_skills', 'career_achievements', 'career_events', 'career_notifications'):
                 db.execute(f'DELETE FROM {table} WHERE driver_id=?', (driver_id,))
             for table in ('career_track_mastery', 'career_corner_mastery', 'career_mastery_history'):
                 db.execute(f'DELETE FROM {table} WHERE driver_id=?', (driver_id,))

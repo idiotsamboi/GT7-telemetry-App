@@ -11,6 +11,7 @@ import time
 from dataclasses import dataclass
 
 from ..storage.repositories import SqliteSessionRepository
+from .events import emit_for_scorecard
 
 log = logging.getLogger('gamification')
 
@@ -130,7 +131,11 @@ class CareerProcessor:
         context['features'] = {key: context.get('features', {}).get(key, True) and self.runtime.feature(key) for key in ('track_mastery', 'corner_mastery', 'dynamic_challenges', 'engineer_missions')}
         if not context['features']['corner_mastery']:
             context['spatial'] = {}
-        self.repository.process_session(detail.to_public(), driver_id, context)
+        scorecard = self.repository.process_session(detail.to_public(), driver_id, context)
+        try:  # post-commit, idempotent, non-fatal
+            emit_for_scorecard(self.runtime.store, scorecard, self.repository.curve)
+        except Exception as error:
+            self._error(error)
 
     def _handle(self, job: CareerJob) -> None:
         if job.driver_id is None:

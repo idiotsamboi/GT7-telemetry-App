@@ -83,6 +83,14 @@ def router() -> APIRouter:
     def xp_history(driver_id: str | None = None, limit: int = Query(50, ge=1, le=200), repo=Depends(repository)):
         return invoke(repo.history, driver_id, limit)
 
+    @api.get('/notifications')
+    def notifications(driver_id: str | None = None, limit: int = Query(50, ge=1, le=100), repo=Depends(repository)):
+        return invoke(repo.notifications, driver_id, limit)
+
+    @api.post('/notifications/{notification_id}/read')
+    def read_notification(notification_id: str, repo=Depends(repository)):
+        return invoke(repo.mark_notification_read, notification_id)
+
     @api.get('/titles')
     def titles(driver_id: str | None = None, repo=Depends(repository)):
         return invoke(repo.titles, driver_id)

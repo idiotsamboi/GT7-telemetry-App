@@ -98,7 +98,7 @@
 | F094 | Event Missions | GROUP / POLISH | P1 | PLANNED | NO | NO | NO | NO | None | Unverified |
 | F095 | Steward Evidence Achievement | GROUP / POLISH | P1 | PLANNED | NO | NO | NO | NO | None | Unverified |
 | F096 | Achievement Journal | GROUP / POLISH | P1 | IMPLEMENTED | YES | YES | YES | YES | None | 2026-09-30 |
-| F097 | Notification Center | GROUP / POLISH | P1 | IN_PROGRESS | PARTIAL | NO | PARTIAL | NO | None | 2026-09-30 |
+| F097 | Notification Center | GROUP / POLISH | P1 | IMPLEMENTED | PARTIAL | NO | PARTIAL | NO | None | 2026-09-30 |
 | F098 | Anti-Farming System | GROUP / POLISH | P1 | IMPLEMENTED | YES | YES | YES | YES | None | 2026-09-30 |
 | F099 | Reduced Gamification Mode | GROUP / POLISH | P1 | IMPLEMENTED | YES | YES | YES | YES | None | 2026-09-30 |
 | F100 | Full Career Dashboard | GROUP / POLISH | P1 | IMPLEMENTED | YES | YES | YES | YES | None | 2026-09-30 |

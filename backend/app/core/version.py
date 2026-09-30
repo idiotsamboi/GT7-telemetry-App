@@ -3,7 +3,7 @@ APP_VERSION = '0.3.0-beta'
 PROTOCOL_VERSION = 2            # group envelope (group/protocol.py); v1 accepted for one release
 PROTOCOL_SUPPORTED = (1, 2)
 SETTINGS_SCHEMA_VERSION = 2     # core/config_migrations.py
-DB_SCHEMA_VERSION = 7           # backend/migrations
+DB_SCHEMA_VERSION = 8           # backend/migrations
 ANALYSIS_VERSION = 1            # bump when analysis output changes (AnalysisCache key)
 
 

@@ -5,7 +5,7 @@ the same schema. `SCHEMA_VERSION` must equal `core.version.DB_SCHEMA_VERSION`.
 """
 import sqlite3
 
-SCHEMA_VERSION = 7
+SCHEMA_VERSION = 8
 
 AUDIT_DDL = '''
 CREATE TABLE IF NOT EXISTS audit_log(
@@ -71,6 +71,19 @@ CAREER_COACHING_DDL = "\nCREATE TABLE IF NOT EXISTS career_engineer(\n driver_id
 CAREER_ARCHIVE_DDL = 'CREATE TABLE IF NOT EXISTS career_import_archives(driver_id TEXT PRIMARY KEY, imported_at TEXT NOT NULL, provenance TEXT NOT NULL, payload TEXT NOT NULL, preview TEXT NOT NULL);\n'
 
 
+CAREER_EVENTS_DDL = '''
+CREATE TABLE IF NOT EXISTS career_events(
+ id TEXT PRIMARY KEY, driver_id TEXT NOT NULL, kind TEXT NOT NULL, source TEXT NOT NULL,
+ source_id TEXT NOT NULL, provenance TEXT NOT NULL, evidence TEXT NOT NULL,
+ confidence REAL, created_at TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS career_events_driver_time ON career_events(driver_id,created_at);
+CREATE TABLE IF NOT EXISTS career_notifications(
+ id TEXT PRIMARY KEY, driver_id TEXT NOT NULL, level TEXT NOT NULL, title TEXT NOT NULL,
+ body TEXT NOT NULL, read_at TEXT, created_at TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS career_notifications_driver_time ON career_notifications(driver_id,created_at);
+'''
+
+
 def _columns(db: sqlite3.Connection, table: str) -> set[str]:
     return {row[1] for row in db.execute(f'PRAGMA table_info({table})')}
 
@@ -88,5 +101,6 @@ def migrate(db: sqlite3.Connection) -> None:
     db.executescript(CAREER_LEARNING_DDL)
     db.executescript(CAREER_COACHING_DDL)
     db.executescript(CAREER_ARCHIVE_DDL)
+    db.executescript(CAREER_EVENTS_DDL)
     current = db.execute('PRAGMA user_version').fetchone()[0]
     db.execute(f'PRAGMA user_version={max(current, SCHEMA_VERSION)}')

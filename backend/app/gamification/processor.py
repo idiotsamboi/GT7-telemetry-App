@@ -11,7 +11,7 @@ import time
 from dataclasses import dataclass
 
 from ..storage.repositories import SqliteSessionRepository
-from .events import emit_for_scorecard
+from .events import backfill_missing
 
 log = logging.getLogger('gamification')
 
@@ -131,11 +131,7 @@ class CareerProcessor:
         context['features'] = {key: context.get('features', {}).get(key, True) and self.runtime.feature(key) for key in ('track_mastery', 'corner_mastery', 'dynamic_challenges', 'engineer_missions')}
         if not context['features']['corner_mastery']:
             context['spatial'] = {}
-        scorecard = self.repository.process_session(detail.to_public(), driver_id, context)
-        try:  # post-commit, idempotent, non-fatal
-            emit_for_scorecard(self.runtime.store, scorecard, self.repository.curve)
-        except Exception as error:
-            self._error(error)
+        self.repository.process_session(detail.to_public(), driver_id, context)   # events are written in the same transaction
 
     def _handle(self, job: CareerJob) -> None:
         if job.driver_id is None:
@@ -167,6 +163,10 @@ class CareerProcessor:
             except Exception as error:
                 self.failed_events += 1
                 self._error(error)
+        try:  # bounded, idempotent repair of eligible scorecards whose events were lost
+            backfill_missing(self.runtime.store)
+        except Exception as error:
+            self._error(error)
 
     async def run(self) -> None:
         # Recovery only uses durable bindings and lap identity evidence, never guessed context.

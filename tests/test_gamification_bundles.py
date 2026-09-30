@@ -4,6 +4,7 @@ import copy
 import pytest
 
 from backend.app.gamification.repository import CareerRepository
+from backend.app.storage import Store
 try:
     from tests.test_gamification_mastery import session
 except ImportError:

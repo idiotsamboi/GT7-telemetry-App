@@ -14,6 +14,7 @@ from .challenges import advance_challenges, list_challenges, transition_challeng
 from .career import update_learning, engineer, chapters, skill_level, ensure_engineer, FOCUSES
 from .bundles import export_career, import_career
 from .notifications import list_notifications, mark_read
+from .events import write_events_isolated
 from . import badges as badges_mod, summary, titles as titles_mod
 
 
@@ -214,7 +215,9 @@ class CareerRepository:
             exclusions = list(dict.fromkeys(exclusions))
             db.execute('INSERT INTO career_sources VALUES(?,?,?,?,?,?,?,?)', (source_id, session_id, driver_id, stamp, persisted['provenance'], ALGORITHM_VERSION, status, encode(dict(**evidence, exclusions=exclusions))))
             total = 0
+            level_before = level_after = None
             if status == 'eligible':
+                xp_before = db.execute('SELECT total_xp FROM career_profiles WHERE id=?', (driver_id,)).fetchone()[0]
                 db.execute('INSERT INTO career_reward_guards VALUES(?,?,?)', (driver_id, fingerprint, source_id))
                 for reward in analysis['rewards']:
                     guard = source_id + ':' + reward['category']
@@ -228,6 +231,8 @@ class CareerRepository:
                 if context.get('features', {}).get('dynamic_challenges', True):
                     total += advance_challenges(db, driver_id, source_id, session, evidence, measured_context, stamp)
                 db.execute('UPDATE career_profiles SET total_xp=total_xp+?,eligible_sessions=eligible_sessions+1,comparable_laps=comparable_laps+? WHERE id=?', (total, evidence['comparable_laps'], driver_id))
+                level_before = self.curve.progress(xp_before)['current']
+                level_after = self.curve.progress(db.execute('SELECT total_xp FROM career_profiles WHERE id=?', (driver_id,)).fetchone()[0])['current']
                 if context.get('features', {}).get('engineer_missions', True):
                     update_learning(db, driver_id, source_id, session, evidence, stamp)
                 old = db.execute("SELECT score,evidence_count,xp FROM career_skills WHERE driver_id=? AND category='consistency'", (driver_id,)).fetchone()
@@ -235,8 +240,12 @@ class CareerRepository:
                 skill_xp = (old[2] if old else 0) + sum(r['amount'] for r in analysis['rewards'] if r['category'] == 'consistency')
                 db.execute("INSERT INTO career_skills VALUES(?,'consistency',?,?,?,?,?) ON CONFLICT(driver_id,category) DO UPDATE SET score=excluded.score,confidence=excluded.confidence,xp=excluded.xp,evidence_count=excluded.evidence_count,source_id=excluded.source_id", (driver_id, score, confidence, skill_xp, count, source_id))
                 db.execute('INSERT OR IGNORE INTO career_achievements VALUES(?,?,?,?,?,?)', (driver_id, 'first_comparable_session_v1', 'First comparable session', stamp, source_id, encode(evidence)))
+            if level_before is not None:
+                evidence = dict(evidence, level_before=level_before, level_after=level_after)
             scorecard = dict(session_id=session_id, driver_id=driver_id, created_at=stamp, status=status, xp_awarded=total, exclusions=exclusions, evidence=evidence)
             db.execute('INSERT INTO career_scorecards VALUES(?,?,?,?,?,?)', (session_id, driver_id, stamp, status, total, encode(scorecard)))
+            if status == 'eligible':   # same transaction as the XP; savepoint-isolated so XP survives an event failure
+                write_events_isolated(db, scorecard, stamp)
             return scorecard
         return self.store.career_transaction(operation)
 
@@ -336,9 +345,6 @@ class CareerRepository:
         if not state['unlocked']:
             raise ValueError('Title is locked')
         def operation(db):
-            # current_title is added lazily (idempotent) so no schema version bump is needed.
-            if 'current_title' not in {r[1] for r in db.execute('PRAGMA table_info(career_profiles)')}:
-                db.execute('ALTER TABLE career_profiles ADD COLUMN current_title TEXT')
             db.execute('UPDATE career_profiles SET current_title=? WHERE id=?', (target.name, profile['id']))
         self.store.career_transaction(operation)
         return {'equipped': target.name}

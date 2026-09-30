@@ -5,7 +5,7 @@ the same schema. `SCHEMA_VERSION` must equal `core.version.DB_SCHEMA_VERSION`.
 """
 import sqlite3
 
-SCHEMA_VERSION = 8
+SCHEMA_VERSION = 9
 
 AUDIT_DDL = '''
 CREATE TABLE IF NOT EXISTS audit_log(
@@ -102,5 +102,8 @@ def migrate(db: sqlite3.Connection) -> None:
     db.executescript(CAREER_COACHING_DDL)
     db.executescript(CAREER_ARCHIVE_DDL)
     db.executescript(CAREER_EVENTS_DDL)
+    if 'current_title' not in _columns(db, 'career_profiles'):             # v9: equipped title
+        db.execute('ALTER TABLE career_profiles ADD COLUMN current_title TEXT')
+    db.execute('CREATE INDEX IF NOT EXISTS career_events_source ON career_events(kind,source_id)')
     current = db.execute('PRAGMA user_version').fetchone()[0]
     db.execute(f'PRAGMA user_version={max(current, SCHEMA_VERSION)}')

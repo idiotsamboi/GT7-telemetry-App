@@ -3,6 +3,10 @@ from __future__ import annotations
 
 LEVELS = ('CRITICAL', 'IMPORTANT', 'NORMAL', 'SILENT')
 MAX_PER_DRIVER = 200
+class UnknownNotification(LookupError):
+    pass
+
+
 _COLUMNS = ('id', 'driver_id', 'level', 'title', 'body', 'read_at', 'created_at')
 
 
@@ -27,7 +31,7 @@ def mark_read(store, driver_id: str, notification_id: str, stamp: str) -> dict:
     def operation(db):
         cur = db.execute('UPDATE career_notifications SET read_at=COALESCE(read_at,?) WHERE id=? AND driver_id=?', (stamp, notification_id, driver_id))
         if not cur.rowcount:
-            raise ValueError('Unknown notification')
+            raise UnknownNotification('Unknown notification')
         row = db.execute('SELECT ' + ','.join(_COLUMNS) + ' FROM career_notifications WHERE id=?', (notification_id,)).fetchone()
         return dict(zip(_COLUMNS, row))
     return store.career_transaction(operation)

@@ -48,7 +48,7 @@ def test_old_database_upgrades_in_place(tmp_path, version):
     finally:
         store.close()
     tables, indexes, user_version = schema_of(path)
-    assert user_version == 8 == SCHEMA_VERSION == DB_SCHEMA_VERSION
+    assert user_version == 9 == SCHEMA_VERSION == DB_SCHEMA_VERSION
     assert 'kind' in [c for c, _ in tables['events']] and 'audit_log' in tables
     assert {'event_kind', 'audit_utc', 'audit_session', 'session_started'} <= indexes
 
@@ -63,7 +63,7 @@ def test_upgrade_is_idempotent_and_matches_fresh_schema(tmp_path):
 
 def test_sql_files_mirror_inline_migration(tmp_path):
     db = sqlite3.connect(tmp_path / 'sql.db')
-    for name in ('001_initial.sql', '002_archive.sql', '003_annotations_audit.sql', '004_driver_career.sql', '005_career_learning.sql', '006_career_coaching.sql', '007_career_archives.sql', '008_career_events_notifications.sql'):
+    for name in ('001_initial.sql', '002_archive.sql', '003_annotations_audit.sql', '004_driver_career.sql', '005_career_learning.sql', '006_career_coaching.sql', '007_career_archives.sql', '008_career_events_notifications.sql', '009_career_title.sql'):
         db.executescript((MIGRATIONS / name).read_text(encoding='utf-8'))
     db.close()
     Store(tmp_path / 'inline.db').close()

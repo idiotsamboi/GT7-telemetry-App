@@ -4,6 +4,7 @@ from typing import Annotated, Literal
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from starlette.concurrency import run_in_threadpool
+from .notifications import UnknownNotification
 
 
 class ProfileCreate(BaseModel):
@@ -39,6 +40,8 @@ def repository(request: Request):
 def invoke(fn, *args, **kwargs):
     try:
         return fn(*args, **kwargs)
+    except UnknownNotification as error:
+        raise HTTPException(404, str(error)) from None
     except ValueError as error:
         raise HTTPException(422, str(error)) from None
     except (TimeoutError, RuntimeError) as error:

@@ -1,7 +1,8 @@
 """Progression event log. Events are derived from committed career state, never from raw samples.
 
 Deterministic ids make double processing a no-op. Only live-provenance sessions create events.
-Emission failures are logged and never raised into the career processor.
+Events are written inside the same career transaction as the scorecard/XP (savepoint-isolated), so a crash
+cannot lose them; `backfill_missing` repairs any eligible live scorecard whose event set is absent.
 """
 from __future__ import annotations
 
@@ -15,6 +16,7 @@ from .notifications import add_notification
 
 log = logging.getLogger('gamification')
 
+MAX_EVENTS_PER_DRIVER = 2000
 KINDS = ('PB_SET', 'LEVEL_UP', 'ACHIEVEMENT_UNLOCKED', 'CHALLENGE_COMPLETED', 'SESSION_ENDED')
 _LEVELS = {'PB_SET': 'IMPORTANT', 'LEVEL_UP': 'CRITICAL', 'ACHIEVEMENT_UNLOCKED': 'IMPORTANT',
            'CHALLENGE_COMPLETED': 'IMPORTANT', 'SESSION_ENDED': 'NORMAL'}
@@ -53,7 +55,7 @@ def _insert(db, event: ProgressionEvent, stamp: str) -> bool:
     return True
 
 
-def build_events(db, scorecard: dict, curve) -> list[ProgressionEvent]:
+def build_events(db, scorecard: dict) -> list[ProgressionEvent]:
     """Read committed state for one processed session. Non-eligible/non-live sessions yield no events."""
     if scorecard.get('status') != 'eligible':
         return []
@@ -67,14 +69,13 @@ def build_events(db, scorecard: dict, curve) -> list[ProgressionEvent]:
     events = [ProgressionEvent('SESSION_ENDED', driver, 'session', source_id, 'CALCULATED',
                                {'session_id': sid, 'xp_awarded': xp}, 'Session complete',
                                f'Career session processed: {xp} XP (calculated).')]
-    total = db.execute('SELECT total_xp FROM career_profiles WHERE id=?', (driver,)).fetchone()
-    if total:
-        before = curve.progress(max(0, total[0] - xp))['current']
-        after = curve.progress(total[0])['current']
-        if after > before:
-            events.append(ProgressionEvent('LEVEL_UP', driver, 'session', f'{source_id}:L{after}', 'CALCULATED',
-                                           {'session_id': sid, 'from': before, 'to': after},
-                                           f'Level {after} reached', f'Career level {before} to {after} (calculated).'))
+    # Levels come from the values stored with the scorecard at award time, never from the current total_xp.
+    evidence = scorecard.get('evidence') or {}
+    before, after = evidence.get('level_before'), evidence.get('level_after')
+    if isinstance(before, int) and isinstance(after, int) and after > before:
+        events.append(ProgressionEvent('LEVEL_UP', driver, 'session', f'{source_id}:L{after}', 'CALCULATED',
+                                       {'session_id': sid, 'from': before, 'to': after},
+                                       f'Level {after} reached', f'Career level {before} to {after} (calculated).'))
     for layout, car, payload in db.execute('SELECT layout_id,car_id,payload FROM career_mastery_history WHERE source_id=? AND driver_id=?', (source_id, driver)).fetchall():
         data = json.loads(payload)
         if (data.get('pb_improvement_ms') or 0) > 0:
@@ -91,20 +92,49 @@ def build_events(db, scorecard: dict, curve) -> list[ProgressionEvent]:
     return events
 
 
-def emit_for_scorecard(store, scorecard: dict, curve) -> int:
-    """Write events + notifications in one writer transaction. Never raises; returns events written."""
+def write_events(db, scorecard: dict, stamp: str) -> int:
+    """Insert the event set + notifications for one scorecard inside the caller's transaction. Idempotent."""
+    events = build_events(db, scorecard)
+    if not events:
+        return 0
+    written = sum(_insert(db, e, stamp) for e in events)   # deterministic ids: re-running adds nothing
+    db.execute('DELETE FROM career_events WHERE driver_id=? AND id NOT IN '
+               '(SELECT id FROM career_events WHERE driver_id=? ORDER BY created_at DESC,id DESC LIMIT ?)',
+               (events[0].driver_id, events[0].driver_id, MAX_EVENTS_PER_DRIVER))
+    return written
+
+
+def write_events_isolated(db, scorecard: dict, stamp: str) -> int:
+    """write_events inside a savepoint: a failure rolls back only the events, never the XP transaction."""
+    db.execute('SAVEPOINT career_events')
     try:
-        def operation(db):
-            events = build_events(db, scorecard, curve)
-            if not events:
-                return 0
-            stamp = datetime.now(timezone.utc).isoformat()
-            # SESSION_ENDED is the idempotency anchor: if it already exists, everything was emitted.
-            if not _insert(db, events[0], stamp):
-                return 0
-            return 1 + sum(_insert(db, e, stamp) for e in events[1:])
-        return store.career_transaction(operation)
+        written = write_events(db, scorecard, stamp)
+    except Exception as error:
+        db.execute('ROLLBACK TO career_events')
+        db.execute('RELEASE career_events')
+        log.warning('gamification.events_failed', extra={'event': 'gamification.events_failed',
+                                                          'details': {'error_type': type(error).__name__}})
+        return 0
+    db.execute('RELEASE career_events')
+    return written
+
+
+def emit_for_scorecard(store, scorecard: dict, curve=None) -> int:
+    """Backfill one scorecard's events in its own writer transaction. Never raises; returns events written."""
+    try:
+        return store.career_transaction(lambda db: write_events(db, scorecard, datetime.now(timezone.utc).isoformat()))
     except Exception as error:
         log.warning('gamification.events_failed', extra={'event': 'gamification.events_failed',
                                                           'details': {'error_type': type(error).__name__}})
         return 0
+
+
+def backfill_missing(store, limit: int = 25) -> int:
+    """Recovery scan: eligible live scorecards lacking SESSION_ENDED get their events (newest first, bounded)."""
+    limit = max(1, min(int(limit), 100))
+    rows = store.query(
+        "SELECT sc.payload FROM career_scorecards sc JOIN career_sources cs ON cs.session_id=sc.session_id "
+        "WHERE sc.status='eligible' AND cs.provenance='live' AND NOT EXISTS "
+        "(SELECT 1 FROM career_events e WHERE e.kind='SESSION_ENDED' AND e.source_id=cs.id) "
+        "ORDER BY sc.created_at DESC LIMIT ?", (limit,))
+    return sum(emit_for_scorecard(store, json.loads(r['payload'])) for r in rows)

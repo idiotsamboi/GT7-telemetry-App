@@ -1,26 +1,20 @@
-# PROJECT CURRENT STATE
-
-## CURRENT PHASE
-PHASE 1 - 5: Audited Baseline Foundation & Feature Elimination
-
-## COMPLETED / VERIFIED FEATURES (46 ALREADY BUILT BY CODEX)
-- Driver Progression Foundation: F001, F002, F003, F004, F007, F008, F010
-- Track Mastery Foundation: F011, F012, F013, F014, F015
-- Corner Mastery Engine: F021, F022, F023, F024, F025
-- Dynamic Challenges: F031, F032, F034, F035, F037, F038, F039, F040
-- Pace & Evaluation: F045, F051, F052, F055, F057, F058, F059, F060
-- Streaks & Engineer: F061, F070, F071, F072, F074, F076, F077, F079, F080
-- Career Chapters & Audit: F081, F087, F096, F098, F099, F100
-
-## PARTIALLY BUILT FEATURES (31 FEATURES)
-- F005, F006, F009, F016, F017, F018, F019, F020, F026, F027, F028, F029, F030, F033, F036, F041, F043, F044, F046, F047, F050, F053, F054, F056, F068, F069, F073, F075, F078, F082, F084, F085, F086, F088, F089, F097
-
-## REMAINING PLANNED FEATURES (23 FEATURES)
-- F042, F048, F049, F062, F063, F064, F065, F066, F067, F083, F090, F091, F092, F093, F094, F095 (Group/Racecraft, custom streak types, endurance medals)
-
-## RECENT AUDIT ACTIONS
-- Audited `docs/DRIVER_CAREER_CHECKPOINT.md`, `backend/app/gamification/`, 23 SQLite tables (Migrations 004-007), and 7 gamification test suites.
-- Eliminated completed work from implementation debt; updated Feature Matrix and Current State.
-
-## NEXT RECOMMENDED ACTION
-Focus next work stream exclusively on completing partial features (such as F005 Driver Titles separated registry, F006 Badge visual gallery, F018 Whole-circuit Corner Coverage %, F056 Letter Grade S/A/B/C mapping) and gap features without rewriting functioning existing architecture.
+# CURRENT STATE
+Branch: gamification-career (baseline commit edabce1). Spec digest: .agent-state/spec-digest.md
+## PHASE
+Phase 0 done (infra: CLAUDE.md, .claude/{rules,skills,agents,hooks,settings.json}). Next: Phase 1 plan -> docs/plans/phase-1.md.
+## REAL STATE (Phase 0 discovery)
+- Wiring: runtime.py bus -> career.on_event (session_started/lap_completed/session_ended/spatial_analysis_completed/track_locked). processor.py bounded queue(128), off-thread career_transaction, recovery every 30s. Flags enforced in processor.
+- Real output is consistency-only (1 of 10 skills). Scorecard/grade consistency-only. Streaks: 1 kind. Titles/badges/chapters hardcoded thresholds. Mastery training/strategy components None.
+- ABSENT: notifications F097, seasons F090, medals F083, racecraft, PB event hook, live-lap career feed, dedicated anti-farming module.
+- Frontend: CareerDashboard.tsx + domain/api/gamification.ts; poll-based, no live store.
+- Matrix VERIFIED claims were unsupported -> downgraded to IMPLEMENTED.
+## FIXED
+- Added GET /api/gamification/xp/history (test_gamification_api now passes). That test takes ~90s (slow; investigate TestClient teardown).
+## REUSE
+training_defs.py evaluators, track_service, spatial_coaching, engineer_service.career_brief, group/battles+steward, voice.Speaker (numeric priority only).
+## RISKS
+Queue overflow invalidates session rewards; flags default True; perf unproven; PS5 live unverified.
+## DO-NOT-TOUCH
+telemetry/parser.py, telemetry/bus.py, storage/store.py (hook-blocked); runtime.py/api.py minimal edits.
+## NEXT
+Write docs/plans/phase-1.md; fix slow test; then F005/F006/F009 (titles/badges/recent gains), F016/F017 real components.

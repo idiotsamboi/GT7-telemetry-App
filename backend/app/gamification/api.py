@@ -79,6 +79,10 @@ def router() -> APIRouter:
     def xp(driver_id: str | None = None, repo=Depends(repository)):
         return invoke(repo.dashboard, driver_id)['level']
 
+    @api.get('/xp/history')
+    def xp_history(driver_id: str | None = None, limit: int = Query(50, ge=1, le=200), repo=Depends(repository)):
+        return invoke(repo.history, driver_id, limit)
+
     @api.get('/titles')
     def titles(driver_id: str | None = None, repo=Depends(repository)):
         return invoke(repo.titles, driver_id)

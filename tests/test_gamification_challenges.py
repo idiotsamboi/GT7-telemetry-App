@@ -61,7 +61,7 @@ def test_offers_are_explainable_frozen_and_capped(db):
     for evidence in changed[1]['laps'].values(): evidence['layout_id'] = 'layout-b'
     advance(db, changed)
     assert rows(db) == offered
-    assert db.execute('SELECT count(*) FROM career_challenge_history').fetchone()[0] == 3
+    assert db.execute('SELECT count(*) FROM career_challenge_history WHERE status NOT LIKE "rejected:%"').fetchone()[0] == 3
 
 
 def test_explicit_acceptance_and_only_future_sessions(db):

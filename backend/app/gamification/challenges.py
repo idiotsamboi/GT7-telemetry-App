@@ -9,6 +9,7 @@ import json
 from statistics import median
 
 from ..domain.training_defs import clean_laps, consistent_streak
+from . import challenge_types
 from .corner_insights import challenge_gate, corner_records, easiest_gain
 from .scoring import evaluate
 from .track_components import mission_component
@@ -252,6 +253,7 @@ def advance_challenges(db, driver_id, source_id, session, evidence, context, sta
             streak_laps.append({})
         streak_laps.append(lap); previous_number = number
     total = 0
+    type_ctx = challenge_types.make_context(driver_id, source_id, session, evidence, laps, context, stamp)
     rows = _rows(db.execute("SELECT * FROM career_challenges WHERE driver_id=? AND status='accepted'", (driver_id,)))
     for row in rows:
         payload = json.loads(row['payload']); requirements = payload['requirements']
@@ -263,7 +265,10 @@ def advance_challenges(db, driver_id, source_id, session, evidence, context, sta
         if not inserted.rowcount:
             continue
         evaluator = requirements['evaluator']
-        if evaluator == 'consistent_streak':
+        if evaluator in challenge_types.EVALUATORS:
+            observed = challenge_types.evaluate(payload, type_ctx)
+            current = max(payload['current'], observed)
+        elif evaluator == 'consistent_streak':
             observed = consistent_streak({'laps': streak_laps}, dict(count=payload['target'], tolerance_pct=requirements['tolerance_pct'])).current
             current = max(payload['current'], observed)
         elif evaluator == 'corner_segment':
@@ -292,4 +297,5 @@ def advance_challenges(db, driver_id, source_id, session, evidence, context, sta
         _offer_track_mission(db, driver_id, source_id, evidence, laps, stamp)
     if context.get('features', {}).get('corner_mastery', True):
         _offer_corner_practice(db, driver_id, source_id, evidence, stamp)
+    challenge_types.offer_all(db, type_ctx)
     return total

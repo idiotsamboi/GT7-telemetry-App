@@ -34,7 +34,7 @@ const BUILTIN:ModuleDef[]=[
  {id:'sessions',title:'Sessions',routes:['/driver/pit-wall/sessions'],panels:[],commands:[],settingsSections:['storage'],requires:'sessions.manage'},
  {id:'training',title:'Track training',routes:['/driver/training'],panels:['training.session','track.visualizer'],commands:['training.start','training.stop','training.retry','training.restart','track.select','track.confirm','track.restore','track.import'],settingsSections:['tracks']},
  {id:'raceControl',title:'Race control',routes:['/broadcast/race-control'],panels:['raceControl.desk'],commands:['group.create','group.configure','group.hosting','group.invite','group.revoke','group.admit','group.remove','group.lock','raceControl.setFlag','raceControl.cancelFlag','raceControl.message','raceControl.decision'],settingsSections:['league'],requires:'league.configure'},
- {id:'studio',title:'Broadcast studio',routes:['/broadcast/studio'],panels:['graphics.studio','graphics.preview','league.branding'],commands:['graphics.saveDraft','graphics.take','graphics.clearProgram','graphics.focusBattle','graphics.credential.issue','branding.update','branding.asset.upload'],settingsSections:['branding'],requires:'graphics.view'},
+ {id:'obs',title:'OBS overlays',routes:['/broadcast/obs'],panels:['obs.overlays','league.branding'],commands:['branding.update','branding.asset.upload'],settingsSections:['branding'],requires:'graphics.view'},
  {id:'settings',title:'Settings',routes:['/settings'],panels:[],commands:['settings.update'],settingsSections:['general','units','advanced'],requires:'settings.write'},
 ]
 BUILTIN.forEach(registerModule)

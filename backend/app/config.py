@@ -25,6 +25,7 @@ class Settings(BaseModel):
     http_host:IPvAnyAddress='127.0.0.1'
     http_port:int=Field(D.HTTP_PORT,ge=1024,le=65535)
     allowed_origins:list[str]=['http://127.0.0.1:8000','http://localhost:8000']
+    image_pack_dir:str=Field('',max_length=500)
     variant:Literal['A','B','~','C']='A'
     heartbeat:float=Field(D.HEARTBEAT_S,ge=.25,le=15)
     ui_hz:int=Field(D.UI_HZ,ge=2,le=20)

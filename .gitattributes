@@ -5,3 +5,12 @@
 *.tsx text eol=lf
 *.css text eol=lf
 *.png binary
+
+# AI-assistant working files stay in the repo for development but never ship (git archive / source releases).
+.claude/ export-ignore
+.agents/ export-ignore
+.agent-state/ export-ignore
+CLAUDE.md export-ignore
+AGENTS.md export-ignore
+docs/prompts/ export-ignore
+scratch/ export-ignore

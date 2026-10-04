@@ -91,6 +91,10 @@ def create_app(data_dir=None,*,safe_mode=False,config=None):
     app.include_router(group_router())
     from .gamification.api import router as career_router
     app.include_router(career_router())
+    from .obs_api import router as obs_router
+    app.include_router(obs_router())
+    from .assets_api import router as assets_router
+    app.include_router(assets_router())
     @app.exception_handler(AppError)
     async def app_error(request,error):return JSONResponse({'detail':error.detail},error.status_code)
     @app.exception_handler(ValidationError)

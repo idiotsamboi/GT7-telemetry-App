@@ -65,7 +65,7 @@ button.primary:hover:not(:disabled){box-shadow:0 1px 0 rgba(255,255,255,.35) ins
 nav{position:relative}
 [data-mode="pitwall"] .nav-indicator{background:#4d9bff}
 [data-mode="control"] .nav-indicator{background:#ff354b}
-[data-mode="studio"] .nav-indicator{background:#ff8000}
+[data-mode="obs"] .nav-indicator{background:#ff8000}
 
 /* Red primary accent. Green measurements retain their semantic meaning. */
 .brand-mark,nav button.active,.radio-symbol{background:#47242b!important;color:#ff8a91!important}button.primary{background:#eb5360!important;border-color:#eb5360!important;color:#fff!important}.check input{accent-color:#eb5360}.radio-bar{background:#251a20;border-color:#523039}.radio-bar small,.radio-large{color:#ef959b}.radio-bar p{color:#edcbd0}nav button.active{border-color:#7b3a44!important}
@@ -126,8 +126,8 @@ nav button{border-radius:2px}nav button.active{border-left:4px solid #ff354b!imp
 [data-mode="pitwall"] .nav-dot{background:#4d9bff!important}
 [data-mode="control"] nav button.active{background:#1a1216!important;border-left:4px solid #ff354b!important;color:#ffcdd3!important}
 [data-mode="control"] .nav-dot{background:#ff354b!important}
-[data-mode="studio"] nav button.active{background:#231b0c!important;border-left:4px solid #ff8000!important;color:#ffcd8f!important}
-[data-mode="studio"] .nav-dot{background:#ff8000!important}
+[data-mode="obs"] nav button.active{background:#231b0c!important;border-left:4px solid #ff8000!important;color:#ffcd8f!important}
+[data-mode="obs"] .nav-dot{background:#ff8000!important}
 
 /* Pit Wall: instrument-panel numerals get a cool steel-blue readout accent instead of the brand red, so the every-day telemetry screen doesn't compete visually with Race Control's red alarm language. */
 .nav-group{display:flex;flex-direction:column;gap:5px;margin-bottom:18px}

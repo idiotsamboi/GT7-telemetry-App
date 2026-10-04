@@ -3,7 +3,7 @@ import ast
 from pathlib import Path
 
 APP = Path(__file__).resolve().parents[1] / 'backend' / 'app'
-ADAPTERS = {'api.py', 'group/admin.py', 'group/public.py', 'gamification/api.py'}   # HTTP adapters only
+ADAPTERS = {'api.py', 'group/admin.py', 'group/public.py', 'gamification/api.py', 'obs_api.py', 'assets_api.py'}   # HTTP adapters only
 # Modules under core/ may import only stdlib + pydantic + other core modules.
 LAYER_ALLOWED = {
     'core': {'core'},

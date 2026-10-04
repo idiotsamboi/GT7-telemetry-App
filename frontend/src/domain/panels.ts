@@ -25,8 +25,7 @@ export const PANELS:readonly PanelDef[]=[
  {id:'engineer.requests',title:'Engineer request library',component:'RequestLibrary',channels:[],minSize:{w:320,h:240}},
  {id:'training.session',title:'Track training',component:'Training',channels:['training'],minSize:{w:480,h:360}},
  {id:'raceControl.desk',title:'Race desk',component:'RaceDesk',channels:[],minSize:{w:640,h:480}},
- {id:'graphics.preview',title:'Graphics preview',component:'Composition',channels:[],minSize:{w:320,h:180},boundary:true},
- {id:'graphics.studio',title:'Broadcast studio',component:'GroupStudio',channels:[],minSize:{w:800,h:480}},
+ {id:'obs.overlays',title:'OBS overlays',component:'ObsOverlays',channels:[],minSize:{w:640,h:480}},
  {id:'league.branding',title:'League branding',component:'LeagueBranding',channels:[],minSize:{w:400,h:320}},
 ]
 

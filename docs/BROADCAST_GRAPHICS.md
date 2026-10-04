@@ -2,14 +2,21 @@
 
 The source app provides **28 graphic types**. Style presets share these renderers and are not counted as extra graphics. A workspace remains bounded to 20 layers; use separate workspaces when you need more templates.
 
-## Using the studio
+## Using OBS overlays
 
-1. Create an event or start **Race Control → Start rehearsal demo**.
-2. Open **Studio → Edit**, create/select a workspace, and expand **Add a graphic**.
-3. Set the primary driver and comparison A/B slots. Team roster follows the selected driver’s team.
-4. Arrange the draft and choose **Take to program**. Moving between Studio tabs keeps unsaved draft edits. Switching away from Studio or reloading still requires saving your draft first.
-5. In **Studio → Deliver**, enable the group listener with the correct allowed origins. Return to Edit to issue individual graphic URLs, or expand **Composite output** for one shared scene.
-6. Add the full URL to an OBS Browser Source. Individual outputs use each graphic’s recommended size; composite uses 1920 × 1080. Use 30 FPS. Refresh/reopen and changing the graphic fragment are supported.
+Every graphic has a fixed local address, `http://127.0.0.1:<port>/obs/<graphic-id>` (for example `/obs/timing`,
+`/obs/telemetry`, `/obs/comparison`; the page lists them all). No league, group, login, draft or program is needed.
+
+1. Open **OBS Overlays** in the app. Copy an overlay’s address.
+2. In OBS add a **Browser** source, paste the address, set Width/Height to the numbers on the overlay’s row, FPS 30. The background is transparent.
+3. **Size & options** on each row sets width and height (drag the left/right edges for width, top/bottom for height, or type numbers). Resizing the source in OBS later rescales the overlay on both axes; add `?fit=stretch` to the address to fill a non-proportional source.
+4. **Driver focus** (main driver, compare A/B, team, class, follow the leader) applies to every overlay at once. Your own name/number/team shown on overlays is set on the same page.
+5. Without a league the overlays show your own live telemetry only (one entry, “local driver only”); graphics that need other drivers say so rather than invent data. Starting or hosting a league event in **League tools** (or **Race Control**) makes the same addresses show the whole field with no URL changes.
+6. OBS on another PC: open the app via this PC’s LAN address, allow that origin in Settings, and copy the addresses from there.
+
+The old Studio draft / take-to-program / preview editor and per-workspace credentials are retired for local use. `/obs-api/frame` is
+read-only and tokenless; configuration is only editable from the paired browser. LAN spectator pages (`/overlay/<id>` on the group
+listener) are unchanged.
 
 ## Available graphics
 

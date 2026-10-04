@@ -1,4 +1,4 @@
-// Hash router: '#/broadcast/studio', '#/driver/pit-wall/telemetry', '#/settings/audio'.
+// Hash router: '#/broadcast/obs', '#/driver/pit-wall/telemetry', '#/settings/audio'.
 // Hash routes work unmodified in the browser, in pywebview, and behind the FastAPI
 // SPA fallback (backend only serves index.html at '/' - see docs/UI_MIGRATION_MAP.md).
 // Never call this for '/group', '/overlay/*' or '/recovery' - those are separate pages.
@@ -16,7 +16,7 @@ export type Route={
 
 function parse(hash:string):Route{
  const path=(hash.replace(/^#/,'')||DEFAULT_ROUTE)
- const parts=path.split('/').filter(Boolean)
+ const parts=path.replace('/broadcast/studio','/broadcast/obs').split('/').filter(Boolean)
  const workspace=(parts[0]==='broadcast'||parts[0]==='settings'||parts[0]==='pair')?parts[0]:'driver'
  if(workspace!=='driver')return {workspace,section:parts[1]||'',tab:parts[2]||'',path}
  return {workspace,section:parts[1]||'pit-wall',tab:parts[2]||(parts[1]==='pit-wall'?'live':''),path}
@@ -25,7 +25,7 @@ function parse(hash:string):Route{
 function known(route:Route):boolean{
  if(route.workspace==='pair')return true
  if(route.workspace==='settings')return true
- if(route.workspace==='broadcast')return route.section==='race-control'||route.section==='studio'
+ if(route.workspace==='broadcast')return route.section==='race-control'||route.section==='obs'
  return route.section==='pit-wall'||route.section==='wheel'||route.section==='training'||route.section==='career'
 }
 
